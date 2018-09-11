@@ -4,14 +4,18 @@ import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import mx.com.bsmexico.customertool.api.exporter.ExportSource;
 import mx.com.bsmexico.customertool.api.importer.ImportTarget;
+import mx.com.bsmexico.customertool.api.layouts.control.CheckboxCell;
 import mx.com.bsmexico.customertool.api.layouts.control.DefaultLayoutTable;
 import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutModelValidator;
 
@@ -25,7 +29,7 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 	protected DispersionDefinitivaTable(final Class<DispersionDefinitiva> type) {
 		super(type);
 	}
-	
+
 	public DispersionDefinitivaTable() throws IllegalArgumentException, InstantiationError {
 		super(DispersionDefinitiva.class);
 
@@ -39,34 +43,48 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 	protected void setColumns() throws Exception {
 		String[] ids = getFieldOrder();
 		if (!ArrayUtils.isEmpty(ids)) {
-			TableColumn ct = null;
-			for (String id : ids) {
-				ct = columnFactory.getColumn(id, 100);
-				ct.prefWidthProperty().bind(widthProperty().multiply(0.15));
-				getColumns().add(ct);
-			}
-			final TableColumn ctSelectAll = new TableColumn();
+			TableColumn ct = null;			
+			//final TableColumn ctSelectAll = new TableColumn();
 			final CheckBox check = new CheckBox();
 			final TableView<DispersionDefinitiva> table = this;
 			check.setOnAction(e -> {
 				boolean selected = ((CheckBox) e.getSource()).isSelected();
 				List<DispersionDefinitiva> items = table.getItems();
 				if (items != null && items.size() > 0) {
-					items.forEach(i -> i.setComprobante(selected));
+					for(DispersionDefinitiva item : items) {
+						item.setComprobante(selected);
+					}					
 				}
-
+				table.refresh();
 			});
-			ctSelectAll.setGraphic(check);
+			final Callback<TableColumn<DispersionDefinitiva, Boolean>, TableCell<DispersionDefinitiva, Boolean>> booleanCellFactory = new Callback<TableColumn<DispersionDefinitiva, Boolean>, TableCell<DispersionDefinitiva, Boolean>>() {
+				@Override
+				public TableCell<DispersionDefinitiva, Boolean> call(TableColumn<DispersionDefinitiva, Boolean> p) {
+					return new CheckboxCell();
+				}
+			};
+			//ctSelectAll.setGraphic(check);
 			ct = new TableColumn();
-			final Label firstNameLabel = new Label("Comprobante");
-			ct.setGraphic(firstNameLabel);
+			final Label label = new Label("Comprobante");
+			VBox box = new VBox();			
+			box.setAlignment(Pos.CENTER);
+			box.getChildren().add(label);
+			box.getChildren().add(check);
+			//ct.setGraphic(label);
+			ct.setGraphic(box);
 			ct.setId("Comprobante");
-			ct.setPrefWidth(40);
-			ct.setCellFactory(column -> new CheckBoxTableCell<>());
+			ct.setPrefWidth(100);
+			ct.setCellFactory(booleanCellFactory);
+			//ct.setCellFactory(column -> new CheckBoxTableCell<>());
 			ct.setCellValueFactory(new PropertyValueFactory<DispersionDefinitiva, Boolean>("comprobante"));
 			ct.setEditable(true);
-			ct.getColumns().add(ctSelectAll);
+			//ct.getColumns().add(ctSelectAll);
 			getColumns().add(ct);
+			for (String id : ids) {
+				ct = columnFactory.getColumn(id, 100);
+				ct.prefWidthProperty().bind(widthProperty().multiply(0.15));
+				getColumns().add(ct);
+			}
 		}
 
 	}

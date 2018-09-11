@@ -146,7 +146,7 @@ public class DispersionDefinitiva {
 		folioOperacion = new SimpleStringProperty();
 		usuario = new SimpleStringProperty();
 		estadoOperacion = new SimpleStringProperty();
-		comprobante = new SimpleBooleanProperty();
+		comprobante = new SimpleBooleanProperty();		
 	}
 
 	/**
