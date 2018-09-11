@@ -16,7 +16,12 @@
 			<systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
 			<scope>system</scope>
 		</dependency>
-				<dependency>
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>1.6</version>
+		</dependency>
+	    <dependency>
 			<groupId>mx.com.bsmexico</groupId>
 			<artifactId>bs-customertool-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>

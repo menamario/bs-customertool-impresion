@@ -2,14 +2,9 @@ package mx.com.bsmexico.customertool.impresion.plugin;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -35,17 +30,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import jxl.Cell;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.read.biff.BiffException;
 import mx.com.bsmexico.customertool.api.Feature;
 import mx.com.bsmexico.customertool.api.Layout;
 import mx.com.bsmexico.customertool.api.NavRoute;
 
 public class OpcionImpresion extends Feature {
 
-	ImpresionTable t = null;
+	DispersionDefinitivaTable t = null;
 
 	private InputStream getImageInput(final String file) throws FileNotFoundException {
 		final InputStream input = getClass().getResourceAsStream(file);
@@ -176,7 +167,7 @@ public class OpcionImpresion extends Feature {
 				try {
 					
 					int numRegistros = 0;
-					for (Impresion b : t.getItems()) {
+					for (DispersionDefinitiva b : t.getItems()) {
 						if (t.isActiveModel(b)) {
 							numRegistros++;
 						}
@@ -196,15 +187,15 @@ public class OpcionImpresion extends Feature {
 						// Show save file dialog
 						File file = saveFile.showSaveDialog(getDesktop().getStage());
 
-						if (file != null) {
-							ImpresionExporter exporter = new ImpresionExporter(t);
-							try {
-								exporter.export(file);
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
+//						if (file != null) {
+//							DispersionDefinitiva exporter = new DispersionDefini(t);
+//							try {
+//								exporter.export(file);
+//							} catch (Exception e1) {
+//								// TODO Auto-generated catch block
+//								e1.printStackTrace();
+//							}
+//						}
 						
 						Stage stage = new Stage();
 
@@ -284,22 +275,6 @@ public class OpcionImpresion extends Feature {
 					e2.printStackTrace();
 					//TODO Mostrar un popup de error de sistema
 				}
-				
-				/*
-				if(numError>0){
-					
-					
-					
-					
-					
-				}else if(numRegistros>0){
-					
-					
-					
-					
-					
-				}*/
-
 			}
 		});
 
@@ -360,7 +335,7 @@ public class OpcionImpresion extends Feature {
 
 		((BorderPane) mainPane).setTop(vbox);
 
-		t = new ImpresionTable();		
+		t = new DispersionDefinitivaTable();		
 
 		t.prefWidthProperty().bind(mainPane.widthProperty().add(-60));
 
@@ -373,10 +348,14 @@ public class OpcionImpresion extends Feature {
 				String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
 				fileChooser.setInitialDirectory(new File(currentPath));
 				File file = fileChooser.showOpenDialog(getDesktop().getStage());
-				ImpresionImporter benImporter = new ImpresionImporter(t);
+				DispersionDefinitivaCSVImporter benImporter = new DispersionDefinitivaCSVImporter(t);
 				try {
+					System.out.println("voy a importar");
 					benImporter.importFile(file);
+					t.refresh();
+					System.out.println("ya termine");
 				} catch (Exception e1) {
+					System.out.println("Exception");
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -384,72 +363,6 @@ public class OpcionImpresion extends Feature {
 		});
 
 		getDesktop().setWorkArea(mainPane);
-	}
-
-	public ObservableList<Impresion> loadXls(File file) {
-
-		Workbook w;
-		try {
-			w = Workbook.getWorkbook(file);
-			// Get the first sheet
-			Sheet sheet = w.getSheet(0);
-			// Loop over first 10 column and lines
-			List<Impresion> list = new ArrayList<Impresion>();
-
-			for (int j = 0; j < sheet.getRows(); j++) {
-				int numColumna = 1;
-				Impresion b = new Impresion();
-				for (int i = 0; i < sheet.getColumns(); i++) {
-					Cell cell = sheet.getCell(i, j);
-					String valorCelda = cell.getContents();
-					switch (numColumna) {
-					case 1:
-						// b.setCuenta(valorCelda);
-						break;
-					case 2:
-						break;
-					case 3:
-						b.setBancoParticipante(valorCelda);
-						break;
-					case 4:
-						b.setTipoCuenta(valorCelda);
-						break;
-					case 5:
-						b.setMoneda(valorCelda);
-						break;
-					case 6:
-						// b.setImporteMaximo(valorCelda);
-						break;
-					case 7:
-						b.setTipoPersona(valorCelda);
-						break;
-					case 8:
-						b.setRazonSocial(valorCelda);
-						break;
-					case 9:
-						b.setNombre(valorCelda);
-						break;
-					case 10:
-						b.setApellidoPaterno(valorCelda);
-						break;
-					case 11:
-						b.setApellidoMaterno(valorCelda);
-						break;
-					}
-					numColumna++;
-
-				}
-				list.add(b);
-			}
-			ObservableList<Impresion> observableList = FXCollections.observableList(list);
-			return observableList;
-		} catch (BiffException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 }
