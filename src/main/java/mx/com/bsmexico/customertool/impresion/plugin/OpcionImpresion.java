@@ -2,6 +2,7 @@ package mx.com.bsmexico.customertool.impresion.plugin;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.nio.file.Paths;
 
@@ -16,11 +17,13 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -33,6 +36,9 @@ import javafx.stage.Stage;
 import mx.com.bsmexico.customertool.api.Feature;
 import mx.com.bsmexico.customertool.api.Layout;
 import mx.com.bsmexico.customertool.api.NavRoute;
+import mx.com.bsmexico.customertool.api.report.ContextReport;
+import mx.com.bsmexico.customertool.api.report.ReportDataSourceFactory;
+import mx.com.bsmexico.customertool.api.report.ReportGenerator;
 
 public class OpcionImpresion extends Feature {
 
@@ -120,6 +126,9 @@ public class OpcionImpresion extends Feature {
 		fileChooser.getExtensionFilters().add(extFilter);
 
 		headerBox1.getChildren().add(bAtras);
+		
+		
+		
 		headerBox2.getChildren().add(bInstrucciones);
 		headerBox2.getChildren().add(bImportarArchivo);
 		headerBox2.setSpacing(30);
@@ -144,11 +153,30 @@ public class OpcionImpresion extends Feature {
 		HBox hb = new HBox();
 		hb.setSpacing(10);
 		// hb.getChildren().addAll(lFormato, rbTxt, rbCsv);
-		Label mensajeCsv = new Label("El archivo se guardara en formato csv       ");
-		mensajeCsv.setStyle("-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 20px;-fx-font-weight: bold");
-		mensajeCsv.setTextFill(Color.WHITE);
+		
+		
+		VBox v = new VBox();
+		
+		FlowPane fp = new FlowPane();
+		fp.setHgap(20);
+		
+		TextField tfCuentaCargo = new TextField();
+		tfCuentaCargo.setPromptText("Cuenta de Cargo");
+		TextField tfCuentaAbono = new TextField();
+		tfCuentaAbono.setPromptText("Cuenta Abono");
+		TextField tfImporte = new TextField();
+		tfImporte.setPromptText("Importe");
+		TextField tfCveRastreo = new TextField();
+		tfCveRastreo.setPromptText("Clave de Rastreo");
+		TextField tfReferencia = new TextField();
+		tfReferencia.setPromptText("Referencia");
+		fp.getChildren().addAll(tfCuentaCargo,tfCuentaAbono,tfImporte,tfCveRastreo,tfReferencia);
 
-		hb.getChildren().add(mensajeCsv);
+		v.getChildren().add(fp);
+		
+		
+		
+		hb.getChildren().add(v);
 		hb.setAlignment(Pos.CENTER_RIGHT);
 
 		borderpane.setCenter(hb);
@@ -163,118 +191,43 @@ public class OpcionImpresion extends Feature {
 		bGuardar.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(final ActionEvent e) {
-								
+				
+				
 				try {
 					
-					int numRegistros = 0;
-					for (DispersionDefinitiva b : t.getItems()) {
-						if (t.isActiveModel(b)) {
-							numRegistros++;
-						}
+					
+					String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+					FileChooser saveFile = new FileChooser();
+					saveFile.setInitialDirectory(new File(currentPath));
+					FileChooser.ExtensionFilter sfFilter = new FileChooser.ExtensionFilter("PDF files (*.PDF)", "*.pdf");
+					saveFile.getExtensionFilters().add(sfFilter);
+					
+
+					// Show save file dialog
+					File file = saveFile.showSaveDialog(getDesktop().getStage());
+
+					if (file != null) {
+						final FileOutputStream fout = new FileOutputStream(file);
+						file.createNewFile();
+						
+						final ContextReport context = new ContextReport();
+						context.addParameter("cliente", "");
+						context.addImageParameter("logo",  getImageInput("/img/impresion.png"));
+						ReportGenerator.generateFromCompiledReport("/reports/ComprobanteDispersionPago.jasper", context,
+								ReportDataSourceFactory.getBeanDataSource(t.getItems()), fout);
+						fout.close();
 					}
 					
-					boolean isValid = t.validateTable();
-					if(isValid && numRegistros>0) {
-						String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-						FileChooser saveFile = new FileChooser();
-						saveFile.setInitialDirectory(new File(currentPath));
-
-						// Set extension filter
-						FileChooser.ExtensionFilter sfFilter = new FileChooser.ExtensionFilter("csv files (*.csv)", "*.csv");
-						saveFile.getExtensionFilters().add(sfFilter);
-						
-
-						// Show save file dialog
-						File file = saveFile.showSaveDialog(getDesktop().getStage());
-
-//						if (file != null) {
-//							DispersionDefinitiva exporter = new DispersionDefini(t);
-//							try {
-//								exporter.export(file);
-//							} catch (Exception e1) {
-//								// TODO Auto-generated catch block
-//								e1.printStackTrace();
-//							}
-//						}
-						
-						Stage stage = new Stage();
-
-						StackPane canvas = new StackPane();
-						canvas.setPadding(new Insets(10));
-						canvas.setStyle("-fx-background-color:  #a9d42c;");
-						canvas.setPrefSize(512, 50);
-
-						stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logoSabadellCircle.png")));
-						stage.setTitle("Archivos Bantotal - Beneficiarios - Archivo Guardado");
-
-						Label mensaje = new Label("El archivo fue guardado exitosamente");
-						mensaje.setStyle("-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 20px;");
-						mensaje.setTextFill(Color.web("#777777"));
-						
-						Button bContinuar = new Button("Continuar");
-						bContinuar.setStyle(
-								"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
-						bContinuar.setPrefWidth(140);
-						bContinuar.setTextFill(Color.WHITE);
-						
-						bContinuar.setOnMouseClicked(evt -> {
-							stage.hide();
-						});
-
-						VBox vbox = new VBox();
-						vbox.setSpacing(50);
-						vbox.setAlignment(Pos.TOP_CENTER);
-						vbox.setPrefSize(512, 275);
-						//VBox.setVgrow(vbox, Priority.ALWAYS);
-						vbox.getChildren().add(canvas);
-						vbox.getChildren().add(mensaje);
-						vbox.getChildren().add(bContinuar);
-
-						stage.setScene(new Scene(vbox, 512, 275));
-						stage.setResizable(false);
-						stage.show();
-					}else if(numRegistros>0){
-						Stage stage = new Stage();
-
-						Pane canvas = new Pane();
-						canvas.setPadding(new Insets(10));
-						canvas.setStyle("-fx-background-color:  #e90e5c;");
-						canvas.setPrefSize(512, 50);
-
-						stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logoSabadellCircle.png")));
-						stage.setTitle("Archivos Bantotal - Beneficiarios - Datos Incorrectos");
-
-						Label mensaje = new Label("Error en los datos proporcionados");
-						mensaje.setStyle("-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 20px;");
-						mensaje.setTextFill(Color.web("#777777"));
-						
-						Button bContinuar = new Button("Continuar");
-						bContinuar.setStyle(
-								"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
-						bContinuar.setPrefWidth(140);
-						bContinuar.setTextFill(Color.WHITE);
-						
-						bContinuar.setOnMouseClicked(evt -> {
-							stage.hide();
-						});
-						
-						VBox vbox = new VBox();
-						vbox.setSpacing(50);
-						vbox.setAlignment(Pos.TOP_CENTER);
-						vbox.setPrefSize(512, 275);
-						//VBox.setVgrow(vbox, Priority.ALWAYS);
-						vbox.getChildren().add(canvas);
-						vbox.getChildren().add(mensaje);
-						vbox.getChildren().add(bContinuar);
-
-						stage.setScene(new Scene(vbox, 512, 275));
-						stage.setResizable(false);
-						stage.show();
-					}
-				} catch (Exception e2) {
-					e2.printStackTrace();
-					//TODO Mostrar un popup de error de sistema
+					
+					
+					
+					
+				} catch (Exception ex) {
+					ex.printStackTrace();
 				}
+				
+				
+				
 			}
 		});
 
