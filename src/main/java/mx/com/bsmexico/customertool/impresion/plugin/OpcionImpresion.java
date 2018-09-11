@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.nio.file.Paths;
 
+import com.ibm.icu.util.VTimeZone;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -157,8 +159,29 @@ public class OpcionImpresion extends Feature {
 		
 		VBox v = new VBox();
 		
+		FlowPane fph = new FlowPane();
+		Label lArchivo = new Label("Nombre de archivo:");
+		lArchivo.setPrefWidth(150);
+		Label vArchivo = new Label();
+		vArchivo.setPrefWidth(200);
+		
+		Label lRegistros = new Label("Cantidad de Registros:");
+		lRegistros.setPrefWidth(150);
+		Label vRegistros = new Label();
+		vRegistros.setPrefWidth(50);
+		
+		Label lMonto = new Label("Monto Total:");
+		lMonto.setPrefWidth(150);
+		Label vMonto = new Label();
+		vMonto.setPrefWidth(250);
+		fph.getChildren().addAll(lArchivo,vArchivo,lRegistros,vRegistros,lMonto,vMonto);
+		
+		v.getChildren().add(fph);
+		
 		FlowPane fp = new FlowPane();
-		fp.setHgap(20);
+		//fp.setStyle("-fx-background-color: green;"); 
+		fp.setHgap(24);
+		fp.setPrefWidth(850);
 		
 		TextField tfCuentaCargo = new TextField();
 		tfCuentaCargo.setPromptText("Cuenta de Cargo");
@@ -173,20 +196,39 @@ public class OpcionImpresion extends Feature {
 		fp.getChildren().addAll(tfCuentaCargo,tfCuentaAbono,tfImporte,tfCveRastreo,tfReferencia);
 
 		v.getChildren().add(fp);
-		
-		
-		
-		hb.getChildren().add(v);
-		hb.setAlignment(Pos.CENTER_RIGHT);
+		TextField tfBeneficiario = new TextField();
+		tfBeneficiario.setPromptText("Nombre del Beneficiario");
+		v.getChildren().add(tfBeneficiario);
+		v.setSpacing(20);
+		//v.setStyle("-fx-background-color: blue;");
 
-		borderpane.setCenter(hb);
+		
+		hb.setAlignment(Pos.BOTTOM_RIGHT);
+
+		//borderpane.setCenter(hb);
+		borderpane.setLeft(v);
+		//borderpane.setStyle("-fx-background-color: red;");
 
 		Button bGuardar = new Button("Guardar");
 		bGuardar.setStyle(
 				"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
 		bGuardar.setPrefWidth(140);
 		bGuardar.setTextFill(Color.WHITE);
-		borderpane.setRight(bGuardar);
+		
+		
+		
+		Button bBuscar = new Button("Buscar");
+		bBuscar.setStyle(
+				"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
+		bBuscar.setPrefWidth(140);
+		bBuscar.setTextFill(Color.WHITE);
+		
+		hb.getChildren().add(bBuscar);
+		hb.getChildren().add(bGuardar);
+		
+		borderpane.setRight(hb);
+		
+		
 
 		bGuardar.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -212,11 +254,13 @@ public class OpcionImpresion extends Feature {
 						
 						final ContextReport context = new ContextReport();
 						context.addParameter("cliente", "");
-						context.addImageParameter("logo",  getImageInput("/img/impresion.png"));
-						ReportGenerator.generateFromCompiledReport("/reports/ComprobanteDispersionPago.jasper", context,
+						context.addImageParameter("logo",  getImageInput("/img/logoSabadell.jpeg"));
+						ReportGenerator.generateFromCompiledReport("reports/ComprobanteDispersionPago.jasper", context,
 								ReportDataSourceFactory.getBeanDataSource(t.getItems()), fout);
 						fout.close();
 					}
+					
+					
 					
 					
 					
@@ -303,12 +347,17 @@ public class OpcionImpresion extends Feature {
 				File file = fileChooser.showOpenDialog(getDesktop().getStage());
 				DispersionDefinitivaCSVImporter benImporter = new DispersionDefinitivaCSVImporter(t);
 				try {
-					System.out.println("voy a importar");
 					benImporter.importFile(file);
+					
+					double total = 0.0;
+					for(DispersionDefinitiva dd:t.getItems()){
+						total+=Double.valueOf(dd.getImporte());
+					}
+					vArchivo.setText(file.getName());
+					vRegistros.setText(String.valueOf(t.getItems().size()));
+					vMonto.setText(String.valueOf(total));
 					t.refresh();
-					System.out.println("ya termine");
 				} catch (Exception e1) {
-					System.out.println("Exception");
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
