@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import mx.com.bsmexico.customertool.api.importer.ImportTarget;
+import mx.com.bsmexico.customertool.api.process.ImportTarget;
 import mx.com.bsmexico.customertool.impresion.plugin.DispersionDefinitiva;
 import mx.com.bsmexico.customertool.impresion.plugin.DispersionDefinitivaCSVImporter;
 import mx.com.bsmexico.customertool.impresion.plugin.DispersionDefinitivaTXTImporter;
@@ -61,7 +61,7 @@ public class ExporImportTest {
 	}
 	
 	@Test
-	public void ImportDsipersionDefinitivaTXTTest() {
+	public void ImportDispersionDefinitivaTXTTest() {
 		final ClassLoader classLoader = getClass().getClassLoader();
 		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_444.txt").getFile());
 		final DispersionDefinitivaTXTImporter importer = new DispersionDefinitivaTXTImporter(
@@ -104,5 +104,5 @@ public class ExporImportTest {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		} 
-	}
+	}	
 }

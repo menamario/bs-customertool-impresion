@@ -13,11 +13,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import mx.com.bsmexico.customertool.api.exporter.ExportSource;
-import mx.com.bsmexico.customertool.api.importer.ImportTarget;
 import mx.com.bsmexico.customertool.api.layouts.control.CheckboxCell;
 import mx.com.bsmexico.customertool.api.layouts.control.DefaultLayoutTable;
 import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutModelValidator;
+import mx.com.bsmexico.customertool.api.process.ExportSource;
+import mx.com.bsmexico.customertool.api.process.ImportTarget;
 
 /**
  * @author jchr

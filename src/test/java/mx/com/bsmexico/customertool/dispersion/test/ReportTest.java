@@ -9,7 +9,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import mx.com.bsmexico.customertool.api.importer.ImportTarget;
+import mx.com.bsmexico.customertool.api.process.ImportTarget;
 import mx.com.bsmexico.customertool.api.report.ContextReport;
 import mx.com.bsmexico.customertool.api.report.ReportDataSourceFactory;
 import mx.com.bsmexico.customertool.api.report.ReportGenerator;

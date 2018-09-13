@@ -2,8 +2,8 @@ package mx.com.bsmexico.customertool.impresion.plugin;
 
 import java.util.List;
 
-import mx.com.bsmexico.customertool.api.importer.CSVImporter;
-import mx.com.bsmexico.customertool.api.importer.ImportTarget;
+import mx.com.bsmexico.customertool.api.process.CSVImporter;
+import mx.com.bsmexico.customertool.api.process.ImportTarget;
 
 /**
  * @author jchr
