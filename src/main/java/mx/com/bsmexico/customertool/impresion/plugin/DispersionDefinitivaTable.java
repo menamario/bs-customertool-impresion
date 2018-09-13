@@ -132,7 +132,12 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 	@Override
 	public void setData(List<DispersionDefinitiva> data) {
 		if (data != null) {
-			getItems().addAll(data);
+			data.forEach(d->{
+				if("TERMINADO".equalsIgnoreCase(d.getEstadoOperacion().trim())) {
+					getItems().add(d);
+				}
+			});
+			//getItems().addAll(data);
 			try {
 				final LayoutModelValidator<DispersionDefinitiva> validator = (LayoutModelValidator<DispersionDefinitiva>) this.metamodel
 						.getValidator();
