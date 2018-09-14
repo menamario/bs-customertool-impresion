@@ -72,7 +72,7 @@ public class DispersionDefinitivaTXTImporter extends FixPositionImporter<Dispers
 	@Override
 	protected List<RecordPosition> getFixPositions() {
 		List<RecordPosition> positions = new ArrayList<>();
-		positions.add(new RecordPosition(0, 2));
+		/*positions.add(new RecordPosition(0, 2));
 		positions.add(new RecordPosition(2, 3));
 		positions.add(new RecordPosition(3, 4));
 		positions.add(new RecordPosition(4, 20));
@@ -97,7 +97,33 @@ public class DispersionDefinitivaTXTImporter extends FixPositionImporter<Dispers
 		positions.add(new RecordPosition(350, 368));
 		positions.add(new RecordPosition(368, 389));
 		positions.add(new RecordPosition(389, 399));
-		positions.add(new RecordPosition(399, 428));
+		positions.add(new RecordPosition(399, 428));*/
+		positions.add(new RecordPosition(0, 2));
+		positions.add(new RecordPosition(2, 3));
+		positions.add(new RecordPosition(3, 4));
+		positions.add(new RecordPosition(4, 20));
+		positions.add(new RecordPosition(20, 22));
+		positions.add(new RecordPosition(22, 33));
+		positions.add(new RecordPosition(33, 35));
+		positions.add(new RecordPosition(35, 53));
+		positions.add(new RecordPosition(53, 83));
+		positions.add(new RecordPosition(83, 85));
+		positions.add(new RecordPosition(85, 125));
+		positions.add(new RecordPosition(125, 138));
+		positions.add(new RecordPosition(138, 156));
+		positions.add(new RecordPosition(156, 159));
+		positions.add(new RecordPosition(159, 174));
+		positions.add(new RecordPosition(174, 189));
+		positions.add(new RecordPosition(189, 204));
+		positions.add(new RecordPosition(204, 219));
+		positions.add(new RecordPosition(219, 259));
+		positions.add(new RecordPosition(259, 279));
+		positions.add(new RecordPosition(279, 339));
+		positions.add(new RecordPosition(339, 349));
+		positions.add(new RecordPosition(349, 367));
+		positions.add(new RecordPosition(367, 388));
+		positions.add(new RecordPosition(388, 398));
+		positions.add(new RecordPosition(398, 427));
 		return positions;
 	}
 
