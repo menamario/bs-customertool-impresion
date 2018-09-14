@@ -406,6 +406,10 @@ public class DispersionDefinitiva {
 	public void setComprobante(Boolean comprobante) {
 		this.comprobante.set(comprobante);
 	}
+	
+	public SimpleBooleanProperty comprobanteProperty(){
+		return comprobante;
+	}
 
 	
 }

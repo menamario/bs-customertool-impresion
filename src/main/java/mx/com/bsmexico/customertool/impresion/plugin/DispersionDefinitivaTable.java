@@ -1,5 +1,6 @@
 package mx.com.bsmexico.customertool.impresion.plugin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -28,10 +29,12 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 
 	protected DispersionDefinitivaTable(final Class<DispersionDefinitiva> type) {
 		super(type);
+		setPlaceholder(new Label("Debe importar un archivo de Dispersion Definitivo"));
 	}
 
 	public DispersionDefinitivaTable() throws IllegalArgumentException, InstantiationError {
 		super(DispersionDefinitiva.class);
+		setPlaceholder(new Label("Debe importar un archivo de Dispersion Definitivo"));
 
 	}
 

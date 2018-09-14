@@ -4,9 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.ibm.icu.util.VTimeZone;
+import org.apache.commons.lang3.StringUtils;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -45,6 +49,7 @@ import mx.com.bsmexico.customertool.api.report.ReportGenerator;
 public class OpcionImpresion extends Feature {
 
 	DispersionDefinitivaTable t = null;
+	List<DispersionDefinitiva> originalList = new ArrayList<DispersionDefinitiva>();
 
 	private InputStream getImageInput(final String file) throws FileNotFoundException {
 		final InputStream input = getClass().getResourceAsStream(file);
@@ -57,8 +62,9 @@ public class OpcionImpresion extends Feature {
 		final NavRoute.BuilderNavRoute navRuoteBuilder = new NavRoute.BuilderNavRoute("TEST");
 		NavRoute route = null;
 		try {
-			route = navRuoteBuilder.addNode("Impresion masiva de Comprobantes", "Impresion masiva de \n   Comprobantes",0,false,getImageInput("/img/impresion.png")).build();
-					
+			route = navRuoteBuilder.addNode("Impresion masiva de comprobantes", "Impresion masiva de comprobantes",
+					0, false, getImageInput("/img/impresion.png")).build();
+
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,6 +79,7 @@ public class OpcionImpresion extends Feature {
 	public void launch() {
 
 		getMenuNavigator().hide();
+		getDesktop().updatePleca("#e25100", null);
 
 		Pane mainPane = new BorderPane();
 
@@ -121,6 +128,8 @@ public class OpcionImpresion extends Feature {
 
 		bAtras.setOnMouseClicked(evt -> {
 			getMenuNavigator().show();
+			getDesktop().setWorkArea(null);
+			getDesktop().updatePleca("black", null);
 		});
 
 		final FileChooser fileChooser = new FileChooser();
@@ -128,29 +137,24 @@ public class OpcionImpresion extends Feature {
 		fileChooser.getExtensionFilters().add(extFilter);
 
 		headerBox1.getChildren().add(bAtras);
-		
+		headerBox1.setSpacing(40);
+		Label l = new Label("    Impresion Masiva de Comprobantes    ");
+		l.setTextFill(Color.WHITE);
+		l.setStyle("-fx-background-color: #e25100;-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px; -fx-border-radius: 0 0 10 10; -fx-background-radius: 0 0 10 10;");
+		headerBox1.getChildren().add(l);
 		
 		
 		headerBox2.getChildren().add(bInstrucciones);
 		headerBox2.getChildren().add(bImportarArchivo);
-		headerBox2.setSpacing(30);
+		headerBox2.setSpacing(100);
 		HBox.setHgrow(headerBox2, Priority.ALWAYS);
 		headerBox2.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
 		headerBox1.getChildren().add(headerBox2);
+		headerBox1.setPadding(new Insets(0,30,0,0));
 
 		BorderPane borderpane = new BorderPane();
 		borderpane.setPadding(new Insets(0, 20, 0, 20));
-		Label lFormato = new Label("Formato");
-		lFormato.setTextFill(Color.WHITE);
-		RadioButton rbTxt = new RadioButton("txt");
-		rbTxt.setTextFill(Color.WHITE);
-		RadioButton rbCsv = new RadioButton("csv");
-		rbCsv.setSelected(true);
-		rbCsv.setTextFill(Color.WHITE);
-		ToggleGroup tgFormato = new ToggleGroup();
-		rbCsv.setToggleGroup(tgFormato);
-		rbTxt.setToggleGroup(tgFormato);
-		rbTxt.setDisable(true);
+		
 
 		HBox hb = new HBox();
 		hb.setSpacing(10);
@@ -160,27 +164,41 @@ public class OpcionImpresion extends Feature {
 		VBox v = new VBox();
 		
 		FlowPane fph = new FlowPane();
+		fph.setAlignment(Pos.CENTER_RIGHT);
+		
 		Label lArchivo = new Label("Nombre de archivo:");
+		lArchivo.setTextFill(Color.WHITE);
 		lArchivo.setPrefWidth(150);
 		Label vArchivo = new Label();
+		vArchivo.setTextFill(Color.WHITE);
+		vArchivo.setStyle("-fx-font-weight: bold");
 		vArchivo.setPrefWidth(200);
 		
 		Label lRegistros = new Label("Cantidad de Registros:");
+		lRegistros.setTextFill(Color.WHITE);
 		lRegistros.setPrefWidth(150);
 		Label vRegistros = new Label();
+		vRegistros.setTextFill(Color.WHITE);
+		vRegistros.setStyle("-fx-font-weight: bold");
 		vRegistros.setPrefWidth(50);
 		
 		Label lMonto = new Label("Monto Total:");
+		lMonto.setTextFill(Color.WHITE);
 		lMonto.setPrefWidth(150);
 		Label vMonto = new Label();
-		vMonto.setPrefWidth(250);
+		vMonto.setPrefWidth(150);
+		vMonto.setTextFill(Color.WHITE);
+		vMonto.setStyle("-fx-font-weight: bold");
+		vMonto.setAlignment(Pos.CENTER_RIGHT);
 		fph.getChildren().addAll(lArchivo,vArchivo,lRegistros,vRegistros,lMonto,vMonto);
 		
 		v.getChildren().add(fph);
 		
 		FlowPane fp = new FlowPane();
+		fp.setAlignment(Pos.CENTER_RIGHT);
+		
 		//fp.setStyle("-fx-background-color: green;"); 
-		fp.setHgap(24);
+		fp.setHgap(26);
 		fp.setPrefWidth(850);
 		
 		TextField tfCuentaCargo = new TextField();
@@ -197,9 +215,14 @@ public class OpcionImpresion extends Feature {
 
 		v.getChildren().add(fp);
 		TextField tfBeneficiario = new TextField();
+		tfBeneficiario.setMaxWidth(850);
 		tfBeneficiario.setPromptText("Nombre del Beneficiario");
+		
 		v.getChildren().add(tfBeneficiario);
+		v.setAlignment(Pos.CENTER_RIGHT);
+		
 		v.setSpacing(20);
+		v.setPadding(new Insets(0,25,0,0));
 		//v.setStyle("-fx-background-color: blue;");
 
 		
@@ -225,8 +248,34 @@ public class OpcionImpresion extends Feature {
 		
 		hb.getChildren().add(bBuscar);
 		hb.getChildren().add(bGuardar);
+		hb.setPadding(new Insets(0,25,0,0));
+	
 		
-		borderpane.setRight(hb);
+		
+		
+		
+		bBuscar.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(final ActionEvent e) {
+				t.getItems().clear();
+
+				for(DispersionDefinitiva dd:originalList){
+
+					if(   (StringUtils.isEmpty(tfCuentaCargo.getText()) || tfCuentaCargo.getText().equals(dd.getCuentaCargo())) 
+							&&(StringUtils.isEmpty(tfCuentaAbono.getText()) || tfCuentaAbono.getText().equals(dd.getCuentaAbono()))
+							&&(StringUtils.isEmpty(tfImporte.getText()) || tfImporte.getText().equals(dd.getImporte()))
+							&&(StringUtils.isEmpty(tfCveRastreo.getText()) || tfCveRastreo.getText().equals(dd.getClaveRastreo()))
+							&&(StringUtils.isEmpty(tfReferencia.getText()) || tfReferencia.getText().equals(dd.getReferencia()))
+							&&(StringUtils.isEmpty(tfBeneficiario.getText()) || dd.getNombre().contains(tfBeneficiario.getText()))){
+						t.getItems().add(dd);
+						
+						
+					}
+				}
+				t.refresh();
+				
+			}
+		});
 		
 		
 
@@ -255,8 +304,13 @@ public class OpcionImpresion extends Feature {
 						final ContextReport context = new ContextReport();
 						context.addParameter("cliente", "");
 						context.addImageParameter("logo",  getImageInput("/img/logoSabadell.jpeg"));
+						List<DispersionDefinitiva> list = new ArrayList<DispersionDefinitiva>();
+						for(DispersionDefinitiva dd: t.getItems()){
+							if (dd.getComprobante()) list.add(dd);
+						}
+						//TODO revisar si no seleccionan ninguno
 						ReportGenerator.generateFromCompiledReport("reports/ComprobanteDispersionPago.jasper", context,
-								ReportDataSourceFactory.getBeanDataSource(t.getItems()), fout);
+								ReportDataSourceFactory.getBeanDataSource(list), fout);
 						fout.close();
 					}
 					
@@ -327,7 +381,7 @@ public class OpcionImpresion extends Feature {
 			}
 		});
 
-		VBox vbox = new VBox(headerBox1, borderpane);
+		VBox vbox = new VBox(headerBox1, v, hb);
 		vbox.setSpacing(20);
 
 		((BorderPane) mainPane).setTop(vbox);
@@ -337,7 +391,7 @@ public class OpcionImpresion extends Feature {
 		t.prefWidthProperty().bind(mainPane.widthProperty().add(-60));
 
 		((BorderPane) mainPane).setCenter(t);
-		BorderPane.setMargin(t, new Insets(25, 0, 0, 0));
+		BorderPane.setMargin(t, new Insets(25, 25, 50, 0));
 
 		bImportarArchivo.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -353,9 +407,14 @@ public class OpcionImpresion extends Feature {
 					for(DispersionDefinitiva dd:t.getItems()){
 						total+=Double.valueOf(dd.getImporte());
 					}
+					
+					String pattern = "###,###,###,###.00";
+					DecimalFormat decimalFormat = new DecimalFormat(pattern);
+					
 					vArchivo.setText(file.getName());
 					vRegistros.setText(String.valueOf(t.getItems().size()));
-					vMonto.setText(String.valueOf(total));
+					vMonto.setText(decimalFormat.format(total));
+					originalList.addAll(t.getItems());
 					t.refresh();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
