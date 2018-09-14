@@ -13,7 +13,7 @@ public class ComprobanteCheckboxCell extends CheckboxCell<DispersionDefinitiva> 
 		final DispersionDefinitiva registro = (DispersionDefinitiva) this.getTableRow().getItem();
 		//checkBox.setDisable((EstadoDispersion.TERMINADO.name().equals(registro.getEstadoOperacion())) ? false : true);
 		if(checkBox != null && registro != null) {
-			if(!EstadoDispersion.TERMINADO.name().equals(registro.getEstadoOperacion())){
+			if(!EstadoDispersion.LIQUIDADO.name().equals(registro.getEstadoOperacion())){
 				this.setGraphic(null);
 			}			
 		}

@@ -1,6 +1,5 @@
 package mx.com.bsmexico.customertool.impresion.plugin;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -13,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import mx.com.bsmexico.customertool.api.layouts.control.DefaultLayoutTable;
 import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutModelValidator;
@@ -53,7 +53,7 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 				List<DispersionDefinitiva> items = table.getItems();
 				if (items != null && items.size() > 0) {
 					for (DispersionDefinitiva item : items) {
-						if(EstadoDispersion.TERMINADO.name().equals(item.getEstadoOperacion())){
+						if(EstadoDispersion.LIQUIDADO.name().equals(item.getEstadoOperacion())){
 							item.setComprobante(selected);
 						}						
 					}
@@ -68,7 +68,8 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 				}
 			};
 			ct = new TableColumn();
-			final Label label = new Label("Comprobante");
+			final Label label = new Label("todos");
+			label.setTextFill(Color.BLACK);
 			VBox box = new VBox();
 			box.setAlignment(Pos.CENTER);
 			box.getChildren().add(label);
@@ -76,8 +77,9 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 			// ct.setGraphic(label);
 			ct.setGraphic(box);
 			ct.setId("Comprobante");
-			ct.setPrefWidth(100);
+			ct.setPrefWidth(80);
 			ct.setCellFactory(booleanCellFactory);
+			ct.setStyle("-fx-background-color: white");
 			// ct.setCellFactory(column -> new CheckBoxTableCell<>());
 			ct.setCellValueFactory(new PropertyValueFactory<DispersionDefinitiva, Boolean>("comprobante"));
 			ct.setEditable(true);

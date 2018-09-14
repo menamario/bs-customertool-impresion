@@ -3,6 +3,7 @@ package mx.com.bsmexico.customertool.impresion.plugin;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -22,7 +23,7 @@ public class DispersionDefinitivaPdfExport {
 	private boolean singleDocument;
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHH");
 
-	public void export(final File directory, final List<DispersionDefinitiva> data, final File logo) throws Exception {
+	public void export(final File directory, final List<DispersionDefinitiva> data, final String logo) throws Exception {
 		if (directory == null) {
 			throw new IllegalArgumentException("The directory can not be null");
 		}
@@ -37,7 +38,7 @@ public class DispersionDefinitivaPdfExport {
 		}
 
 		final ContextReport context = new ContextReport();
-		context.addImageParameter("logo", logo);
+		context.addImageParameter("logo", getClass().getResourceAsStream(logo));
 		context.addParameter("cliente", "");
 		if (singleDocument) {
 			final File file = File.createTempFile("DPTmp", UUID.randomUUID().toString() + ".pdf", directory);
@@ -51,8 +52,7 @@ public class DispersionDefinitivaPdfExport {
 			FileOutputStream fout = null;
 			FileInputStream imgStream = null;
 			for (DispersionDefinitiva d : data) {
-				imgStream = new FileInputStream(logo);
-				context.addImageParameter("logo", imgStream);
+				context.addImageParameter("logo", getClass().getResourceAsStream(logo));
 				file = new File(generateFileName(directory, d.getReferencia(), d.getImporte()));
 				file.createNewFile();
 				fout = new FileOutputStream(file);

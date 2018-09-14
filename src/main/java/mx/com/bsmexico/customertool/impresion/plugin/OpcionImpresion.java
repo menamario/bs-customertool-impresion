@@ -1,10 +1,9 @@
 package mx.com.bsmexico.customertool.impresion.plugin;
 
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -21,10 +20,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,14 +34,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import mx.com.bsmexico.customertool.api.Feature;
 import mx.com.bsmexico.customertool.api.Layout;
 import mx.com.bsmexico.customertool.api.NavRoute;
-import mx.com.bsmexico.customertool.api.report.ContextReport;
-import mx.com.bsmexico.customertool.api.report.ReportDataSourceFactory;
-import mx.com.bsmexico.customertool.api.report.ReportGenerator;
 
 public class OpcionImpresion extends Feature {
 
@@ -62,8 +57,8 @@ public class OpcionImpresion extends Feature {
 		final NavRoute.BuilderNavRoute navRuoteBuilder = new NavRoute.BuilderNavRoute("TEST");
 		NavRoute route = null;
 		try {
-			route = navRuoteBuilder.addNode("Impresion masiva de comprobantes", "Impresion masiva de comprobantes",
-					0, false, getImageInput("/img/impresion.png")).build();
+			route = navRuoteBuilder.addNode("Impresion masiva de comprobantes", "Impresion masiva de comprobantes", 0,
+					false, getImageInput("/img/impresion.png")).build();
 
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
@@ -91,15 +86,20 @@ public class OpcionImpresion extends Feature {
 		ImageView atras = null;
 		ImageView importarArchivo = null;
 		ImageView instrucciones = null;
+		ImageView impresion = null;
 
 		try {
 			atras = new ImageView(new Image(this.getImageInput("/img/atras.png")));
-			importarArchivo = new ImageView(new Image(this.getImageInput("/img/importarArchivo.png")));
+			importarArchivo = new ImageView(new Image(this.getImageInput("/img/importarImpresion.png")));
 			importarArchivo.setPreserveRatio(true);
 			importarArchivo.setFitWidth(70);
 			instrucciones = new ImageView(new Image(this.getImageInput("/img/instrucciones.png")));
 			instrucciones.setPreserveRatio(true);
 			instrucciones.setFitWidth(70);
+
+			impresion = new ImageView(new Image(this.getImageInput("/img/impresion.png")));
+			impresion.setPreserveRatio(true);
+			impresion.setFitWidth(30);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -108,10 +108,17 @@ public class OpcionImpresion extends Feature {
 		Button bAtras = new Button();
 		Button bInstrucciones = new Button();
 		Button bImportarArchivo = new Button();
+		Button bImprimir = new Button();
 
 		bAtras.setGraphic(atras);
 		bAtras.setStyle("-fx-background-color: transparent;");
 		bAtras.setTooltip(new Tooltip("Regresar"));
+
+		bImprimir.setGraphic(impresion);
+		bImprimir.setStyle("-fx-background-color: transparent;");
+		bImprimir.setTooltip(new Tooltip("Imprimir"));
+		bImprimir.setAlignment(Pos.CENTER_RIGHT);
+
 		bInstrucciones.setGraphic(instrucciones);
 		bInstrucciones.setText("Instrucciones");
 		bInstrucciones.setTextFill(Color.WHITE);
@@ -133,39 +140,35 @@ public class OpcionImpresion extends Feature {
 		});
 
 		final FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Excel and Csv files (*.xls,*.csv)", "*.csv","*.xls");
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Archivos de dispersion", "*D.csv",
+				"*P.csv", "*D.txt", "*P.txt");
 		fileChooser.getExtensionFilters().add(extFilter);
 
 		headerBox1.getChildren().add(bAtras);
 		headerBox1.setSpacing(40);
 		Label l = new Label("    Impresion Masiva de Comprobantes    ");
 		l.setTextFill(Color.WHITE);
-		l.setStyle("-fx-background-color: #e25100;-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px; -fx-border-radius: 0 0 10 10; -fx-background-radius: 0 0 10 10;");
+		l.setStyle(
+				"-fx-background-color: #e25100;-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px; -fx-border-radius: 0 0 10 10; -fx-background-radius: 0 0 10 10;");
 		headerBox1.getChildren().add(l);
-		
-		
+
 		headerBox2.getChildren().add(bInstrucciones);
 		headerBox2.getChildren().add(bImportarArchivo);
 		headerBox2.setSpacing(100);
 		HBox.setHgrow(headerBox2, Priority.ALWAYS);
 		headerBox2.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
 		headerBox1.getChildren().add(headerBox2);
-		headerBox1.setPadding(new Insets(0,30,0,0));
-
-		BorderPane borderpane = new BorderPane();
-		borderpane.setPadding(new Insets(0, 20, 0, 20));
-		
+		//headerBox1.setPadding(new Insets(0, 30, 0, 0));
 
 		HBox hb = new HBox();
 		hb.setSpacing(10);
 		// hb.getChildren().addAll(lFormato, rbTxt, rbCsv);
-		
-		
+
 		VBox v = new VBox();
-		
+
 		FlowPane fph = new FlowPane();
 		fph.setAlignment(Pos.CENTER_RIGHT);
-		
+
 		Label lArchivo = new Label("Nombre de archivo:");
 		lArchivo.setTextFill(Color.WHITE);
 		lArchivo.setPrefWidth(150);
@@ -173,7 +176,7 @@ public class OpcionImpresion extends Feature {
 		vArchivo.setTextFill(Color.WHITE);
 		vArchivo.setStyle("-fx-font-weight: bold");
 		vArchivo.setPrefWidth(200);
-		
+
 		Label lRegistros = new Label("Cantidad de Registros:");
 		lRegistros.setTextFill(Color.WHITE);
 		lRegistros.setPrefWidth(150);
@@ -181,7 +184,7 @@ public class OpcionImpresion extends Feature {
 		vRegistros.setTextFill(Color.WHITE);
 		vRegistros.setStyle("-fx-font-weight: bold");
 		vRegistros.setPrefWidth(50);
-		
+
 		Label lMonto = new Label("Monto Total:");
 		lMonto.setTextFill(Color.WHITE);
 		lMonto.setPrefWidth(150);
@@ -190,17 +193,17 @@ public class OpcionImpresion extends Feature {
 		vMonto.setTextFill(Color.WHITE);
 		vMonto.setStyle("-fx-font-weight: bold");
 		vMonto.setAlignment(Pos.CENTER_RIGHT);
-		fph.getChildren().addAll(lArchivo,vArchivo,lRegistros,vRegistros,lMonto,vMonto);
-		
+		fph.getChildren().addAll(lArchivo, vArchivo, lRegistros, vRegistros, lMonto, vMonto);
+
 		v.getChildren().add(fph);
-		
+
 		FlowPane fp = new FlowPane();
 		fp.setAlignment(Pos.CENTER_RIGHT);
-		
-		//fp.setStyle("-fx-background-color: green;"); 
+
+		// fp.setStyle("-fx-background-color: green;");
 		fp.setHgap(26);
 		fp.setPrefWidth(850);
-		
+
 		TextField tfCuentaCargo = new TextField();
 		tfCuentaCargo.setPromptText("Cuenta de Cargo");
 		TextField tfCuentaAbono = new TextField();
@@ -211,121 +214,127 @@ public class OpcionImpresion extends Feature {
 		tfCveRastreo.setPromptText("Clave de Rastreo");
 		TextField tfReferencia = new TextField();
 		tfReferencia.setPromptText("Referencia");
-		fp.getChildren().addAll(tfCuentaCargo,tfCuentaAbono,tfImporte,tfCveRastreo,tfReferencia);
+		fp.getChildren().addAll(tfCuentaCargo, tfCuentaAbono, tfImporte, tfCveRastreo, tfReferencia);
 
 		v.getChildren().add(fp);
 		TextField tfBeneficiario = new TextField();
 		tfBeneficiario.setMaxWidth(850);
 		tfBeneficiario.setPromptText("Nombre del Beneficiario");
-		
+
 		v.getChildren().add(tfBeneficiario);
 		v.setAlignment(Pos.CENTER_RIGHT);
-		
-		v.setSpacing(20);
-		v.setPadding(new Insets(0,25,0,0));
-		//v.setStyle("-fx-background-color: blue;");
 
-		
+		v.setSpacing(10);
+		//v.setPadding(new Insets(0, 25, 0, 0));
+		// v.setStyle("-fx-background-color: blue;");
+
 		hb.setAlignment(Pos.BOTTOM_RIGHT);
 
-		//borderpane.setCenter(hb);
-		borderpane.setLeft(v);
-		//borderpane.setStyle("-fx-background-color: red;");
+		// borderpane.setCenter(hb);
+		
+		// borderpane.setStyle("-fx-background-color: red;");
 
 		Button bGuardar = new Button("Guardar");
 		bGuardar.setStyle(
 				"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
 		bGuardar.setPrefWidth(140);
 		bGuardar.setTextFill(Color.WHITE);
-		
-		
-		
+
 		Button bBuscar = new Button("Buscar");
 		bBuscar.setStyle(
-				"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
+				"-fx-background-color: #accaf3;  -fx-font-family: FranklinGothicLT;-fx-font-size: 15px;-fx-font-weight:bold");
 		bBuscar.setPrefWidth(140);
-		bBuscar.setTextFill(Color.WHITE);
-		
+		bBuscar.setTextFill(Color.BLACK);
+
+
 		hb.getChildren().add(bBuscar);
 		hb.getChildren().add(bGuardar);
-		hb.setPadding(new Insets(0,25,0,0));
-	
-		
-		
-		
-		
+		//hb.setPadding(new Insets(0, 25, 0, 0));
+
 		bBuscar.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(final ActionEvent e) {
 				t.getItems().clear();
 
-				for(DispersionDefinitiva dd:originalList){
+				for (DispersionDefinitiva dd : originalList) {
 
-					if(   (StringUtils.isEmpty(tfCuentaCargo.getText()) || tfCuentaCargo.getText().equals(dd.getCuentaCargo())) 
-							&&(StringUtils.isEmpty(tfCuentaAbono.getText()) || tfCuentaAbono.getText().equals(dd.getCuentaAbono()))
-							&&(StringUtils.isEmpty(tfImporte.getText()) || tfImporte.getText().equals(dd.getImporte()))
-							&&(StringUtils.isEmpty(tfCveRastreo.getText()) || tfCveRastreo.getText().equals(dd.getClaveRastreo()))
-							&&(StringUtils.isEmpty(tfReferencia.getText()) || tfReferencia.getText().equals(dd.getReferencia()))
-							&&(StringUtils.isEmpty(tfBeneficiario.getText()) || dd.getNombre().contains(tfBeneficiario.getText()))){
+					if ((StringUtils.isEmpty(tfCuentaCargo.getText())
+							|| tfCuentaCargo.getText().equals(dd.getCuentaCargo()))
+							&& (StringUtils.isEmpty(tfCuentaAbono.getText())
+									|| tfCuentaAbono.getText().equals(dd.getCuentaAbono()))
+							&& (StringUtils.isEmpty(tfImporte.getText()) || tfImporte.getText().equals(dd.getImporte()))
+							&& (StringUtils.isEmpty(tfCveRastreo.getText())
+									|| tfCveRastreo.getText().equals(dd.getClaveRastreo()))
+							&& (StringUtils.isEmpty(tfReferencia.getText())
+									|| tfReferencia.getText().equals(dd.getReferencia()))
+							&& (StringUtils.isEmpty(tfBeneficiario.getText())
+									|| dd.getNombre().contains(tfBeneficiario.getText()))) {
 						t.getItems().add(dd);
-						
-						
+
 					}
 				}
 				t.refresh();
-				
+
 			}
 		});
-		
-		
+
+		bImprimir.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(final ActionEvent e) {
+
+				try {
+
+					String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+
+					List<DispersionDefinitiva> list = new ArrayList<DispersionDefinitiva>();
+					for (DispersionDefinitiva dd : t.getItems()) {
+						if (dd.getComprobante())
+							list.add(dd);
+					}
+
+					final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
+					export.setSingleDocument(true);
+					export.export(new File(currentPath), list, "/img/logoSabadell.jpeg");
+					
+					
+					PrinterJob pj = PrinterJob.getPrinterJob(); 
+					pj.printDialog();
+					
+
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+
+			}
+		});
 
 		bGuardar.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(final ActionEvent e) {
-				
-				
+
 				try {
-					
-					
+
 					String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-					FileChooser saveFile = new FileChooser();
+					DirectoryChooser saveFile = new DirectoryChooser();
 					saveFile.setInitialDirectory(new File(currentPath));
-					FileChooser.ExtensionFilter sfFilter = new FileChooser.ExtensionFilter("PDF files (*.PDF)", "*.pdf");
-					saveFile.getExtensionFilters().add(sfFilter);
-					
 
 					// Show save file dialog
-					File file = saveFile.showSaveDialog(getDesktop().getStage());
+					File file = saveFile.showDialog(getDesktop().getStage());
 
 					if (file != null) {
-						final FileOutputStream fout = new FileOutputStream(file);
-						file.createNewFile();
-						
-						final ContextReport context = new ContextReport();
-						context.addParameter("cliente", "");
-						context.addImageParameter("logo",  getImageInput("/img/logoSabadell.jpeg"));
+
 						List<DispersionDefinitiva> list = new ArrayList<DispersionDefinitiva>();
-						for(DispersionDefinitiva dd: t.getItems()){
-							if (dd.getComprobante()) list.add(dd);
+						for (DispersionDefinitiva dd : t.getItems()) {
+							if (dd.getComprobante())
+								list.add(dd);
 						}
-						//TODO revisar si no seleccionan ninguno
-						ReportGenerator.generateFromCompiledReport("reports/ComprobanteDispersionPago.jasper", context,
-								ReportDataSourceFactory.getBeanDataSource(list), fout);
-						fout.close();
+
+						final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
+						export.export(file, list, "/img/logoSabadell.jpeg");
 					}
-					
-					
-					
-					
-					
-					
-					
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-				
-				
-				
 			}
 		});
 
@@ -352,18 +361,15 @@ public class OpcionImpresion extends Feature {
 				stage.setTitle("Archivos Bantotal - Beneficiarios - Instrucciones");
 
 				TextArea textArea = new TextArea();
-				textArea.setText(
-						"\n"
-					  + "1) Revise que la configuracion regional de su sistema operativo este en Español (México)."
-					  + "\n\n2) Los datos que se capturan deben estar en mayusculas y sin caracteres especiales."
-					  + "\n\n3) Finalmente le pedimos validar que los datos marcados como obligatorios se encuentren con la información requerida."
-					  + "\n\n4) Al concluir la captura de beneficiarios, dar un click en el boton de Guardar, en seguida se abrira una ventana donde usted podrá guardar el archivo en la ruta que indique y con el nombre que desee."
-					  + "\n\n5) Al concluir el guardado correcto del archivo de Beneficiarios el siguiente paso es ingresar a su banca en linea de Banco Sabadell, para iniciar el proceso de Alta de Beneficiarios."
-					  + "\n\n6) Los Beneficiarios que se dan de alta estarán disponibles para transaccionar despues de 30 minutos."
-					  );
+				textArea.setText("\n"
+						+ "1) Revise que la configuracion regional de su sistema operativo este en Español (México)."
+						+ "\n\n2) Los datos que se capturan deben estar en mayusculas y sin caracteres especiales."
+						+ "\n\n3) Finalmente le pedimos validar que los datos marcados como obligatorios se encuentren con la información requerida."
+						+ "\n\n4) Al concluir la captura de beneficiarios, dar un click en el boton de Guardar, en seguida se abrira una ventana donde usted podrá guardar el archivo en la ruta que indique y con el nombre que desee."
+						+ "\n\n5) Al concluir el guardado correcto del archivo de Beneficiarios el siguiente paso es ingresar a su banca en linea de Banco Sabadell, para iniciar el proceso de Alta de Beneficiarios."
+						+ "\n\n6) Los Beneficiarios que se dan de alta estarán disponibles para transaccionar despues de 30 minutos.");
 				textArea.setEditable(false);
 				textArea.setWrapText(true);
-				
 
 				VBox vbox = new VBox();
 				textArea.prefHeightProperty().bind(vbox.prefHeightProperty().add(-60));
@@ -381,17 +387,19 @@ public class OpcionImpresion extends Feature {
 			}
 		});
 
-		VBox vbox = new VBox(headerBox1, v, hb);
-		vbox.setSpacing(20);
+		VBox vbox = new VBox(headerBox1, v, hb, bImprimir);
+		vbox.setPadding(new Insets(0,25,0,0));
+		vbox.setAlignment(Pos.CENTER_RIGHT);
+		vbox.setSpacing(10);
 
 		((BorderPane) mainPane).setTop(vbox);
 
-		t = new DispersionDefinitivaTable();		
+		t = new DispersionDefinitivaTable();
 
 		t.prefWidthProperty().bind(mainPane.widthProperty().add(-60));
 
 		((BorderPane) mainPane).setCenter(t);
-		BorderPane.setMargin(t, new Insets(25, 25, 50, 0));
+		BorderPane.setMargin(t, new Insets(10, 25, 50, 0));
 
 		bImportarArchivo.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -399,27 +407,30 @@ public class OpcionImpresion extends Feature {
 				String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
 				fileChooser.setInitialDirectory(new File(currentPath));
 				File file = fileChooser.showOpenDialog(getDesktop().getStage());
-				DispersionDefinitivaCSVImporter benImporter = new DispersionDefinitivaCSVImporter(t);
-				try {
-					benImporter.importFile(file);
-					
-					double total = 0.0;
-					for(DispersionDefinitiva dd:t.getItems()){
-						total+=Double.valueOf(dd.getImporte());
+				if (file != null) {
+					DispersionDefinitivaCSVImporter benImporter = new DispersionDefinitivaCSVImporter(t);
+					try {
+						benImporter.importFile(file);
+
+						double total = 0.0;
+						for (DispersionDefinitiva dd : t.getItems()) {
+							total += Double.valueOf(dd.getImporte());
+						}
+
+						String pattern = "###,###,###,###.00";
+						DecimalFormat decimalFormat = new DecimalFormat(pattern);
+
+						vArchivo.setText(file.getName());
+						vRegistros.setText(String.valueOf(t.getItems().size()));
+						vMonto.setText(decimalFormat.format(total));
+						originalList.addAll(t.getItems());
+						t.refresh();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-					
-					String pattern = "###,###,###,###.00";
-					DecimalFormat decimalFormat = new DecimalFormat(pattern);
-					
-					vArchivo.setText(file.getName());
-					vRegistros.setText(String.valueOf(t.getItems().size()));
-					vMonto.setText(decimalFormat.format(total));
-					originalList.addAll(t.getItems());
-					t.refresh();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
+
 			}
 		});
 
