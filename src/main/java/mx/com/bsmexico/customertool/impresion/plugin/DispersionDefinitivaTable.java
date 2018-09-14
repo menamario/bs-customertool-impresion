@@ -72,14 +72,14 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 			label.setTextFill(Color.BLACK);
 			VBox box = new VBox();
 			box.setAlignment(Pos.CENTER);
-			box.getChildren().add(label);
+			//box.getChildren().add(label);
 			box.getChildren().add(check);
 			// ct.setGraphic(label);
 			ct.setGraphic(box);
 			ct.setId("Comprobante");
 			ct.setPrefWidth(80);
 			ct.setCellFactory(booleanCellFactory);
-			ct.setStyle("-fx-background-color: white");
+			ct.setStyle("-fx-background-color: white !important;-fx-text-fill: black !important;");
 			// ct.setCellFactory(column -> new CheckBoxTableCell<>());
 			ct.setCellValueFactory(new PropertyValueFactory<DispersionDefinitiva, Boolean>("comprobante"));
 			ct.setEditable(true);
@@ -136,7 +136,6 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 	@Override
 	public void setData(List<DispersionDefinitiva> data) {
 		if (data != null) {
-			getItems().addAll(data);
 			try {
 				final LayoutModelValidator<DispersionDefinitiva> validator = (LayoutModelValidator<DispersionDefinitiva>) this.metamodel
 						.getValidator();

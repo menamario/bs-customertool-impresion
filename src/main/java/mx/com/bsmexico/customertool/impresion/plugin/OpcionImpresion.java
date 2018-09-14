@@ -331,6 +331,43 @@ public class OpcionImpresion extends Feature {
 
 						final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
 						export.export(file, list, "/img/logoSabadell.jpeg");
+						
+						Stage stage = new Stage();
+
+						StackPane canvas = new StackPane();
+						canvas.setPadding(new Insets(10));
+						canvas.setStyle("-fx-background-color:  #a9d42c;");
+						canvas.setPrefSize(512, 50);
+
+						stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logoSabadellCircle.png")));
+						stage.setTitle("Impresion de Masiva de Comprobantes - Archivos Generados");
+
+						Label mensaje = new Label("Los archivos fueron generados en el directorio seleccionado");
+						mensaje.setStyle("-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 20px;");
+						mensaje.setTextFill(Color.web("#777777"));
+
+						Button bContinuar = new Button("Continuar");
+						bContinuar.setStyle(
+								"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
+						bContinuar.setPrefWidth(140);
+						bContinuar.setTextFill(Color.WHITE);
+
+						bContinuar.setOnMouseClicked(evt -> {
+							stage.hide();
+						});
+
+						VBox vbox = new VBox();
+						vbox.setSpacing(50);
+						vbox.setAlignment(Pos.TOP_CENTER);
+						vbox.setPrefSize(512, 275);
+						vbox.getChildren().add(canvas);
+						vbox.getChildren().add(mensaje);
+						vbox.getChildren().add(bContinuar);
+
+						stage.setScene(new Scene(vbox, 512, 275));
+						stage.setResizable(false);
+						stage.show();
+						
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -349,7 +386,7 @@ public class OpcionImpresion extends Feature {
 				canvas.setPrefSize(800, 60);
 
 				Label instruccionesLabel = new Label(
-						"Banco Sabadell agradece su preferencia, a continuacion detallamos los pasos que debe seguir para capturar los datos de alta de beneficiario.");
+						"Falta Definir las instrucciones para la opcion de Impresion de Comprobantes");
 				instruccionesLabel.setWrapText(true);
 				instruccionesLabel.setTextAlignment(TextAlignment.JUSTIFY);
 				instruccionesLabel
@@ -358,16 +395,11 @@ public class OpcionImpresion extends Feature {
 				canvas.getChildren().add(instruccionesLabel);
 
 				stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logoSabadellCircle.png")));
-				stage.setTitle("Archivos Bantotal - Beneficiarios - Instrucciones");
+				stage.setTitle("Impresion de Masiva de Comprobantes - Instrucciones");
 
 				TextArea textArea = new TextArea();
 				textArea.setText("\n"
-						+ "1) Revise que la configuracion regional de su sistema operativo este en Español (México)."
-						+ "\n\n2) Los datos que se capturan deben estar en mayusculas y sin caracteres especiales."
-						+ "\n\n3) Finalmente le pedimos validar que los datos marcados como obligatorios se encuentren con la información requerida."
-						+ "\n\n4) Al concluir la captura de beneficiarios, dar un click en el boton de Guardar, en seguida se abrira una ventana donde usted podrá guardar el archivo en la ruta que indique y con el nombre que desee."
-						+ "\n\n5) Al concluir el guardado correcto del archivo de Beneficiarios el siguiente paso es ingresar a su banca en linea de Banco Sabadell, para iniciar el proceso de Alta de Beneficiarios."
-						+ "\n\n6) Los Beneficiarios que se dan de alta estarán disponibles para transaccionar despues de 30 minutos.");
+						+ "Falta Definir las instrucciones para la opcion de Impresion de Comprobantes");
 				textArea.setEditable(false);
 				textArea.setWrapText(true);
 
@@ -395,6 +427,7 @@ public class OpcionImpresion extends Feature {
 		((BorderPane) mainPane).setTop(vbox);
 
 		t = new DispersionDefinitivaTable();
+		t.getStyleClass().add("tabla-impresion");
 
 		t.prefWidthProperty().bind(mainPane.widthProperty().add(-60));
 
@@ -426,7 +459,43 @@ public class OpcionImpresion extends Feature {
 						originalList.addAll(t.getItems());
 						t.refresh();
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
+						Stage stage = new Stage();
+
+						Pane canvas = new Pane();
+						canvas.setPadding(new Insets(10));
+						canvas.setStyle("-fx-background-color:  #e90e5c;");
+						canvas.setPrefSize(512, 50);
+
+						stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logoSabadellCircle.png")));
+						stage.setTitle("Impresion masiva de comprobantes - Formato de Archivo Incorrecto");
+
+						Label mensaje = new Label("El archivo no tiene el formato correcto");
+						mensaje.setStyle("-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 20px;");
+						mensaje.setTextFill(Color.web("#777777"));
+
+						Button bContinuar = new Button("Continuar");
+						bContinuar.setStyle(
+								"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
+						bContinuar.setPrefWidth(140);
+						bContinuar.setTextFill(Color.WHITE);
+
+						bContinuar.setOnMouseClicked(evt -> {
+							stage.hide();
+						});
+
+						VBox vbox = new VBox();
+						vbox.setSpacing(50);
+						vbox.setAlignment(Pos.TOP_CENTER);
+						vbox.setPrefSize(512, 275);
+						// VBox.setVgrow(vbox, Priority.ALWAYS);
+						vbox.getChildren().add(canvas);
+						vbox.getChildren().add(mensaje);
+						vbox.getChildren().add(bContinuar);
+
+						stage.setScene(new Scene(vbox, 512, 275));
+						stage.setResizable(false);
+						stage.show();
+
 						e1.printStackTrace();
 					}
 				}
