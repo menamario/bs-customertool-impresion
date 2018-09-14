@@ -3,7 +3,6 @@ package mx.com.bsmexico.customertool.impresion.plugin;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -49,8 +48,7 @@ public class DispersionDefinitivaPdfExport {
 			fout.close();
 		} else {
 			File file = null;
-			FileOutputStream fout = null;
-			FileInputStream imgStream = null;
+			FileOutputStream fout = null;			
 			for (DispersionDefinitiva d : data) {
 				context.addImageParameter("logo", getClass().getResourceAsStream(logo));
 				file = new File(generateFileName(directory, d.getReferencia(), d.getImporte()));

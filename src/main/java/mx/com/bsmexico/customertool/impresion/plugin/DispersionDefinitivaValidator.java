@@ -11,6 +11,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutModelValidator;
+import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutValidatorException;
 
 public class DispersionDefinitivaValidator extends LayoutModelValidator<DispersionDefinitiva> {
 
@@ -143,7 +144,7 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 			for (DispersionDefinitiva model : models) {
 				if (!this.isValid(model)) {
 					isValid = false;
-					break;
+					throw new LayoutValidatorException("El archivo no cumple con el layout establecido", model);
 				}
 			}
 		}
@@ -384,7 +385,6 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 	 */
 	public Predicate<DispersionDefinitiva> importe() {
 		return v -> {
-			System.out.println(v.getImporte());
 			return (StringUtils.isNotBlank(v.getImporte())
 					&& NumberUtils.isCreatable(v.getImporte().replaceFirst("^0+(?!$)", ""))
 					&& Double.valueOf(v.getImporte()) <= 999999999999.99);

@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import mx.com.bsmexico.customertool.api.layouts.control.DefaultLayoutTable;
 import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutModelValidator;
+import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutValidatorException;
 import mx.com.bsmexico.customertool.api.process.ExportSource;
 import mx.com.bsmexico.customertool.api.process.ImportTarget;
 
@@ -136,17 +137,18 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 	@Override
 	public void setData(List<DispersionDefinitiva> data) {
 		if (data != null) {
-			getItems().addAll(data);
+			//getItems().addAll(data);
+			LayoutModelValidator<DispersionDefinitiva> validator = null;
 			try {
-				final LayoutModelValidator<DispersionDefinitiva> validator = (LayoutModelValidator<DispersionDefinitiva>) this.metamodel
+				validator = (LayoutModelValidator<DispersionDefinitiva>) this.metamodel
 						.getValidator();
-				if (validator != null) {
-					if (validator.isValid(data)) {
-						getItems().addAll(data);
-					}
-				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				 throw new LayoutValidatorException("Validator not found");
+			}
+			if (validator != null) {
+				if (validator.isValid(data)) {
+					getItems().addAll(data);
+				}
 			}
 		}
 	}
