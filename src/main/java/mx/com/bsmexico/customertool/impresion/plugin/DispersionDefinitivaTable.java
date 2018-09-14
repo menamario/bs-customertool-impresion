@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import mx.com.bsmexico.customertool.api.layouts.control.DefaultLayoutTable;
 import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutModelValidator;
+import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutValidatorException;
 import mx.com.bsmexico.customertool.api.process.ExportSource;
 import mx.com.bsmexico.customertool.api.process.ImportTarget;
 
@@ -72,14 +73,14 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 			label.setTextFill(Color.BLACK);
 			VBox box = new VBox();
 			box.setAlignment(Pos.CENTER);
-			//box.getChildren().add(label);
+			box.getChildren().add(label);
 			box.getChildren().add(check);
 			// ct.setGraphic(label);
 			ct.setGraphic(box);
 			ct.setId("Comprobante");
 			ct.setPrefWidth(80);
 			ct.setCellFactory(booleanCellFactory);
-			ct.setStyle("-fx-background-color: white !important;-fx-text-fill: black !important;");
+			ct.setStyle("-fx-background-color: white");
 			// ct.setCellFactory(column -> new CheckBoxTableCell<>());
 			ct.setCellValueFactory(new PropertyValueFactory<DispersionDefinitiva, Boolean>("comprobante"));
 			ct.setEditable(true);
@@ -136,16 +137,18 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 	@Override
 	public void setData(List<DispersionDefinitiva> data) {
 		if (data != null) {
+			//getItems().addAll(data);
+			LayoutModelValidator<DispersionDefinitiva> validator = null;
 			try {
-				final LayoutModelValidator<DispersionDefinitiva> validator = (LayoutModelValidator<DispersionDefinitiva>) this.metamodel
+				validator = (LayoutModelValidator<DispersionDefinitiva>) this.metamodel
 						.getValidator();
-				if (validator != null) {
-					if (validator.isValid(data)) {
-						getItems().addAll(data);
-					}
-				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				 throw new LayoutValidatorException("Validator not found");
+			}
+			if (validator != null) {
+				if (validator.isValid(data)) {
+					getItems().addAll(data);
+				}
 			}
 		}
 	}
