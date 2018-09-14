@@ -14,11 +14,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import mx.com.bsmexico.customertool.api.exporter.ExportSource;
-import mx.com.bsmexico.customertool.api.importer.ImportTarget;
-import mx.com.bsmexico.customertool.api.layouts.control.CheckboxCell;
 import mx.com.bsmexico.customertool.api.layouts.control.DefaultLayoutTable;
 import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutModelValidator;
+import mx.com.bsmexico.customertool.api.process.ExportSource;
+import mx.com.bsmexico.customertool.api.process.ImportTarget;
 
 /**
  * @author jchr
@@ -46,42 +45,42 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 	protected void setColumns() throws Exception {
 		String[] ids = getFieldOrder();
 		if (!ArrayUtils.isEmpty(ids)) {
-			TableColumn ct = null;			
-			//final TableColumn ctSelectAll = new TableColumn();
+			TableColumn ct = null;
 			final CheckBox check = new CheckBox();
 			final TableView<DispersionDefinitiva> table = this;
 			check.setOnAction(e -> {
 				boolean selected = ((CheckBox) e.getSource()).isSelected();
 				List<DispersionDefinitiva> items = table.getItems();
 				if (items != null && items.size() > 0) {
-					for(DispersionDefinitiva item : items) {
-						item.setComprobante(selected);
-					}					
+					for (DispersionDefinitiva item : items) {
+						if(EstadoDispersion.TERMINADO.name().equals(item.getEstadoOperacion())){
+							item.setComprobante(selected);
+						}						
+					}
 				}
 				table.refresh();
 			});
 			final Callback<TableColumn<DispersionDefinitiva, Boolean>, TableCell<DispersionDefinitiva, Boolean>> booleanCellFactory = new Callback<TableColumn<DispersionDefinitiva, Boolean>, TableCell<DispersionDefinitiva, Boolean>>() {
 				@Override
 				public TableCell<DispersionDefinitiva, Boolean> call(TableColumn<DispersionDefinitiva, Boolean> p) {
-					return new CheckboxCell();
+					//return new CheckboxCell<DispersionDefinitiva>();
+					return new ComprobanteCheckboxCell();
 				}
 			};
-			//ctSelectAll.setGraphic(check);
 			ct = new TableColumn();
 			final Label label = new Label("Comprobante");
-			VBox box = new VBox();			
+			VBox box = new VBox();
 			box.setAlignment(Pos.CENTER);
 			box.getChildren().add(label);
 			box.getChildren().add(check);
-			//ct.setGraphic(label);
+			// ct.setGraphic(label);
 			ct.setGraphic(box);
 			ct.setId("Comprobante");
 			ct.setPrefWidth(100);
 			ct.setCellFactory(booleanCellFactory);
-			//ct.setCellFactory(column -> new CheckBoxTableCell<>());
+			// ct.setCellFactory(column -> new CheckBoxTableCell<>());
 			ct.setCellValueFactory(new PropertyValueFactory<DispersionDefinitiva, Boolean>("comprobante"));
 			ct.setEditable(true);
-			//ct.getColumns().add(ctSelectAll);
 			getColumns().add(ct);
 			for (String id : ids) {
 				ct = columnFactory.getColumn(id, 100);

@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import mx.com.bsmexico.customertool.api.importer.ImportTarget;
+import mx.com.bsmexico.customertool.api.process.ImportTarget;
 import mx.com.bsmexico.customertool.impresion.plugin.DispersionDefinitiva;
 import mx.com.bsmexico.customertool.impresion.plugin.DispersionDefinitivaCSVImporter;
 import mx.com.bsmexico.customertool.impresion.plugin.DispersionDefinitivaTXTImporter;
@@ -50,6 +50,7 @@ public class ExporImportTest {
 						Assert.assertTrue("001235680045780564585".equals(data.get(0).getFolioOperacion()));
 						Assert.assertTrue("PCM60001".equals(data.get(0).getUsuario()));
 						Assert.assertTrue("LIQUIDADO".equals(data.get(0).getEstadoOperacion()));
+						Assert.assertTrue("CORPORATIVO DE INFORMATICA".equals(data.get(0).getCliente()));
 					}
 				});
 		try {
@@ -61,7 +62,7 @@ public class ExporImportTest {
 	}
 	
 	@Test
-	public void ImportDsipersionDefinitivaTXTTest() {
+	public void ImportDispersionDefinitivaTXTTest() {
 		final ClassLoader classLoader = getClass().getClassLoader();
 		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_444.txt").getFile());
 		final DispersionDefinitivaTXTImporter importer = new DispersionDefinitivaTXTImporter(
@@ -95,7 +96,7 @@ public class ExporImportTest {
 						Assert.assertTrue("000265896589874455880".equals(data.get(0).getFolioOperacion()));
 						Assert.assertTrue("PCM60001".equals(data.get(0).getUsuario()));
 						Assert.assertTrue("LIQUIDADO".equals(data.get(0).getEstadoOperacion()));
-						
+						Assert.assertTrue("EMPRESA IMPORTADORA DE TEXTIL".equals(data.get(0).getCliente()));
 					}
 				});
 		try {
@@ -104,5 +105,5 @@ public class ExporImportTest {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		} 
-	}
+	}	
 }
