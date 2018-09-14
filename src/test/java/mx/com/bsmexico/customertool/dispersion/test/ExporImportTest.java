@@ -50,6 +50,7 @@ public class ExporImportTest {
 						Assert.assertTrue("001235680045780564585".equals(data.get(0).getFolioOperacion()));
 						Assert.assertTrue("PCM60001".equals(data.get(0).getUsuario()));
 						Assert.assertTrue("LIQUIDADO".equals(data.get(0).getEstadoOperacion()));
+						Assert.assertTrue("CORPORATIVO DE INFORMATICA".equals(data.get(0).getCliente()));
 					}
 				});
 		try {
@@ -95,7 +96,7 @@ public class ExporImportTest {
 						Assert.assertTrue("000265896589874455880".equals(data.get(0).getFolioOperacion()));
 						Assert.assertTrue("PCM60001".equals(data.get(0).getUsuario()));
 						Assert.assertTrue("LIQUIDADO".equals(data.get(0).getEstadoOperacion()));
-						
+						Assert.assertTrue("EMPRESA IMPORTADORA DE TEXTIL".equals(data.get(0).getCliente()));
 					}
 				});
 		try {

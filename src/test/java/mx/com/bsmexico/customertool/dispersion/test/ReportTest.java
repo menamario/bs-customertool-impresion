@@ -85,6 +85,6 @@ public class ReportTest {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
-	}
+	}	
 
 }

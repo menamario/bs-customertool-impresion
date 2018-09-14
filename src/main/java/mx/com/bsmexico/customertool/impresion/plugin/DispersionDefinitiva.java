@@ -91,9 +91,7 @@ public class DispersionDefinitiva {
 	private SimpleStringProperty correoElectronico;
 
 	@LayoutField(name = FIELD_NUMERO_CELULAR, title = "Numero Celular", length = 10)
-	private SimpleStringProperty numeroCelular;
-
-	private String detalleOperacion;
+	private SimpleStringProperty numeroCelular;	
 
 	@LayoutField(name = FIELD_BANCO, title = "Banco", length = 30)
 	private SimpleStringProperty banco;
@@ -117,6 +115,10 @@ public class DispersionDefinitiva {
 	private SimpleStringProperty estadoOperacion;
 
 	private SimpleBooleanProperty comprobante;
+	
+	private String cliente;
+	
+	private String detalleOperacion;
 	/**
 	 * 
 	 */
@@ -407,5 +409,20 @@ public class DispersionDefinitiva {
 		this.comprobante.set(comprobante);
 	}
 
+	/**
+	 * @return the cliente
+	 */
+	public String getCliente() {
+		return cliente;
+	}
+
+	/**
+	 * @param cliente the cliente to set
+	 */
+	public void setCliente(String cliente) {
+		this.cliente = cliente;
+	}
+
+	
 	
 }
