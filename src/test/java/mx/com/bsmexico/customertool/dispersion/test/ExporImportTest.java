@@ -11,6 +11,7 @@ import mx.com.bsmexico.customertool.api.process.ImportTarget;
 import mx.com.bsmexico.customertool.impresion.plugin.DispersionDefinitiva;
 import mx.com.bsmexico.customertool.impresion.plugin.DispersionDefinitivaCSVImporter;
 import mx.com.bsmexico.customertool.impresion.plugin.DispersionDefinitivaTXTImporter;
+import mx.com.bsmexico.customertool.impresion.plugin.DispersionDefinitivaValidator;
 
 public class ExporImportTest {
 
@@ -75,7 +76,7 @@ public class ExporImportTest {
 						Assert.assertTrue("H".equals(data.get(0).getAplicacion()));
 						Assert.assertTrue("2018080811:47:13".equals(data.get(0).getFecha()));
 						Assert.assertTrue("00".equals(data.get(0).getTipoTransaccion()));
-						Assert.assertTrue("000000212004".equals(data.get(0).getCuentaCargo()));
+						Assert.assertTrue("00000212004".equals(data.get(0).getCuentaCargo()));
 						Assert.assertTrue("01".equals(data.get(0).getTipoCuentaBeneficiario()));
 						Assert.assertTrue("00000129001".equals(data.get(0).getCuentaAbono()));
 						Assert.assertTrue(StringUtils.isBlank((data.get(0).getBanco())));						
@@ -105,5 +106,46 @@ public class ExporImportTest {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		} 
-	}	
+	}
+	
+	@Test
+	public void validatorImportCSVTest() {		
+		final ClassLoader classLoader = getClass().getClassLoader();
+		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_223_Val_Exito.csv").getFile());
+		final DispersionDefinitivaValidator validator = new DispersionDefinitivaValidator(); 
+		final DispersionDefinitivaCSVImporter importer = new DispersionDefinitivaCSVImporter(
+				new ImportTarget<DispersionDefinitiva>() {
+
+					@Override
+					public void setData(List<DispersionDefinitiva> data) {
+						Assert.assertTrue(validator.isValid(data));
+					}
+				});
+		try {
+			importer.importFile(dispersiones);
+		} catch (Exception e) {			
+			e.printStackTrace();
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void validadorImportTXTTest() {
+		final ClassLoader classLoader = getClass().getClassLoader();
+		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_445_Val_Exito.txt").getFile());
+		final DispersionDefinitivaValidator validator = new DispersionDefinitivaValidator();
+		final DispersionDefinitivaTXTImporter importer = new DispersionDefinitivaTXTImporter(
+				new ImportTarget<DispersionDefinitiva>() {
+					@Override
+					public void setData(List<DispersionDefinitiva> data) {
+						Assert.assertTrue(validator.isValid(data));
+					}
+				});
+		try {
+			importer.importFile(dispersiones);
+		} catch (Exception e) {			
+			e.printStackTrace();
+			Assert.fail(e.getMessage());
+		} 
+	}
 }

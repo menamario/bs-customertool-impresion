@@ -14,7 +14,7 @@ import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutModelVali
 
 public class DispersionDefinitivaValidator extends LayoutModelValidator<DispersionDefinitiva> {
 
-	private SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+	private SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHH:mm:ss");
 
 	@Override
 	public boolean isValidField(String fieldName, DispersionDefinitiva model) {
@@ -115,13 +115,16 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 		if (!isEmptyModel(model)) {
 			isValid = model != null && aplicacion().test(model) && concepto().test(model) && email().test(model)
 					&& cuentaAbono().test(model) && cuentaCargo().test(model) && curp().test(model)
-					&& fecha().test(model) && importe().test(model) && iva().test(model)
-					&& nombreBeneficiario().test(model) && numeroTel().test(model) && referencia().test(model)
-					&& rfc().test(model) && tipoCuentaBeneficiario().test(model) && tipoMovimiento().test(model)
-					&& tipoPersona().test(model) && tipoTransaccion().test(model) && divisa().test(model)
-					&& banco().test(model) && comision().test(model) && ivaComision().test(model)
-					&& claveRastreo().test(model) && folio().test(model) && usuario().test(model)
-					&& estado().test(model);
+					&& fecha().test(model) && importe()
+							.test(model)/*
+										 * && iva().test(model) && nombreBeneficiario().test(model) &&
+										 * numeroTel().test(model) && referencia().test(model) && rfc().test(model)&&
+										 * tipoCuentaBeneficiario().test(model) && tipoMovimiento().test(model) &&
+										 * tipoPersona().test(model) && tipoTransaccion().test(model) &&
+										 * divisa().test(model) && banco().test(model) && comision().test(model) &&
+										 * ivaComision().test(model) && claveRastreo().test(model) &&
+										 * folio().test(model) && usuario().test(model) && estado().test(model)
+										 */;
 
 		}
 		return isValid;
@@ -304,7 +307,7 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 	 */
 	public Predicate<DispersionDefinitiva> cuentaCargo() {
 		return v -> {
-			return (StringUtils.isNotBlank(v.getCuentaCargo()) && StringUtils.isNumeric(v.getCuentaCargo())
+			return (StringUtils.isNotBlank(v.getCuentaCargo()) && NumberUtils.isDigits(v.getCuentaCargo())
 					&& v.getCuentaCargo().length() == 11);
 		};
 	}
@@ -381,7 +384,9 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 	 */
 	public Predicate<DispersionDefinitiva> importe() {
 		return v -> {
-			return (StringUtils.isNotBlank(v.getImporte()) && NumberUtils.isCreatable(v.getImporte())
+			System.out.println(v.getImporte());
+			return (StringUtils.isNotBlank(v.getImporte())
+					&& NumberUtils.isCreatable(v.getImporte().replaceFirst("^0+(?!$)", ""))
 					&& Double.valueOf(v.getImporte()) <= 999999999999.99);
 		};
 	}
@@ -392,7 +397,8 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 	public Predicate<DispersionDefinitiva> iva() {
 		return v -> {
 			return (StringUtils.isNotBlank(v.getRfc()) && StringUtils.isNotBlank(v.getIva())
-					&& NumberUtils.isCreatable(v.getIva()) && Double.valueOf(v.getIva()) <= 999999999999.99)
+					&& NumberUtils.isCreatable(v.getIva().replaceFirst("^0+(?!$)", ""))
+					&& Double.valueOf(v.getIva().replaceFirst("^0+(?!$)", "")) <= 999999999999.99)
 					|| StringUtils.isBlank(v.getIva());
 		};
 	}
@@ -412,7 +418,7 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 	public Predicate<DispersionDefinitiva> referencia() {
 		return v -> {
 			return (StringUtils.isNotBlank(v.getReferencia())
-					&& (v.getReferencia().length() == 7 || v.getReferencia().length() == 20));
+					&& (v.getReferencia().length() >= 7 && v.getReferencia().length() <= 20));
 		};
 	}
 
@@ -432,7 +438,7 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 	 */
 	public Predicate<DispersionDefinitiva> numeroTel() {
 		return v -> {
-			return (StringUtils.isNumeric(v.getCuentaCargo()) && v.getCuentaCargo().length() == 10)
+			return (StringUtils.isNumeric(v.getNumeroCelular()) && v.getNumeroCelular().length() == 10)
 					|| StringUtils.isBlank(v.getNumeroCelular());
 		};
 	}
@@ -452,8 +458,14 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 	 */
 	public Predicate<DispersionDefinitiva> comision() {
 		return v -> {
-			return StringUtils.isNotBlank(v.getComision()) && NumberUtils.isCreatable(v.getComision())
-					&& Double.valueOf(v.getComision()) <= 999999999999.99;
+			/*
+			 * return StringUtils.isNotBlank(v.getComision()) &&
+			 * NumberUtils.isCreatable(v.getComision()) && Double.valueOf(v.getComision())
+			 * <= 999999999999.99;
+			 */
+			return StringUtils.isBlank(v.getComision())
+					|| (NumberUtils.isCreatable(v.getComision().replaceFirst("^0+(?!$)", ""))
+							&& Double.valueOf(v.getComision()) <= 999999999999.99);
 		};
 	}
 
@@ -462,8 +474,14 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 	 */
 	public Predicate<DispersionDefinitiva> ivaComision() {
 		return v -> {
-			return StringUtils.isNotBlank(v.getIvaComision()) && NumberUtils.isCreatable(v.getIvaComision())
-					&& Double.valueOf(v.getIvaComision()) <= 999999999999.99;
+			/*
+			 * return StringUtils.isNotBlank(v.getIvaComision()) &&
+			 * NumberUtils.isCreatable(v.getIvaComision()) &&
+			 * Double.valueOf(v.getIvaComision()) <= 999999999999.99;
+			 */
+			return StringUtils.isBlank(v.getIvaComision())
+					|| (NumberUtils.isCreatable(v.getIvaComision().replaceFirst("^0+(?!$)", ""))
+							&& Double.valueOf(v.getIvaComision()) <= 999999999999.99);
 		};
 	}
 
@@ -481,7 +499,7 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 	 */
 	public Predicate<DispersionDefinitiva> folio() {
 		return v -> {
-			return (StringUtils.isNotBlank(v.getFolioOperacion()) && NumberUtils.isCreatable(v.getFolioOperacion())
+			return (StringUtils.isNotBlank(v.getFolioOperacion()) && NumberUtils.isDigits(v.getFolioOperacion())
 					&& v.getFolioOperacion().length() == 21);
 		};
 	}
@@ -491,7 +509,7 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 	 */
 	public Predicate<DispersionDefinitiva> usuario() {
 		return v -> {
-			return (StringUtils.isNotBlank(v.getUsuario()) && v.getUsuario().length() == 10);
+			return (StringUtils.isNotBlank(v.getUsuario()) && v.getUsuario().length() <= 10);
 		};
 	}
 
