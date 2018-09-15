@@ -81,7 +81,6 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 			ct.setPrefWidth(80);
 			ct.setCellFactory(booleanCellFactory);
 			ct.setStyle("-fx-background-color: white");
-			// ct.setCellFactory(column -> new CheckBoxTableCell<>());
 			ct.setCellValueFactory(new PropertyValueFactory<DispersionDefinitiva, Boolean>("comprobante"));
 			ct.setEditable(true);
 			getColumns().add(ct);
@@ -147,6 +146,7 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 			}
 			if (validator != null) {
 				if (validator.isValid(data)) {
+					getItems().clear();
 					getItems().addAll(data);
 				}
 			}

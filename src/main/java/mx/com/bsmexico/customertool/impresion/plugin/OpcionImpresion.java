@@ -36,10 +36,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mx.com.bsmexico.customertool.api.Feature;
 import mx.com.bsmexico.customertool.api.Layout;
 import mx.com.bsmexico.customertool.api.NavRoute;
+import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutValidatorException;
 
 public class OpcionImpresion extends Feature {
 
@@ -236,7 +238,7 @@ public class OpcionImpresion extends Feature {
 
 		Button bGuardar = new Button("Guardar");
 		bGuardar.setStyle(
-				"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
+				"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;-fx-font-weight:bold");
 		bGuardar.setPrefWidth(140);
 		bGuardar.setTextFill(Color.WHITE);
 
@@ -272,6 +274,9 @@ public class OpcionImpresion extends Feature {
 						t.getItems().add(dd);
 
 					}
+				}
+				if (t.getItems().size()==0){
+					t.setPlaceholder(new Label("No se encontraron registros que coincidan con los criterios de busqueda"));
 				}
 				t.refresh();
 
@@ -342,7 +347,8 @@ public class OpcionImpresion extends Feature {
 						stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logoSabadellCircle.png")));
 						stage.setTitle("Impresion de Masiva de Comprobantes - Archivos Generados");
 
-						Label mensaje = new Label("Los archivos fueron generados en el directorio seleccionado");
+						Label mensaje = new Label("Los archivos fueron generados\n en el directorio seleccionado");
+						mensaje.setAlignment(Pos.CENTER);
 						mensaje.setStyle("-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 20px;");
 						mensaje.setTextFill(Color.web("#777777"));
 
@@ -366,7 +372,9 @@ public class OpcionImpresion extends Feature {
 
 						stage.setScene(new Scene(vbox, 512, 275));
 						stage.setResizable(false);
-						stage.show();
+						stage.initOwner(getDesktop().getStage());
+						stage.initModality(Modality.WINDOW_MODAL);
+						stage.showAndWait();
 						
 					}
 				} catch (Exception ex) {
@@ -456,9 +464,10 @@ public class OpcionImpresion extends Feature {
 						vArchivo.setText(file.getName());
 						vRegistros.setText(String.valueOf(t.getItems().size()));
 						vMonto.setText(decimalFormat.format(total));
+						originalList.clear();
 						originalList.addAll(t.getItems());
 						t.refresh();
-					} catch (Exception e1) {
+					} catch (LayoutValidatorException e1) {
 						Stage stage = new Stage();
 
 						Pane canvas = new Pane();
@@ -494,7 +503,12 @@ public class OpcionImpresion extends Feature {
 
 						stage.setScene(new Scene(vbox, 512, 275));
 						stage.setResizable(false);
-						stage.show();
+						stage.initOwner(getDesktop().getStage());
+						stage.initModality(Modality.WINDOW_MODAL);
+						stage.showAndWait();
+
+						e1.printStackTrace();
+					} catch (Exception e1) {
 
 						e1.printStackTrace();
 					}
