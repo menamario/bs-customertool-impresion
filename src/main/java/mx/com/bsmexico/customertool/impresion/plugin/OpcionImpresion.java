@@ -270,7 +270,7 @@ public class OpcionImpresion extends Feature {
 							&& (StringUtils.isEmpty(tfReferencia.getText())
 									|| tfReferencia.getText().equals(dd.getReferencia()))
 							&& (StringUtils.isEmpty(tfBeneficiario.getText())
-									|| dd.getNombre().contains(tfBeneficiario.getText()))) {
+									|| StringUtils.containsIgnoreCase(dd.getNombre(),tfBeneficiario.getText()))) {
 						t.getItems().add(dd);
 
 					}
