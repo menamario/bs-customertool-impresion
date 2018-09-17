@@ -585,4 +585,11 @@ public class OpcionImpresion extends Feature {
 		getDesktop().setWorkArea(mainPane);
 	}
 
+
+
+	@Override
+	public int getOrder() {
+		return 1;
+	}
+
 }
