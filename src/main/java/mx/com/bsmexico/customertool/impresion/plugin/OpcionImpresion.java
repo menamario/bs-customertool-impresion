@@ -304,7 +304,7 @@ public class OpcionImpresion extends Feature {
 
 					final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
 					export.setSingleDocument(true);
-					export.export(new File(currentPath), list, "/img/logoSabadell.jpeg");
+					export.export(new File(currentPath), list, "/img/logoSabadell.png");
 					
 					File folder = new File(currentPath);
 					File[] listOfFiles = folder.listFiles();
@@ -400,7 +400,7 @@ public class OpcionImpresion extends Feature {
 						}
 
 						final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
-						export.export(file, list, "/img/logoSabadell.jpeg");
+						export.export(file, list, "/img/logoSabadell.png");
 						
 						Stage stage = new Stage(StageStyle.UNDECORATED);
 
