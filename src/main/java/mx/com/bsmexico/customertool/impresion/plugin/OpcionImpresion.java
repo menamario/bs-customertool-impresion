@@ -9,8 +9,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.print.PrintService;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.printing.PDFPageable;
@@ -47,6 +45,7 @@ import mx.com.bsmexico.customertool.api.Feature;
 import mx.com.bsmexico.customertool.api.Layout;
 import mx.com.bsmexico.customertool.api.NavRoute;
 import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutValidatorException;
+import mx.com.bsmexico.customertool.api.process.Importer;
 
 public class OpcionImpresion extends Feature {
 
@@ -156,7 +155,7 @@ public class OpcionImpresion extends Feature {
 		Label l = new Label("    Impresion Masiva de Comprobantes    ");
 		l.setTextFill(Color.WHITE);
 		l.setStyle(
-				"-fx-background-color: #e25100;-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px; -fx-border-radius: 0 0 10 10; -fx-background-radius: 0 0 10 10;");
+				"-fx-background-color: #e25100;-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px; -fx-border-radius: 0 0 5 5; -fx-background-radius: 0 0 5 5;");
 		headerBox1.getChildren().add(l);
 
 		headerBox2.getChildren().add(bInstrucciones);
@@ -165,7 +164,7 @@ public class OpcionImpresion extends Feature {
 		HBox.setHgrow(headerBox2, Priority.ALWAYS);
 		headerBox2.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
 		headerBox1.getChildren().add(headerBox2);
-		//headerBox1.setPadding(new Insets(0, 30, 0, 0));
+		// headerBox1.setPadding(new Insets(0, 30, 0, 0));
 
 		HBox hb = new HBox();
 		hb.setSpacing(10);
@@ -174,71 +173,85 @@ public class OpcionImpresion extends Feature {
 		VBox v = new VBox();
 
 		FlowPane fph = new FlowPane();
-		fph.setAlignment(Pos.CENTER_RIGHT);
+		//fph.setAlignment(Pos.CENTER_RIGHT);
 
 		Label lArchivo = new Label("Nombre de archivo:");
 		lArchivo.setTextFill(Color.WHITE);
-		lArchivo.setPrefWidth(150);
+		lArchivo.setPrefWidth(170);
+		lArchivo.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
 		Label vArchivo = new Label();
 		vArchivo.setTextFill(Color.WHITE);
-		vArchivo.setStyle("-fx-font-weight: bold");
-		vArchivo.setPrefWidth(200);
+		vArchivo.setPrefWidth(370);
+		vArchivo.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;-fx-font-weight: bold");
 
 		Label lRegistros = new Label("Cantidad de Registros:");
 		lRegistros.setTextFill(Color.WHITE);
-		lRegistros.setPrefWidth(150);
+		lRegistros.setPrefWidth(200);
+		lRegistros.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
 		Label vRegistros = new Label();
 		vRegistros.setTextFill(Color.WHITE);
-		vRegistros.setStyle("-fx-font-weight: bold");
-		vRegistros.setPrefWidth(50);
+		vRegistros.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;-fx-font-weight: bold");
+		vRegistros.setPrefWidth(100);
 
 		Label lMonto = new Label("Monto Total:");
 		lMonto.setTextFill(Color.WHITE);
 		lMonto.setPrefWidth(150);
+		lMonto.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
 		Label vMonto = new Label();
-		vMonto.setPrefWidth(150);
+		vMonto.setPrefWidth(200);
 		vMonto.setTextFill(Color.WHITE);
-		vMonto.setStyle("-fx-font-weight: bold");
+		vMonto.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;-fx-font-weight: bold");
 		vMonto.setAlignment(Pos.CENTER_RIGHT);
 		fph.getChildren().addAll(lArchivo, vArchivo, lRegistros, vRegistros, lMonto, vMonto);
 
 		v.getChildren().add(fph);
 
 		FlowPane fp = new FlowPane();
-		fp.setAlignment(Pos.CENTER_RIGHT);
+		//fp.setAlignment(Pos.CENTER_RIGHT);
 
 		// fp.setStyle("-fx-background-color: green;");
-		fp.setHgap(26);
+		fp.setHgap(38);
 		fp.setPrefWidth(850);
 
 		TextField tfCuentaCargo = new TextField();
 		tfCuentaCargo.setPromptText("Cuenta de Cargo");
+		tfCuentaCargo.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
+		tfCuentaCargo.setPrefWidth(207);
 		TextField tfCuentaAbono = new TextField();
 		tfCuentaAbono.setPromptText("Cuenta Abono");
+		tfCuentaAbono.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
+		tfCuentaAbono.setPrefWidth(207);
 		TextField tfImporte = new TextField();
 		tfImporte.setPromptText("Importe");
+		tfImporte.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
+		tfImporte.setPrefWidth(207);
 		TextField tfCveRastreo = new TextField();
 		tfCveRastreo.setPromptText("Clave de Rastreo");
+		tfCveRastreo.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
+		tfCveRastreo.setPrefWidth(207);
 		TextField tfReferencia = new TextField();
 		tfReferencia.setPromptText("Referencia");
+		tfReferencia.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
+		tfReferencia.setPrefWidth(207);
 		fp.getChildren().addAll(tfCuentaCargo, tfCuentaAbono, tfImporte, tfCveRastreo, tfReferencia);
 
 		v.getChildren().add(fp);
 		TextField tfBeneficiario = new TextField();
-		tfBeneficiario.setMaxWidth(850);
+		//tfBeneficiario.setMaxWidth(850);
 		tfBeneficiario.setPromptText("Nombre del Beneficiario");
+		tfBeneficiario.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
 
 		v.getChildren().add(tfBeneficiario);
 		v.setAlignment(Pos.CENTER_RIGHT);
 
 		v.setSpacing(10);
-		//v.setPadding(new Insets(0, 25, 0, 0));
+		// v.setPadding(new Insets(0, 25, 0, 0));
 		// v.setStyle("-fx-background-color: blue;");
 
 		hb.setAlignment(Pos.BOTTOM_RIGHT);
 
 		// borderpane.setCenter(hb);
-		
+
 		// borderpane.setStyle("-fx-background-color: red;");
 
 		Button bGuardar = new Button("Guardar");
@@ -253,10 +266,9 @@ public class OpcionImpresion extends Feature {
 		bBuscar.setPrefWidth(140);
 		bBuscar.setTextFill(Color.BLACK);
 
-
 		hb.getChildren().add(bBuscar);
 		hb.getChildren().add(bGuardar);
-		//hb.setPadding(new Insets(0, 25, 0, 0));
+		// hb.setPadding(new Insets(0, 25, 0, 0));
 
 		bBuscar.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -275,13 +287,14 @@ public class OpcionImpresion extends Feature {
 							&& (StringUtils.isEmpty(tfReferencia.getText())
 									|| tfReferencia.getText().equals(dd.getReferencia()))
 							&& (StringUtils.isEmpty(tfBeneficiario.getText())
-									|| StringUtils.containsIgnoreCase(dd.getNombre(),tfBeneficiario.getText()))) {
+									|| StringUtils.containsIgnoreCase(dd.getNombre(), tfBeneficiario.getText()))) {
 						t.getItems().add(dd);
 
 					}
 				}
-				if (t.getItems().size()==0){
-					t.setPlaceholder(new Label("No se encontraron registros que coincidan con los criterios de busqueda"));
+				if (t.getItems().size() == 0) {
+					t.setPlaceholder(
+							new Label("No se encontraron registros que coincidan con los criterios de busqueda"));
 				}
 				t.refresh();
 
@@ -302,36 +315,40 @@ public class OpcionImpresion extends Feature {
 							list.add(dd);
 					}
 
-					final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
-					export.setSingleDocument(true);
-					export.export(new File(currentPath), list, "/img/logoSabadell.png");
-					
-					File folder = new File(currentPath);
-					File[] listOfFiles = folder.listFiles();
+					if (list.size() > 0) {
 
-					File pdfToPrint=null;
-					
-					for (File file : listOfFiles) {
-					    if (file.isFile()) {
-					    	if (file.getName().startsWith("DPTmp")){
-					    		pdfToPrint = file;
-					    		break;
-					    	}
-					        
-					    }
+						final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
+						export.setSingleDocument(true);
+						export.export(new File(currentPath), list, "/img/logoSabadellByn.jpg");
+
+						File folder = new File(currentPath);
+						File[] listOfFiles = folder.listFiles();
+
+						File pdfToPrint = null;
+
+						for (File file : listOfFiles) {
+							if (file.isFile()) {
+								if (file.getName().startsWith("DPTmp")) {
+									pdfToPrint = file;
+									break;
+								}
+
+							}
+						}
+
+						PDDocument document = PDDocument.load(pdfToPrint);
+
+						// PrintService myPrintService = findPrintService("My
+						// Windows printer Name");
+
+						PrinterJob job = PrinterJob.getPrinterJob();
+						if (job.printDialog()) {
+							job.setPageable(new PDFPageable(document));
+							job.print();
+						}
+
+						pdfToPrint.delete();
 					}
-					
-					PDDocument document = PDDocument.load(pdfToPrint);
-
-			        //PrintService myPrintService = findPrintService("My Windows printer Name");
-
-					PrinterJob job = PrinterJob.getPrinterJob(); 
-					if(job.printDialog()){
-						job.setPageable(new PDFPageable(document));
-				        job.print();
-					}
-			        
-					pdfToPrint.delete();
 
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -351,9 +368,8 @@ public class OpcionImpresion extends Feature {
 					mensaje.setTextFill(Color.web("#777777"));
 
 					Button bContinuar = new Button("Continuar");
-					bContinuar.setStyle(
-							"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
-					bContinuar.setPrefWidth(140);
+					bContinuar.setStyle("-fx-font-family: FranklinGothicLT;	-fx-font-size: 12.0px;	-fx-border-radius: 8.0px;	-fx-background-color: #006dff;	-fx-border-width: 1.0px;	-fx-border-color: #979797;	-fx-font-weight:bold;	-fx-background-radius: 8.0px;");
+					bContinuar.setPrefSize(140,40);
 					bContinuar.setTextFill(Color.WHITE);
 
 					bContinuar.setOnMouseClicked(evt -> {
@@ -388,59 +404,60 @@ public class OpcionImpresion extends Feature {
 					DirectoryChooser saveFile = new DirectoryChooser();
 					saveFile.setInitialDirectory(new File(currentPath));
 
-					// Show save file dialog
-					File file = saveFile.showDialog(getDesktop().getStage());
+					List<DispersionDefinitiva> list = new ArrayList<DispersionDefinitiva>();
+					for (DispersionDefinitiva dd : t.getItems()) {
+						if (dd.getComprobante())
+							list.add(dd);
+					}
 
-					if (file != null) {
+					if (list.size() > 0) {
+						// Show save file dialog
+						File file = saveFile.showDialog(getDesktop().getStage());
 
-						List<DispersionDefinitiva> list = new ArrayList<DispersionDefinitiva>();
-						for (DispersionDefinitiva dd : t.getItems()) {
-							if (dd.getComprobante())
-								list.add(dd);
+						if (file != null) {
+
+							final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
+							export.export(file, list, "/img/logoSabadellByn.jpg");
+
+							Stage stage = new Stage(StageStyle.UNDECORATED);
+
+							StackPane canvas = new StackPane();
+							canvas.setPadding(new Insets(10));
+							canvas.setStyle("-fx-background-color:  #a9d42c;");
+							canvas.setPrefSize(512, 50);
+
+							stage.getIcons()
+									.add(new Image(getClass().getResourceAsStream("/img/logoSabadellCircle.png")));
+							stage.setTitle("Impresion de Masiva de Comprobantes - Archivos Generados");
+
+							Label mensaje = new Label("Los archivos fueron generados\n en el directorio seleccionado");
+							mensaje.setAlignment(Pos.CENTER);
+							mensaje.setStyle("-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 20px;");
+							mensaje.setTextFill(Color.web("#777777"));
+
+							Button bContinuar = new Button("Continuar");
+							bContinuar.setStyle("-fx-font-family: FranklinGothicLT;	-fx-font-size: 12.0px;	-fx-border-radius: 8.0px;	-fx-background-color: #006dff;	-fx-border-width: 1.0px;	-fx-border-color: #979797;	-fx-font-weight:bold;	-fx-background-radius: 8.0px;");
+							bContinuar.setPrefSize(140,40);
+							bContinuar.setTextFill(Color.WHITE);
+
+							bContinuar.setOnMouseClicked(evt -> {
+								stage.hide();
+							});
+
+							VBox vbox = new VBox();
+							vbox.setSpacing(50);
+							vbox.setAlignment(Pos.TOP_CENTER);
+							vbox.setPrefSize(512, 275);
+							vbox.getChildren().add(canvas);
+							vbox.getChildren().add(mensaje);
+							vbox.getChildren().add(bContinuar);
+
+							stage.setScene(new Scene(vbox, 512, 275));
+							stage.setResizable(false);
+							stage.initOwner(getDesktop().getStage());
+							stage.initModality(Modality.WINDOW_MODAL);
+							stage.showAndWait();
 						}
-
-						final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
-						export.export(file, list, "/img/logoSabadell.png");
-						
-						Stage stage = new Stage(StageStyle.UNDECORATED);
-
-						StackPane canvas = new StackPane();
-						canvas.setPadding(new Insets(10));
-						canvas.setStyle("-fx-background-color:  #a9d42c;");
-						canvas.setPrefSize(512, 50);
-
-						stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logoSabadellCircle.png")));
-						stage.setTitle("Impresion de Masiva de Comprobantes - Archivos Generados");
-
-						Label mensaje = new Label("Los archivos fueron generados\n en el directorio seleccionado");
-						mensaje.setAlignment(Pos.CENTER);
-						mensaje.setStyle("-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 20px;");
-						mensaje.setTextFill(Color.web("#777777"));
-
-						Button bContinuar = new Button("Continuar");
-						bContinuar.setStyle(
-								"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
-						bContinuar.setPrefWidth(140);
-						bContinuar.setTextFill(Color.WHITE);
-
-						bContinuar.setOnMouseClicked(evt -> {
-							stage.hide();
-						});
-
-						VBox vbox = new VBox();
-						vbox.setSpacing(50);
-						vbox.setAlignment(Pos.TOP_CENTER);
-						vbox.setPrefSize(512, 275);
-						vbox.getChildren().add(canvas);
-						vbox.getChildren().add(mensaje);
-						vbox.getChildren().add(bContinuar);
-
-						stage.setScene(new Scene(vbox, 512, 275));
-						stage.setResizable(false);
-						stage.initOwner(getDesktop().getStage());
-						stage.initModality(Modality.WINDOW_MODAL);
-						stage.showAndWait();
-						
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -471,8 +488,7 @@ public class OpcionImpresion extends Feature {
 				stage.setTitle("Impresion de Masiva de Comprobantes - Instrucciones");
 
 				TextArea textArea = new TextArea();
-				textArea.setText("\n"
-						+ "Falta Definir las instrucciones para la opcion de Impresion de Comprobantes");
+				textArea.setText("\n" + "Falta Definir las instrucciones para la opcion de Impresion de Comprobantes");
 				textArea.setEditable(false);
 				textArea.setWrapText(true);
 
@@ -493,7 +509,7 @@ public class OpcionImpresion extends Feature {
 		});
 
 		VBox vbox = new VBox(headerBox1, v, hb, bImprimir);
-		vbox.setPadding(new Insets(0,25,0,0));
+		vbox.setPadding(new Insets(0, 25, 0, 0));
 		vbox.setAlignment(Pos.CENTER_RIGHT);
 		vbox.setSpacing(10);
 
@@ -514,9 +530,15 @@ public class OpcionImpresion extends Feature {
 				fileChooser.setInitialDirectory(new File(currentPath));
 				File file = fileChooser.showOpenDialog(getDesktop().getStage());
 				if (file != null) {
-					DispersionDefinitivaCSVImporter benImporter = new DispersionDefinitivaCSVImporter(t);
+					Importer ddImporter = null;
+					if (file.getName().toUpperCase().endsWith("CSV")){
+						ddImporter = new DispersionDefinitivaCSVImporter(t);
+					}else{
+						ddImporter = new DispersionDefinitivaTXTImporter(t);
+					}
+					 
 					try {
-						benImporter.importFile(file);
+						ddImporter.importFile(file);
 
 						double total = 0.0;
 						for (DispersionDefinitiva dd : t.getItems()) {
@@ -548,9 +570,8 @@ public class OpcionImpresion extends Feature {
 						mensaje.setTextFill(Color.web("#777777"));
 
 						Button bContinuar = new Button("Continuar");
-						bContinuar.setStyle(
-								"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
-						bContinuar.setPrefWidth(140);
+						bContinuar.setStyle("-fx-font-family: FranklinGothicLT;	-fx-font-size: 12.0px;	-fx-border-radius: 8.0px;	-fx-background-color: #006dff;	-fx-border-width: 1.0px;	-fx-border-color: #979797;	-fx-font-weight:bold;	-fx-background-radius: 8.0px;");
+						bContinuar.setPrefSize(140,40);
 						bContinuar.setTextFill(Color.WHITE);
 
 						bContinuar.setOnMouseClicked(evt -> {
@@ -583,6 +604,11 @@ public class OpcionImpresion extends Feature {
 		});
 
 		getDesktop().setWorkArea(mainPane);
+	}
+
+	@Override
+	public int getOrder() {
+		return 1;
 	}
 
 }

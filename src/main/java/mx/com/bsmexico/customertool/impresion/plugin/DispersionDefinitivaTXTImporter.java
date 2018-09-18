@@ -1,6 +1,7 @@
 package mx.com.bsmexico.customertool.impresion.plugin;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import mx.com.bsmexico.customertool.api.process.RecordPosition;
 public class DispersionDefinitivaTXTImporter extends FixPositionImporter<DispersionDefinitiva> {
 
 	private String cliente;
+	String pattern = "############.00";
+	DecimalFormat decimalFormat = new DecimalFormat(pattern);
 
 	public DispersionDefinitivaTXTImporter(ImportTarget<DispersionDefinitiva> target) throws IllegalArgumentException {
 		super(target);
@@ -47,14 +50,10 @@ public class DispersionDefinitivaTXTImporter extends FixPositionImporter<Dispers
 				dispersion.setRfc(record.get(11));
 				dispersion.setCurp(record.get(12));
 				dispersion.setDivisa(record.get(13));
-				dispersion.setImporte(
-						(record.get(14) == null) ? StringUtils.EMPTY : record.get(14).replaceFirst("^0+(?!$)", ""));
-				dispersion.setIva(
-						(record.get(15) == null) ? StringUtils.EMPTY : record.get(15).replaceFirst("^0+(?!$)", ""));
-				dispersion.setComision(
-						(record.get(16) == null) ? StringUtils.EMPTY : record.get(16).replaceFirst("^0+(?!$)", ""));
-				dispersion.setIvaComision(
-						(record.get(17) == null) ? StringUtils.EMPTY : record.get(17).replaceFirst("^0+(?!$)", ""));
+				dispersion.setImporte(StringUtils.isNotEmpty(record.get(14))?decimalFormat.format(Double.parseDouble(record.get(14))):"");
+				dispersion.setIva(StringUtils.isNotEmpty(record.get(15))?decimalFormat.format(Double.parseDouble(record.get(15))):"");
+				dispersion.setComision(StringUtils.isNotEmpty(record.get(16))?decimalFormat.format(Double.parseDouble(record.get(16))):"");
+				dispersion.setIvaComision(StringUtils.isNotEmpty(record.get(17))?decimalFormat.format(Double.parseDouble(record.get(17))):"");
 				dispersion.setConcepto(record.get(18));
 				dispersion.setReferencia(record.get(19));
 				dispersion.setCorreoElectronico(record.get(20));
