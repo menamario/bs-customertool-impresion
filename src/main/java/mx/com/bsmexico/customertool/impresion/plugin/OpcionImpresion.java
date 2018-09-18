@@ -155,7 +155,7 @@ public class OpcionImpresion extends Feature {
 		Label l = new Label("    Impresion Masiva de Comprobantes    ");
 		l.setTextFill(Color.WHITE);
 		l.setStyle(
-				"-fx-background-color: #e25100;-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px; -fx-border-radius: 0 0 10 10; -fx-background-radius: 0 0 10 10;");
+				"-fx-background-color: #e25100;-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px; -fx-border-radius: 0 0 5 5; -fx-background-radius: 0 0 5 5;");
 		headerBox1.getChildren().add(l);
 
 		headerBox2.getChildren().add(bInstrucciones);
@@ -173,59 +173,73 @@ public class OpcionImpresion extends Feature {
 		VBox v = new VBox();
 
 		FlowPane fph = new FlowPane();
-		fph.setAlignment(Pos.CENTER_RIGHT);
+		//fph.setAlignment(Pos.CENTER_RIGHT);
 
 		Label lArchivo = new Label("Nombre de archivo:");
 		lArchivo.setTextFill(Color.WHITE);
-		lArchivo.setPrefWidth(150);
+		lArchivo.setPrefWidth(170);
+		lArchivo.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
 		Label vArchivo = new Label();
 		vArchivo.setTextFill(Color.WHITE);
-		vArchivo.setStyle("-fx-font-weight: bold");
-		vArchivo.setPrefWidth(200);
+		vArchivo.setPrefWidth(370);
+		vArchivo.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;-fx-font-weight: bold");
 
 		Label lRegistros = new Label("Cantidad de Registros:");
 		lRegistros.setTextFill(Color.WHITE);
-		lRegistros.setPrefWidth(150);
+		lRegistros.setPrefWidth(200);
+		lRegistros.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
 		Label vRegistros = new Label();
 		vRegistros.setTextFill(Color.WHITE);
-		vRegistros.setStyle("-fx-font-weight: bold");
-		vRegistros.setPrefWidth(50);
+		vRegistros.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;-fx-font-weight: bold");
+		vRegistros.setPrefWidth(100);
 
 		Label lMonto = new Label("Monto Total:");
 		lMonto.setTextFill(Color.WHITE);
 		lMonto.setPrefWidth(150);
+		lMonto.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
 		Label vMonto = new Label();
-		vMonto.setPrefWidth(150);
+		vMonto.setPrefWidth(200);
 		vMonto.setTextFill(Color.WHITE);
-		vMonto.setStyle("-fx-font-weight: bold");
+		vMonto.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;-fx-font-weight: bold");
 		vMonto.setAlignment(Pos.CENTER_RIGHT);
 		fph.getChildren().addAll(lArchivo, vArchivo, lRegistros, vRegistros, lMonto, vMonto);
 
 		v.getChildren().add(fph);
 
 		FlowPane fp = new FlowPane();
-		fp.setAlignment(Pos.CENTER_RIGHT);
+		//fp.setAlignment(Pos.CENTER_RIGHT);
 
 		// fp.setStyle("-fx-background-color: green;");
-		fp.setHgap(26);
+		fp.setHgap(38);
 		fp.setPrefWidth(850);
 
 		TextField tfCuentaCargo = new TextField();
 		tfCuentaCargo.setPromptText("Cuenta de Cargo");
+		tfCuentaCargo.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
+		tfCuentaCargo.setPrefWidth(207);
 		TextField tfCuentaAbono = new TextField();
 		tfCuentaAbono.setPromptText("Cuenta Abono");
+		tfCuentaAbono.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
+		tfCuentaAbono.setPrefWidth(207);
 		TextField tfImporte = new TextField();
 		tfImporte.setPromptText("Importe");
+		tfImporte.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
+		tfImporte.setPrefWidth(207);
 		TextField tfCveRastreo = new TextField();
 		tfCveRastreo.setPromptText("Clave de Rastreo");
+		tfCveRastreo.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
+		tfCveRastreo.setPrefWidth(207);
 		TextField tfReferencia = new TextField();
 		tfReferencia.setPromptText("Referencia");
+		tfReferencia.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
+		tfReferencia.setPrefWidth(207);
 		fp.getChildren().addAll(tfCuentaCargo, tfCuentaAbono, tfImporte, tfCveRastreo, tfReferencia);
 
 		v.getChildren().add(fp);
 		TextField tfBeneficiario = new TextField();
-		tfBeneficiario.setMaxWidth(850);
+		//tfBeneficiario.setMaxWidth(850);
 		tfBeneficiario.setPromptText("Nombre del Beneficiario");
+		tfBeneficiario.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
 
 		v.getChildren().add(tfBeneficiario);
 		v.setAlignment(Pos.CENTER_RIGHT);
@@ -305,7 +319,7 @@ public class OpcionImpresion extends Feature {
 
 						final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
 						export.setSingleDocument(true);
-						export.export(new File(currentPath), list, "/img/logoSabadell.png");
+						export.export(new File(currentPath), list, "/img/logoSabadellByn.jpg");
 
 						File folder = new File(currentPath);
 						File[] listOfFiles = folder.listFiles();
@@ -354,9 +368,8 @@ public class OpcionImpresion extends Feature {
 					mensaje.setTextFill(Color.web("#777777"));
 
 					Button bContinuar = new Button("Continuar");
-					bContinuar.setStyle(
-							"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
-					bContinuar.setPrefWidth(140);
+					bContinuar.setStyle("-fx-font-family: FranklinGothicLT;	-fx-font-size: 12.0px;	-fx-border-radius: 8.0px;	-fx-background-color: #006dff;	-fx-border-width: 1.0px;	-fx-border-color: #979797;	-fx-font-weight:bold;	-fx-background-radius: 8.0px;");
+					bContinuar.setPrefSize(140,40);
 					bContinuar.setTextFill(Color.WHITE);
 
 					bContinuar.setOnMouseClicked(evt -> {
@@ -404,7 +417,7 @@ public class OpcionImpresion extends Feature {
 						if (file != null) {
 
 							final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
-							export.export(file, list, "/img/logoSabadell.png");
+							export.export(file, list, "/img/logoSabadellByn.jpg");
 
 							Stage stage = new Stage(StageStyle.UNDECORATED);
 
@@ -423,9 +436,8 @@ public class OpcionImpresion extends Feature {
 							mensaje.setTextFill(Color.web("#777777"));
 
 							Button bContinuar = new Button("Continuar");
-							bContinuar.setStyle(
-									"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
-							bContinuar.setPrefWidth(140);
+							bContinuar.setStyle("-fx-font-family: FranklinGothicLT;	-fx-font-size: 12.0px;	-fx-border-radius: 8.0px;	-fx-background-color: #006dff;	-fx-border-width: 1.0px;	-fx-border-color: #979797;	-fx-font-weight:bold;	-fx-background-radius: 8.0px;");
+							bContinuar.setPrefSize(140,40);
 							bContinuar.setTextFill(Color.WHITE);
 
 							bContinuar.setOnMouseClicked(evt -> {
@@ -558,9 +570,8 @@ public class OpcionImpresion extends Feature {
 						mensaje.setTextFill(Color.web("#777777"));
 
 						Button bContinuar = new Button("Continuar");
-						bContinuar.setStyle(
-								"-fx-background-color: #006dff;  -fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 15px;");
-						bContinuar.setPrefWidth(140);
+						bContinuar.setStyle("-fx-font-family: FranklinGothicLT;	-fx-font-size: 12.0px;	-fx-border-radius: 8.0px;	-fx-background-color: #006dff;	-fx-border-width: 1.0px;	-fx-border-color: #979797;	-fx-font-weight:bold;	-fx-background-radius: 8.0px;");
+						bContinuar.setPrefSize(140,40);
 						bContinuar.setTextFill(Color.WHITE);
 
 						bContinuar.setOnMouseClicked(evt -> {
