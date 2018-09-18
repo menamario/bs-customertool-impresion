@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComprobanteDispersionPago" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6559e8e4-15a0-4daf-9f83-8853d0c0eef4">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="310"/>
+	<property name="ireport.y" value="124"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -422,7 +422,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cuentaAbono}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="###0.00" isBlankWhenNull="true">
 				<reportElement x="234" y="206" width="296" height="25" uuid="5bb7645d-ea24-46f2-ba06-bb5c4cadac5c"/>
 				<box>
 					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
@@ -434,7 +434,7 @@
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{importe}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{importe} == null || "".equals($F{importe})) ? 0.00D : new Double($F{importe})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="234" y="231" width="296" height="25" uuid="04253acc-95ee-4d55-b34a-864d9fabc5b6"/>
@@ -450,7 +450,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{divisa}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="###0.00" isBlankWhenNull="true">
 				<reportElement x="234" y="256" width="296" height="25" uuid="5abd11f4-5701-43be-9c8c-103516771ab5"/>
 				<box>
 					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
@@ -462,9 +462,9 @@
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{iva}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{iva} == null || "".equals($F{iva})) ? 0.00D : new Double($F{iva})]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="###0.00" isBlankWhenNull="true">
 				<reportElement x="234" y="281" width="296" height="25" uuid="7001d535-dbf0-4018-88e1-359ca3362e98"/>
 				<box>
 					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
@@ -476,9 +476,9 @@
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{comision}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{comision} == null || "".equals($F{comision})) ? 0.00D : new Double($F{comision})]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="###0.00" isBlankWhenNull="true">
 				<reportElement x="234" y="306" width="296" height="25" uuid="2b88b1ce-4c98-43a5-bfbb-e30cd202e652"/>
 				<box>
 					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
@@ -490,7 +490,7 @@
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ivaComision}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{ivaComision} == null || "".equals($F{ivaComision})) ? 0.00D : new Double($F{ivaComision})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="234" y="331" width="296" height="25" uuid="5686a399-841a-45bc-9e8f-27c1c34887ea"/>
@@ -643,6 +643,24 @@ http://www.banxico.org.mx, así como el Comprobante Electrónico de Pago CEP.
 Banca Sabadell S.A. Institución de Banca Múltiple. Av. Miguel de Cervantes Saavedra 193. Piso 15. C.P.11520.
 Ciudad deMéxico]]></text>
 			</staticText>
+			<line>
+				<reportElement mode="Opaque" x="67" y="31" width="463" height="1" forecolor="#4E86D6" backcolor="#FFFFFF" uuid="cf3ff7df-994b-434c-94d8-a15a4e965254"/>
+				<graphicElement fill="Solid">
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="67" y="205" width="463" height="1" forecolor="#4E86D6" uuid="e31261ae-1b0d-42dc-b8c8-93cd71393bc2"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement mode="Opaque" x="66" y="106" width="463" height="1" forecolor="#4E86D6" backcolor="#FFFFFF" uuid="32c1d7eb-320f-4521-b7f3-816e5ac141f3"/>
+				<graphicElement fill="Solid">
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
 		</band>
 	</detail>
 	<columnFooter>

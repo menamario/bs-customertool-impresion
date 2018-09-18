@@ -45,7 +45,7 @@ public class ReportTest {
 			file.createNewFile();
 			final ContextReport context = new ContextReport();
 			context.addParameter("cliente", "TEST");
-			final File logo = new File(classLoader.getResource("logoSabadell.png").getFile());
+			final File logo = new File(classLoader.getResource("logoSabadellByn.jpg").getFile());
 			final FileInputStream imgStream = new FileInputStream(logo);
 			context.addImageParameter("logo", imgStream);
 			ReportGenerator.generateFromCompiledReport("reports/ComprobanteDispersionPago.jasper", context,
@@ -80,7 +80,7 @@ public class ReportTest {
 			final File directory = new File("/home/jchr/Desktop/temp");
 			//final File logo = new File(classLoader.getResource("logoSabadell.jpeg").getFile());			
 			final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
-			export.export(directory, dataReport, "logoSabadell.png");
+			export.export(directory, dataReport, "logoSabadellByn.jpg");
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
