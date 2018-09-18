@@ -47,10 +47,14 @@ public class DispersionDefinitivaTXTImporter extends FixPositionImporter<Dispers
 				dispersion.setRfc(record.get(11));
 				dispersion.setCurp(record.get(12));
 				dispersion.setDivisa(record.get(13));
-				dispersion.setImporte(record.get(14));
-				dispersion.setIva(record.get(15));
-				dispersion.setComision(record.get(16));
-				dispersion.setIvaComision(record.get(17));
+				dispersion.setImporte(
+						(record.get(14) == null) ? StringUtils.EMPTY : record.get(14).replaceFirst("^0+(?!$)", ""));
+				dispersion.setIva(
+						(record.get(15) == null) ? StringUtils.EMPTY : record.get(15).replaceFirst("^0+(?!$)", ""));
+				dispersion.setComision(
+						(record.get(16) == null) ? StringUtils.EMPTY : record.get(16).replaceFirst("^0+(?!$)", ""));
+				dispersion.setIvaComision(
+						(record.get(17) == null) ? StringUtils.EMPTY : record.get(17).replaceFirst("^0+(?!$)", ""));
 				dispersion.setConcepto(record.get(18));
 				dispersion.setReferencia(record.get(19));
 				dispersion.setCorreoElectronico(record.get(20));
@@ -72,32 +76,6 @@ public class DispersionDefinitivaTXTImporter extends FixPositionImporter<Dispers
 	@Override
 	protected List<RecordPosition> getFixPositions() {
 		List<RecordPosition> positions = new ArrayList<>();
-		/*positions.add(new RecordPosition(0, 2));
-		positions.add(new RecordPosition(2, 3));
-		positions.add(new RecordPosition(3, 4));
-		positions.add(new RecordPosition(4, 20));
-		positions.add(new RecordPosition(20, 22));
-		positions.add(new RecordPosition(22, 34));
-		positions.add(new RecordPosition(34, 36));
-		positions.add(new RecordPosition(36, 54));
-		positions.add(new RecordPosition(54, 84));
-		positions.add(new RecordPosition(84, 86));
-		positions.add(new RecordPosition(86, 126));
-		positions.add(new RecordPosition(126, 139));
-		positions.add(new RecordPosition(139, 157));
-		positions.add(new RecordPosition(157, 160));
-		positions.add(new RecordPosition(160, 175));
-		positions.add(new RecordPosition(175, 190));
-		positions.add(new RecordPosition(190, 205));
-		positions.add(new RecordPosition(205, 220));
-		positions.add(new RecordPosition(220, 260));
-		positions.add(new RecordPosition(260, 280));
-		positions.add(new RecordPosition(280, 340));
-		positions.add(new RecordPosition(340, 350));
-		positions.add(new RecordPosition(350, 368));
-		positions.add(new RecordPosition(368, 389));
-		positions.add(new RecordPosition(389, 399));
-		positions.add(new RecordPosition(399, 428));*/
 		positions.add(new RecordPosition(0, 2));
 		positions.add(new RecordPosition(2, 3));
 		positions.add(new RecordPosition(3, 4));

@@ -85,8 +85,8 @@ public class ExporImportTest {
 						Assert.assertTrue("MAJO760113T85".equals(data.get(0).getRfc()));
 						Assert.assertTrue("MAJO760114MNERSL01".equals((data.get(0).getCurp())));
 						Assert.assertTrue("MXN".equals(data.get(0).getDivisa()));
-						Assert.assertTrue("000000025000.10".equals(data.get(0).getImporte()));
-						Assert.assertTrue("000000000001.16".equals((data.get(0).getIva())));
+						Assert.assertTrue("25000.10".equals(data.get(0).getImporte()));
+						Assert.assertTrue("1.16".equals((data.get(0).getIva())));
 						Assert.assertTrue(StringUtils.isBlank((data.get(0).getComision())));
 						Assert.assertTrue(StringUtils.isBlank((data.get(0).getIvaComision())));
 						Assert.assertTrue("PAGO A CUENTA TERCERO".equals(data.get(0).getConcepto()));
