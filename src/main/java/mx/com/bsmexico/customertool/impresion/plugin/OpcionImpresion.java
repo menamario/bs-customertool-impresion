@@ -51,6 +51,9 @@ public class OpcionImpresion extends Feature {
 
 	DispersionDefinitivaTable t = null;
 	List<DispersionDefinitiva> originalList = new ArrayList<DispersionDefinitiva>();
+	Button bCerrar = new Button();
+	ImageView error = new ImageView();
+	ImageView check = new ImageView();
 
 	private InputStream getImageInput(final String file) throws FileNotFoundException {
 		final InputStream input = getClass().getResourceAsStream(file);
@@ -93,9 +96,19 @@ public class OpcionImpresion extends Feature {
 		ImageView importarArchivo = null;
 		ImageView instrucciones = null;
 		ImageView impresion = null;
+		ImageView cerrar = null;
 
 		try {
+			error = new ImageView(new Image(this.getImageInput("/img/error.png")));
+			error.setPreserveRatio(true);
+			error.setFitWidth(66);
+			check = new ImageView(new Image(this.getImageInput("/img/check.png")));
+			check.setPreserveRatio(true);
+			check.setFitWidth(66);
 			atras = new ImageView(new Image(this.getImageInput("/img/atras.png")));
+			cerrar = new ImageView(new Image(this.getImageInput("/img/close.png")));
+			cerrar.setPreserveRatio(true);
+			cerrar.setFitWidth(25);
 			importarArchivo = new ImageView(new Image(this.getImageInput("/img/importarImpresion.png")));
 			importarArchivo.setPreserveRatio(true);
 			importarArchivo.setFitWidth(70);
@@ -115,6 +128,9 @@ public class OpcionImpresion extends Feature {
 		Button bInstrucciones = new Button();
 		Button bImportarArchivo = new Button();
 		Button bImprimir = new Button();
+
+		bCerrar.setGraphic(cerrar);
+		bCerrar.setStyle("-fx-background-color: transparent;");
 
 		bAtras.setGraphic(atras);
 		bAtras.setStyle("-fx-background-color: transparent;");
@@ -155,7 +171,7 @@ public class OpcionImpresion extends Feature {
 		Label l = new Label("    Impresion Masiva de Comprobantes    ");
 		l.setTextFill(Color.WHITE);
 		l.setStyle(
-				"-fx-background-color: #e25100;-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px; -fx-border-radius: 0 0 5 5; -fx-background-radius: 0 0 5 5;");
+				"-fx-background-color: #e25100;-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px; -fx-border-radius: 0 0 5 5; -fx-background-radius: 0 0 4 4;");
 		headerBox1.getChildren().add(l);
 
 		headerBox2.getChildren().add(bInstrucciones);
@@ -319,7 +335,7 @@ public class OpcionImpresion extends Feature {
 
 						final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
 						export.setSingleDocument(true);
-						export.export(new File(currentPath), list, "/img/logoSabadellByn.jpg");
+						export.export(new File(currentPath), list, "/img/logoSabadellByn.png");
 
 						File folder = new File(currentPath);
 						File[] listOfFiles = folder.listFiles();
@@ -355,9 +371,16 @@ public class OpcionImpresion extends Feature {
 					Stage stage = new Stage(StageStyle.UNDECORATED);
 
 					StackPane canvas = new StackPane();
-					canvas.setPadding(new Insets(10));
+					canvas.setPadding(new Insets(5));
 					canvas.setStyle("-fx-background-color:  #e90e5c;");
-					canvas.setPrefSize(512, 50);
+					canvas.setPrefSize(512, 54);
+					
+					canvas.getChildren().add(bCerrar);
+					StackPane.setAlignment(bCerrar, Pos.TOP_RIGHT);
+
+					bCerrar.setOnMouseClicked(ev -> {
+						stage.hide();
+					});
 
 					stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logoSabadellCircle.png")));
 					stage.setTitle("Impresion de Masiva de Comprobantes - Impresion");
@@ -379,12 +402,14 @@ public class OpcionImpresion extends Feature {
 					VBox vbox = new VBox();
 					vbox.setSpacing(50);
 					vbox.setAlignment(Pos.TOP_CENTER);
-					vbox.setPrefSize(512, 275);
+					vbox.setPrefSize(512, 345);
 					vbox.getChildren().add(canvas);
+					vbox.getChildren().add(error);
+					mensaje.setPadding(new Insets(0,0,35,0));
 					vbox.getChildren().add(mensaje);
 					vbox.getChildren().add(bContinuar);
 
-					stage.setScene(new Scene(vbox, 512, 275));
+					stage.setScene(new Scene(vbox, 512, 345));
 					stage.setResizable(false);
 					stage.initOwner(getDesktop().getStage());
 					stage.initModality(Modality.WINDOW_MODAL);
@@ -417,14 +442,21 @@ public class OpcionImpresion extends Feature {
 						if (file != null) {
 
 							final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
-							export.export(file, list, "/img/logoSabadellByn.jpg");
+							export.export(file, list, "/img/logoSabadellByn.png");
 
 							Stage stage = new Stage(StageStyle.UNDECORATED);
 
 							StackPane canvas = new StackPane();
-							canvas.setPadding(new Insets(10));
+							canvas.setPadding(new Insets(5));
 							canvas.setStyle("-fx-background-color:  #a9d42c;");
-							canvas.setPrefSize(512, 50);
+							canvas.setPrefSize(512, 54);
+							
+							canvas.getChildren().add(bCerrar);
+							StackPane.setAlignment(bCerrar, Pos.TOP_RIGHT);
+
+							bCerrar.setOnMouseClicked(ev -> {
+								stage.hide();
+							});
 
 							stage.getIcons()
 									.add(new Image(getClass().getResourceAsStream("/img/logoSabadellCircle.png")));
@@ -445,14 +477,16 @@ public class OpcionImpresion extends Feature {
 							});
 
 							VBox vbox = new VBox();
-							vbox.setSpacing(50);
+							vbox.setSpacing(25);
 							vbox.setAlignment(Pos.TOP_CENTER);
-							vbox.setPrefSize(512, 275);
+							vbox.setPrefSize(512, 345);
 							vbox.getChildren().add(canvas);
+							vbox.getChildren().add(check);
+							mensaje.setPadding(new Insets(0,0,35,0));
 							vbox.getChildren().add(mensaje);
 							vbox.getChildren().add(bContinuar);
 
-							stage.setScene(new Scene(vbox, 512, 275));
+							stage.setScene(new Scene(vbox, 512, 345));
 							stage.setResizable(false);
 							stage.initOwner(getDesktop().getStage());
 							stage.initModality(Modality.WINDOW_MODAL);
@@ -471,9 +505,16 @@ public class OpcionImpresion extends Feature {
 				Stage stage = new Stage();
 
 				StackPane canvas = new StackPane();
-				canvas.setPadding(new Insets(10));
+				canvas.setPadding(new Insets(5));
 				canvas.setStyle("-fx-background-color: #239d45;");
 				canvas.setPrefSize(800, 60);
+				
+				canvas.getChildren().add(bCerrar);
+				StackPane.setAlignment(bCerrar, Pos.TOP_RIGHT);
+
+				bCerrar.setOnMouseClicked(ev -> {
+					stage.hide();
+				});
 
 				Label instruccionesLabel = new Label(
 						"Falta Definir las instrucciones para la opcion de Impresion de Comprobantes");
@@ -558,9 +599,16 @@ public class OpcionImpresion extends Feature {
 						Stage stage = new Stage(StageStyle.UNDECORATED);
 
 						Pane canvas = new Pane();
-						canvas.setPadding(new Insets(10));
+						canvas.setPadding(new Insets(5));
 						canvas.setStyle("-fx-background-color:  #e90e5c;");
-						canvas.setPrefSize(512, 50);
+						canvas.setPrefSize(512, 54);
+						
+						canvas.getChildren().add(bCerrar);
+						StackPane.setAlignment(bCerrar, Pos.TOP_RIGHT);
+
+						bCerrar.setOnMouseClicked(ev -> {
+							stage.hide();
+						});
 
 						stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logoSabadellCircle.png")));
 						stage.setTitle("Impresion masiva de comprobantes - Formato de Archivo Incorrecto");
@@ -579,15 +627,17 @@ public class OpcionImpresion extends Feature {
 						});
 
 						VBox vbox = new VBox();
-						vbox.setSpacing(50);
+						vbox.setSpacing(25);
 						vbox.setAlignment(Pos.TOP_CENTER);
-						vbox.setPrefSize(512, 275);
+						vbox.setPrefSize(512, 345);
 						// VBox.setVgrow(vbox, Priority.ALWAYS);
 						vbox.getChildren().add(canvas);
+						vbox.getChildren().add(error);
+						mensaje.setPadding(new Insets(0,0,35,0));
 						vbox.getChildren().add(mensaje);
 						vbox.getChildren().add(bContinuar);
 
-						stage.setScene(new Scene(vbox, 512, 275));
+						stage.setScene(new Scene(vbox, 512, 345));
 						stage.setResizable(false);
 						stage.initOwner(getDesktop().getStage());
 						stage.initModality(Modality.WINDOW_MODAL);
