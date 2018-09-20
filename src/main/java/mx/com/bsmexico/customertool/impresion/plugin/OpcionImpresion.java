@@ -22,11 +22,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -189,7 +195,7 @@ public class OpcionImpresion extends Feature {
 		VBox v = new VBox();
 
 		FlowPane fph = new FlowPane();
-		//fph.setAlignment(Pos.CENTER_RIGHT);
+		// fph.setAlignment(Pos.CENTER_RIGHT);
 
 		Label lArchivo = new Label("Nombre de archivo:");
 		lArchivo.setTextFill(Color.WHITE);
@@ -207,7 +213,7 @@ public class OpcionImpresion extends Feature {
 		Label vRegistros = new Label();
 		vRegistros.setTextFill(Color.WHITE);
 		vRegistros.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;-fx-font-weight: bold");
-		vRegistros.setPrefWidth(100);
+		vRegistros.setPrefWidth(50);
 
 		Label lMonto = new Label("Monto Total:");
 		lMonto.setTextFill(Color.WHITE);
@@ -223,37 +229,37 @@ public class OpcionImpresion extends Feature {
 		v.getChildren().add(fph);
 
 		FlowPane fp = new FlowPane();
-		//fp.setAlignment(Pos.CENTER_RIGHT);
+		// fp.setAlignment(Pos.CENTER_RIGHT);
 
 		// fp.setStyle("-fx-background-color: green;");
-		fp.setHgap(38);
+		fp.hgapProperty().bind(fp.widthProperty().multiply(0.07).multiply(0.25));
 		fp.setPrefWidth(850);
 
 		TextField tfCuentaCargo = new TextField();
 		tfCuentaCargo.setPromptText("Cuenta de Cargo");
 		tfCuentaCargo.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
-		tfCuentaCargo.setPrefWidth(207);
+		tfCuentaCargo.prefWidthProperty().bind(fp.widthProperty().add(-80).divide(5));
 		TextField tfCuentaAbono = new TextField();
 		tfCuentaAbono.setPromptText("Cuenta Abono");
 		tfCuentaAbono.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
-		tfCuentaAbono.setPrefWidth(207);
+		tfCuentaAbono.prefWidthProperty().bind(fp.widthProperty().add(-80).divide(5));
 		TextField tfImporte = new TextField();
 		tfImporte.setPromptText("Importe");
 		tfImporte.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
-		tfImporte.setPrefWidth(207);
+		tfImporte.prefWidthProperty().bind(fp.widthProperty().add(-80).divide(5));
 		TextField tfCveRastreo = new TextField();
 		tfCveRastreo.setPromptText("Clave de Rastreo");
 		tfCveRastreo.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
-		tfCveRastreo.setPrefWidth(207);
+		tfCveRastreo.prefWidthProperty().bind(fp.widthProperty().add(-80).divide(5));
 		TextField tfReferencia = new TextField();
 		tfReferencia.setPromptText("Referencia");
 		tfReferencia.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
-		tfReferencia.setPrefWidth(207);
+		tfReferencia.prefWidthProperty().bind(fp.widthProperty().add(-80).multiply(0.2).add(-2));
 		fp.getChildren().addAll(tfCuentaCargo, tfCuentaAbono, tfImporte, tfCveRastreo, tfReferencia);
 
 		v.getChildren().add(fp);
 		TextField tfBeneficiario = new TextField();
-		//tfBeneficiario.setMaxWidth(850);
+		tfBeneficiario.prefWidthProperty().bind(fp.widthProperty());
 		tfBeneficiario.setPromptText("Nombre del Beneficiario");
 		tfBeneficiario.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
 
@@ -368,13 +374,14 @@ public class OpcionImpresion extends Feature {
 
 				} catch (Exception ex) {
 					ex.printStackTrace();
+					getDesktop().opacar();
 					Stage stage = new Stage(StageStyle.UNDECORATED);
 
 					StackPane canvas = new StackPane();
 					canvas.setPadding(new Insets(5));
 					canvas.setStyle("-fx-background-color:  #e90e5c;");
 					canvas.setPrefSize(512, 54);
-					
+
 					canvas.getChildren().add(bCerrar);
 					StackPane.setAlignment(bCerrar, Pos.TOP_RIGHT);
 
@@ -391,8 +398,9 @@ public class OpcionImpresion extends Feature {
 					mensaje.setTextFill(Color.web("#777777"));
 
 					Button bContinuar = new Button("Continuar");
-					bContinuar.setStyle("-fx-font-family: FranklinGothicLT;	-fx-font-size: 12.0px;	-fx-border-radius: 8.0px;	-fx-background-color: #006dff;	-fx-border-width: 1.0px;	-fx-border-color: #979797;	-fx-font-weight:bold;	-fx-background-radius: 8.0px;");
-					bContinuar.setPrefSize(140,40);
+					bContinuar.setStyle(
+							"-fx-font-family: FranklinGothicLT;	-fx-font-size: 12.0px;	-fx-border-radius: 8.0px;	-fx-background-color: #006dff;	-fx-border-width: 1.0px;	-fx-border-color: #979797;	-fx-font-weight:bold;	-fx-background-radius: 8.0px;");
+					bContinuar.setPrefSize(140, 40);
 					bContinuar.setTextFill(Color.WHITE);
 
 					bContinuar.setOnMouseClicked(evt -> {
@@ -405,7 +413,7 @@ public class OpcionImpresion extends Feature {
 					vbox.setPrefSize(512, 345);
 					vbox.getChildren().add(canvas);
 					vbox.getChildren().add(error);
-					mensaje.setPadding(new Insets(0,0,35,0));
+					mensaje.setPadding(new Insets(0, 0, 35, 0));
 					vbox.getChildren().add(mensaje);
 					vbox.getChildren().add(bContinuar);
 
@@ -413,7 +421,15 @@ public class OpcionImpresion extends Feature {
 					stage.setResizable(false);
 					stage.initOwner(getDesktop().getStage());
 					stage.initModality(Modality.WINDOW_MODAL);
+					stage.setX(getDesktop().getStage().getX()+((getDesktop().getStage().getWidth()-512)/2));
+					stage.setY(getDesktop().getStage().getY()+((getDesktop().getStage().getHeight()-345)/2));
+					stage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
+				        if (KeyCode.ESCAPE == event.getCode()) {
+				            stage.close();
+				        }
+				    });
 					stage.showAndWait();
+					getDesktop().desOpacar();
 				}
 
 			}
@@ -440,6 +456,7 @@ public class OpcionImpresion extends Feature {
 						File file = saveFile.showDialog(getDesktop().getStage());
 
 						if (file != null) {
+							getDesktop().opacar();
 
 							final DispersionDefinitivaPdfExport export = new DispersionDefinitivaPdfExport();
 							export.export(file, list, "/img/logoSabadellByn.png");
@@ -450,7 +467,7 @@ public class OpcionImpresion extends Feature {
 							canvas.setPadding(new Insets(5));
 							canvas.setStyle("-fx-background-color:  #a9d42c;");
 							canvas.setPrefSize(512, 54);
-							
+
 							canvas.getChildren().add(bCerrar);
 							StackPane.setAlignment(bCerrar, Pos.TOP_RIGHT);
 
@@ -462,14 +479,15 @@ public class OpcionImpresion extends Feature {
 									.add(new Image(getClass().getResourceAsStream("/img/logoSabadellCircle.png")));
 							stage.setTitle("Impresion de Masiva de Comprobantes - Archivos Generados");
 
-							Label mensaje = new Label("Los archivos fueron generados\n en el directorio seleccionado");
+							Label mensaje = new Label("Los archivos fueron generados.");
 							mensaje.setAlignment(Pos.CENTER);
 							mensaje.setStyle("-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 20px;");
 							mensaje.setTextFill(Color.web("#777777"));
 
 							Button bContinuar = new Button("Continuar");
-							bContinuar.setStyle("-fx-font-family: FranklinGothicLT;	-fx-font-size: 12.0px;	-fx-border-radius: 8.0px;	-fx-background-color: #006dff;	-fx-border-width: 1.0px;	-fx-border-color: #979797;	-fx-font-weight:bold;	-fx-background-radius: 8.0px;");
-							bContinuar.setPrefSize(140,40);
+							bContinuar.setStyle(
+									"-fx-font-family: FranklinGothicLT;	-fx-font-size: 12.0px;	-fx-border-radius: 8.0px;	-fx-background-color: #006dff;	-fx-border-width: 1.0px;	-fx-border-color: #979797;	-fx-font-weight:bold;	-fx-background-radius: 8.0px;");
+							bContinuar.setPrefSize(140, 40);
 							bContinuar.setTextFill(Color.WHITE);
 
 							bContinuar.setOnMouseClicked(evt -> {
@@ -482,7 +500,7 @@ public class OpcionImpresion extends Feature {
 							vbox.setPrefSize(512, 345);
 							vbox.getChildren().add(canvas);
 							vbox.getChildren().add(check);
-							mensaje.setPadding(new Insets(0,0,35,0));
+							mensaje.setPadding(new Insets(0, 0, 35, 0));
 							vbox.getChildren().add(mensaje);
 							vbox.getChildren().add(bContinuar);
 
@@ -490,7 +508,15 @@ public class OpcionImpresion extends Feature {
 							stage.setResizable(false);
 							stage.initOwner(getDesktop().getStage());
 							stage.initModality(Modality.WINDOW_MODAL);
+							stage.setX(getDesktop().getStage().getX()+((getDesktop().getStage().getWidth()-512)/2));
+							stage.setY(getDesktop().getStage().getY()+((getDesktop().getStage().getHeight()-345)/2));
+							stage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
+						        if (KeyCode.ESCAPE == event.getCode()) {
+						            stage.close();
+						        }
+						    });
 							stage.showAndWait();
+							getDesktop().desOpacar();
 						}
 					}
 				} catch (Exception ex) {
@@ -505,47 +531,65 @@ public class OpcionImpresion extends Feature {
 				Stage stage = new Stage();
 
 				StackPane canvas = new StackPane();
-				canvas.setPadding(new Insets(5));
+				canvas.setPadding(new Insets(10));
 				canvas.setStyle("-fx-background-color: #239d45;");
-				canvas.setPrefSize(800, 60);
-				
-				canvas.getChildren().add(bCerrar);
-				StackPane.setAlignment(bCerrar, Pos.TOP_RIGHT);
-
-				bCerrar.setOnMouseClicked(ev -> {
-					stage.hide();
-				});
+				canvas.setPrefSize(1000, 60);
+				canvas.setMinHeight(54);
 
 				Label instruccionesLabel = new Label(
-						"Falta Definir las instrucciones para la opcion de Impresion de Comprobantes");
+						"Banco Sabadell agradece su preferencia, acontinuación detallamos los pasos que debes seguir para\ndescargar tus comprobantes de pagos realizados a través Dispersión de Pagos.");
 				instruccionesLabel.setWrapText(true);
-				instruccionesLabel.setTextAlignment(TextAlignment.JUSTIFY);
+				instruccionesLabel.setTextAlignment(TextAlignment.CENTER);
 				instruccionesLabel
 						.setStyle("-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px;-fx-font-weight: bold");
-				instruccionesLabel.setTextFill(Color.WHITE);
-				canvas.getChildren().add(instruccionesLabel);
+				instruccionesLabel.setTextFill(Color.web("#828488"));
+				instruccionesLabel.setMinHeight(40);
+				StackPane p = new StackPane();
+				p.setPadding(new Insets(20,0,20,0));
+				p.setStyle("-fx-background-color: #d9d9d9");
+				p.getChildren().add(instruccionesLabel);
 
 				stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logoSabadellCircle.png")));
-				stage.setTitle("Impresion de Masiva de Comprobantes - Instrucciones");
+				stage.setTitle("Impresion de Comprobantes - Instrucciones");
 
-				TextArea textArea = new TextArea();
-				textArea.setText("\n" + "Falta Definir las instrucciones para la opcion de Impresion de Comprobantes");
-				textArea.setEditable(false);
-				textArea.setWrapText(true);
+				ImageView insGIv = null;
+
+				try {
+					insGIv = new ImageView(new Image(getImageInput("/img/instruccionesImpresion.png")));
+					insGIv.setPreserveRatio(true);
+					insGIv.setFitWidth(1000);
+					insGIv.setSmooth(true);
+					
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				ScrollPane scrollPaneGenerales = new ScrollPane();
+				scrollPaneGenerales.setPrefSize(800, 600);
+				scrollPaneGenerales.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+				scrollPaneGenerales.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+				scrollPaneGenerales.setContent(insGIv);
+				
+				
+				TabPane tabPane = new TabPane();
+				Tab tabInstrucciones = new Tab("Instrucciones");
+				
+				tabInstrucciones.setContent(scrollPaneGenerales);
+				
+				tabPane.getTabs().addAll(tabInstrucciones);
 
 				VBox vbox = new VBox();
-				textArea.prefHeightProperty().bind(vbox.prefHeightProperty().add(-60));
-				vbox.setPrefSize(600, 600);
+				vbox.setPrefSize(1020, 600);
 				VBox.setVgrow(vbox, Priority.ALWAYS);
 				vbox.getChildren().add(canvas);
-				vbox.getChildren().add(textArea);
+				vbox.getChildren().add(p);
+				vbox.getChildren().add(tabPane);
+				
 
-				stage.setScene(new Scene(vbox, 600, 600));
+				stage.setScene(new Scene(vbox, 1020, 600));
 				stage.setResizable(false);
 				stage.show();
-				// Hide this current window (if this is what you want)
-				// ((Node)(event.getSource())).getScene().getWindow().hide();
-
 			}
 		});
 
@@ -572,12 +616,12 @@ public class OpcionImpresion extends Feature {
 				File file = fileChooser.showOpenDialog(getDesktop().getStage());
 				if (file != null) {
 					Importer ddImporter = null;
-					if (file.getName().toUpperCase().endsWith("CSV")){
+					if (file.getName().toUpperCase().endsWith("CSV")) {
 						ddImporter = new DispersionDefinitivaCSVImporter(t);
-					}else{
+					} else {
 						ddImporter = new DispersionDefinitivaTXTImporter(t);
 					}
-					 
+
 					try {
 						ddImporter.importFile(file);
 
@@ -596,13 +640,14 @@ public class OpcionImpresion extends Feature {
 						originalList.addAll(t.getItems());
 						t.refresh();
 					} catch (LayoutValidatorException e1) {
+						getDesktop().opacar();
 						Stage stage = new Stage(StageStyle.UNDECORATED);
 
 						Pane canvas = new Pane();
 						canvas.setPadding(new Insets(5));
 						canvas.setStyle("-fx-background-color:  #e90e5c;");
 						canvas.setPrefSize(512, 54);
-						
+
 						canvas.getChildren().add(bCerrar);
 						StackPane.setAlignment(bCerrar, Pos.TOP_RIGHT);
 
@@ -618,8 +663,9 @@ public class OpcionImpresion extends Feature {
 						mensaje.setTextFill(Color.web("#777777"));
 
 						Button bContinuar = new Button("Continuar");
-						bContinuar.setStyle("-fx-font-family: FranklinGothicLT;	-fx-font-size: 12.0px;	-fx-border-radius: 8.0px;	-fx-background-color: #006dff;	-fx-border-width: 1.0px;	-fx-border-color: #979797;	-fx-font-weight:bold;	-fx-background-radius: 8.0px;");
-						bContinuar.setPrefSize(140,40);
+						bContinuar.setStyle(
+								"-fx-font-family: FranklinGothicLT;	-fx-font-size: 12.0px;	-fx-border-radius: 8.0px;	-fx-background-color: #006dff;	-fx-border-width: 1.0px;	-fx-border-color: #979797;	-fx-font-weight:bold;	-fx-background-radius: 8.0px;");
+						bContinuar.setPrefSize(140, 40);
 						bContinuar.setTextFill(Color.WHITE);
 
 						bContinuar.setOnMouseClicked(evt -> {
@@ -633,7 +679,7 @@ public class OpcionImpresion extends Feature {
 						// VBox.setVgrow(vbox, Priority.ALWAYS);
 						vbox.getChildren().add(canvas);
 						vbox.getChildren().add(error);
-						mensaje.setPadding(new Insets(0,0,35,0));
+						mensaje.setPadding(new Insets(0, 0, 35, 0));
 						vbox.getChildren().add(mensaje);
 						vbox.getChildren().add(bContinuar);
 
@@ -641,7 +687,15 @@ public class OpcionImpresion extends Feature {
 						stage.setResizable(false);
 						stage.initOwner(getDesktop().getStage());
 						stage.initModality(Modality.WINDOW_MODAL);
+						stage.setX(getDesktop().getStage().getX()+((getDesktop().getStage().getWidth()-512)/2));
+						stage.setY(getDesktop().getStage().getY()+((getDesktop().getStage().getHeight()-345)/2));
+						stage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
+					        if (KeyCode.ESCAPE == event.getCode()) {
+					            stage.close();
+					        }
+					    });
 						stage.showAndWait();
+						getDesktop().desOpacar();
 
 						e1.printStackTrace();
 					} catch (Exception e1) {

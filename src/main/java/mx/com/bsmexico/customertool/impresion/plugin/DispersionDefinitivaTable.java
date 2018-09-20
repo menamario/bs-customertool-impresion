@@ -54,9 +54,9 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 				List<DispersionDefinitiva> items = table.getItems();
 				if (items != null && items.size() > 0) {
 					for (DispersionDefinitiva item : items) {
-						if(EstadoDispersion.LIQUIDADO.name().equals(item.getEstadoOperacion())){
+						if (EstadoDispersion.LIQUIDADO.name().equals(item.getEstadoOperacion())) {
 							item.setComprobante(selected);
-						}						
+						}
 					}
 				}
 				table.refresh();
@@ -64,7 +64,7 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 			final Callback<TableColumn<DispersionDefinitiva, Boolean>, TableCell<DispersionDefinitiva, Boolean>> booleanCellFactory = new Callback<TableColumn<DispersionDefinitiva, Boolean>, TableCell<DispersionDefinitiva, Boolean>>() {
 				@Override
 				public TableCell<DispersionDefinitiva, Boolean> call(TableColumn<DispersionDefinitiva, Boolean> p) {
-					//return new CheckboxCell<DispersionDefinitiva>();
+					// return new CheckboxCell<DispersionDefinitiva>();
 					return new ComprobanteCheckboxCell();
 				}
 			};
@@ -80,7 +80,7 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 			ct.setId("Comprobante");
 			ct.setPrefWidth(80);
 			ct.setCellFactory(booleanCellFactory);
-			ct.setStyle("-fx-background-color: white");
+			ct.setStyle("-fx-background-color: white !important; -fx-border-color:white !important;");
 			ct.setCellValueFactory(new PropertyValueFactory<DispersionDefinitiva, Boolean>("comprobante"));
 			ct.setEditable(true);
 			getColumns().add(ct);
@@ -95,10 +95,19 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 
 	@Override
 	protected String[] getFieldOrder() {
-		return new String[] { DispersionDefinitiva.FIELD_CUENTA_CARGO, DispersionDefinitiva.FIELD_CUENTA_ABONO,
-				DispersionDefinitiva.FIELD_DIVISA, DispersionDefinitiva.FIELD_IMPORTE,
-				DispersionDefinitiva.FIELD_CONCEPTO, DispersionDefinitiva.FIELD_NOMBRE_BENEFICIARIO,
-				DispersionDefinitiva.FIELD_TIPO_MOVIMIENTO, DispersionDefinitiva.FIELD_ESTADO_OPERACION };
+		return new String[] { DispersionDefinitiva.FIELD_TIPO_MOVIMIENTO, DispersionDefinitiva.FIELD_APLICACION,
+				DispersionDefinitiva.FIELD_FECHA, DispersionDefinitiva.FIELD_TIPO_TRANSACCION,
+				DispersionDefinitiva.FIELD_CUENTA_CARGO, DispersionDefinitiva.FIELD_CUENTA_ABONO,
+				DispersionDefinitiva.FIELD_TIPO_CUENTA_BENEFICIARIO, DispersionDefinitiva.FIELD_CUENTA_ABONO,
+				DispersionDefinitiva.FIELD_BANCO, DispersionDefinitiva.FIELD_TIPO_PERSONA,
+				DispersionDefinitiva.FIELD_NOMBRE_BENEFICIARIO, DispersionDefinitiva.FIELD_RFC,
+				DispersionDefinitiva.FIELD_CURP, DispersionDefinitiva.FIELD_DIVISA, DispersionDefinitiva.FIELD_IMPORTE,
+				DispersionDefinitiva.FIELD_IVA, DispersionDefinitiva.FIELD_COMISION,
+				DispersionDefinitiva.FIELD_IVA_COMISION, DispersionDefinitiva.FIELD_CONCEPTO,
+				DispersionDefinitiva.FIELD_REFERENCIA, DispersionDefinitiva.FIELD_CORREO_ELECTRONICO,
+				DispersionDefinitiva.FIELD_NUMERO_CELULAR, DispersionDefinitiva.FIELD_CLAVE_RASTREO,
+				DispersionDefinitiva.FIELD_FOLIO_OPERACION, DispersionDefinitiva.FIELD_USUARIO,
+				DispersionDefinitiva.FIELD_ESTADO_OPERACION };
 	}
 
 	@Override
@@ -136,13 +145,12 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 	@Override
 	public void setData(List<DispersionDefinitiva> data) {
 		if (data != null) {
-			//getItems().addAll(data);
+			// getItems().addAll(data);
 			LayoutModelValidator<DispersionDefinitiva> validator = null;
 			try {
-				validator = (LayoutModelValidator<DispersionDefinitiva>) this.metamodel
-						.getValidator();
+				validator = (LayoutModelValidator<DispersionDefinitiva>) this.metamodel.getValidator();
 			} catch (Exception e) {
-				 throw new LayoutValidatorException("Validator not found");
+				throw new LayoutValidatorException("Validator not found");
 			}
 			if (validator != null) {
 				if (validator.isValid(data)) {
