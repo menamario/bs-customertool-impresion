@@ -15,7 +15,7 @@ import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutValidator
 
 public class DispersionDefinitivaValidator extends LayoutModelValidator<DispersionDefinitiva> {
 
-	private SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHH:mm:ss");
+	private SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");	
 
 	@Override
 	public boolean isValidField(String fieldName, DispersionDefinitiva model) {
@@ -455,11 +455,6 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 	 */
 	public Predicate<DispersionDefinitiva> comision() {
 		return v -> {
-			/*
-			 * return StringUtils.isNotBlank(v.getComision()) &&
-			 * NumberUtils.isCreatable(v.getComision()) && Double.valueOf(v.getComision())
-			 * <= 999999999999.99;
-			 */
 			return StringUtils.isBlank(v.getComision())
 					|| (NumberUtils.isCreatable(v.getComision())
 							&& Double.valueOf(v.getComision()) <= 999999999999.99);
@@ -471,11 +466,6 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 	 */
 	public Predicate<DispersionDefinitiva> ivaComision() {
 		return v -> {
-			/*
-			 * return StringUtils.isNotBlank(v.getIvaComision()) &&
-			 * NumberUtils.isCreatable(v.getIvaComision()) &&
-			 * Double.valueOf(v.getIvaComision()) <= 999999999999.99;
-			 */
 			return StringUtils.isBlank(v.getIvaComision())
 					|| (NumberUtils.isCreatable(v.getIvaComision())
 							&& Double.valueOf(v.getIvaComision()) <= 999999999999.99);
@@ -495,7 +485,7 @@ public class DispersionDefinitivaValidator extends LayoutModelValidator<Dispersi
 	 * @return
 	 */
 	public Predicate<DispersionDefinitiva> folio() {
-		return v -> {
+		return v -> {			
 			return (StringUtils.isNotBlank(v.getFolioOperacion()) && NumberUtils.isDigits(v.getFolioOperacion())
 					&& v.getFolioOperacion().length() == 21);
 		};

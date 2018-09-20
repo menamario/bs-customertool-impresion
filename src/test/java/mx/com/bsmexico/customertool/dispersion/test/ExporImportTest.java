@@ -18,7 +18,7 @@ public class ExporImportTest {
 	@Test
 	public void ImportDsipersionDefinitivaCSVTest() {
 		final ClassLoader classLoader = getClass().getClassLoader();
-		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_222.csv").getFile());
+		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_222_D.csv").getFile());
 		final DispersionDefinitivaCSVImporter importer = new DispersionDefinitivaCSVImporter(
 				new ImportTarget<DispersionDefinitiva>() {
 
@@ -28,7 +28,7 @@ public class ExporImportTest {
 						Assert.assertTrue(data.size() == 8);						
 						Assert.assertTrue("0".equals(data.get(0).getTipoMovimiento()));
 						Assert.assertTrue("H".equals(data.get(0).getAplicacion()));
-						Assert.assertTrue("2018080813:45:19".equals(data.get(0).getFecha()));
+						Assert.assertTrue("20180808134519".equals(data.get(0).getFecha()));
 						Assert.assertTrue("00".equals(data.get(0).getTipoTransaccion()));
 						Assert.assertTrue("00000211906".equals(data.get(0).getCuentaCargo()));
 						Assert.assertTrue("01".equals(data.get(0).getTipoCuentaBeneficiario()));
@@ -65,7 +65,7 @@ public class ExporImportTest {
 	@Test
 	public void ImportDispersionDefinitivaTXTTest() {
 		final ClassLoader classLoader = getClass().getClassLoader();
-		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_444.txt").getFile());
+		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_444_D.txt").getFile());
 		final DispersionDefinitivaTXTImporter importer = new DispersionDefinitivaTXTImporter(
 				new ImportTarget<DispersionDefinitiva>() {
 					@Override
@@ -74,7 +74,7 @@ public class ExporImportTest {
 						Assert.assertTrue(data.size() == 12);						
 						Assert.assertTrue("0".equals(data.get(0).getTipoMovimiento()));
 						Assert.assertTrue("H".equals(data.get(0).getAplicacion()));
-						Assert.assertTrue("2018080811:47:13".equals(data.get(0).getFecha()));
+						Assert.assertTrue("20180808114713".equals(data.get(0).getFecha()));
 						Assert.assertTrue("00".equals(data.get(0).getTipoTransaccion()));
 						Assert.assertTrue("00000212004".equals(data.get(0).getCuentaCargo()));
 						Assert.assertTrue("01".equals(data.get(0).getTipoCuentaBeneficiario()));
@@ -111,7 +111,7 @@ public class ExporImportTest {
 	@Test
 	public void validatorImportCSVTest() {		
 		final ClassLoader classLoader = getClass().getClassLoader();
-		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_223_Val_Exito.csv").getFile());
+		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_222_D.csv").getFile());
 		final DispersionDefinitivaValidator validator = new DispersionDefinitivaValidator(); 
 		final DispersionDefinitivaCSVImporter importer = new DispersionDefinitivaCSVImporter(
 				new ImportTarget<DispersionDefinitiva>() {
@@ -132,7 +132,7 @@ public class ExporImportTest {
 	@Test
 	public void validadorImportTXTTest() {
 		final ClassLoader classLoader = getClass().getClassLoader();
-		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_445_Val_Exito.txt").getFile());
+		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_444_D.txt").getFile());
 		final DispersionDefinitivaValidator validator = new DispersionDefinitivaValidator();
 		final DispersionDefinitivaTXTImporter importer = new DispersionDefinitivaTXTImporter(
 				new ImportTarget<DispersionDefinitiva>() {
