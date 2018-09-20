@@ -24,7 +24,7 @@ public class ReportTest {
 		final File file = new File("testDispersionPago.pdf");
 		final List<DispersionDefinitiva> dataReport = new ArrayList<>();
 		final ClassLoader classLoader = getClass().getClassLoader();
-		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_222.csv").getFile());
+		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_222_D.csv").getFile());
 		final DispersionDefinitivaCSVImporter importer = new DispersionDefinitivaCSVImporter(
 				new ImportTarget<DispersionDefinitiva>() {
 
@@ -61,7 +61,7 @@ public class ReportTest {
 	public void reportExportPdfTest() {
 		final List<DispersionDefinitiva> dataReport = new ArrayList<>();
 		final ClassLoader classLoader = getClass().getClassLoader();
-		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_222.csv").getFile());
+		final File dispersiones = new File(classLoader.getResource("layouts/20180808_11111111111_222_D.csv").getFile());
 		final DispersionDefinitivaCSVImporter importer = new DispersionDefinitivaCSVImporter(
 				new ImportTarget<DispersionDefinitiva>() {
 
