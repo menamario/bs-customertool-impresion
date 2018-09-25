@@ -1,5 +1,11 @@
 package mx.com.bsmexico.customertool.impresion.plugin;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import mx.com.bsmexico.customertool.api.layouts.model.LayoutField;
@@ -12,6 +18,10 @@ import mx.com.bsmexico.customertool.api.layouts.model.LayoutModelType;
  */
 @LayoutModel(type = LayoutModelType.PROPERTY_JAVABEANS, validatorClass = DispersionDefinitivaValidator.class)
 public class DispersionDefinitiva {
+	
+	String pattern = "###############0.00";
+	DecimalFormat decimalFormat = new DecimalFormat(pattern);
+	
 
 	public static final String FIELD_TIPO_MOVIMIENTO = "TIPO_MOVIMIENTO";
 	public static final String FIELD_APLICACION = "APLICACION";
@@ -39,7 +49,7 @@ public class DispersionDefinitiva {
 	public static final String FIELD_USUARIO = "USUARIO";
 	public static final String FIELD_ESTADO_OPERACION = "ESTADO_OPERACION";
 	
-	@LayoutField(name = FIELD_TIPO_MOVIMIENTO, title = "Tipo de Movimiento", length = 1)
+	@LayoutField(name = FIELD_TIPO_MOVIMIENTO, title = "Tipo de movimiento", length = 1)
 	private SimpleStringProperty tipoMovimiento;
 
 	@LayoutField(name = FIELD_APLICACION, title = "Aplicación", length = 1)
@@ -51,25 +61,25 @@ public class DispersionDefinitiva {
 	@LayoutField(name = FIELD_TIPO_TRANSACCION, title = "Tipo de transacción", length = 2)
 	private SimpleStringProperty tipoTransaccion;
 
-	@LayoutField(name = FIELD_CUENTA_CARGO, title = "Cuenta de Cargo", length = 11)
+	@LayoutField(name = FIELD_CUENTA_CARGO, title = "Cuenta de cargo", length = 11)
 	private SimpleStringProperty cuentaCargo;
 
-	@LayoutField(name = FIELD_TIPO_CUENTA_BENEFICIARIO, title = "Tipo Cuenta Beneficiario", length = 2)
+	@LayoutField(name = FIELD_TIPO_CUENTA_BENEFICIARIO, title = "Tipo cuenta beneficiario", length = 2)
 	private SimpleStringProperty tipoCuentaBeneficiario;
 
 	@LayoutField(name = FIELD_CUENTA_ABONO, title = "Cuenta abono", length = 18)
 	private SimpleStringProperty cuentaAbono;
 
-	@LayoutField(name = FIELD_TIPO_PERSONA, title = "Tipo Persona", length = 2)
+	@LayoutField(name = FIELD_TIPO_PERSONA, title = "Tipo persona", length = 2)
 	private SimpleStringProperty tipoPersona;
 
-	@LayoutField(name = FIELD_NOMBRE_BENEFICIARIO, title = "Nombre Beneficiario", length = 40)
+	@LayoutField(name = FIELD_NOMBRE_BENEFICIARIO, title = "Nombre beneficiario", length = 40)
 	private SimpleStringProperty nombre;
 
-	@LayoutField(name = FIELD_RFC, title = "Rfc", length = 13)
+	@LayoutField(name = FIELD_RFC, title = "RFC", length = 13)
 	private SimpleStringProperty rfc;
 
-	@LayoutField(name = FIELD_CURP, title = "Curp", length = 18)
+	@LayoutField(name = FIELD_CURP, title = "CURP", length = 18)
 	private SimpleStringProperty curp;
 
 	@LayoutField(name = FIELD_DIVISA, title = "Divisa", length = 3)
@@ -78,7 +88,7 @@ public class DispersionDefinitiva {
 	@LayoutField(name = FIELD_IMPORTE, title = "Importe", length = 15)
 	private SimpleStringProperty importe;
 
-	@LayoutField(name = FIELD_IVA, title = "Iva", length = 15)
+	@LayoutField(name = FIELD_IVA, title = "IVA", length = 15)
 	private SimpleStringProperty iva;
 
 	@LayoutField(name = FIELD_CONCEPTO, title = "Concepto", length = 40)
@@ -87,10 +97,10 @@ public class DispersionDefinitiva {
 	@LayoutField(name = FIELD_REFERENCIA, title = "Referencia", length = 20)
 	private SimpleStringProperty referencia;
 
-	@LayoutField(name = FIELD_CORREO_ELECTRONICO, title = "Correo Electronico", length = 60)
+	@LayoutField(name = FIELD_CORREO_ELECTRONICO, title = "Correo electrónico", length = 60)
 	private SimpleStringProperty correoElectronico;
 
-	@LayoutField(name = FIELD_NUMERO_CELULAR, title = "Numero Celular", length = 10)
+	@LayoutField(name = FIELD_NUMERO_CELULAR, title = "Número celular", length = 10)
 	private SimpleStringProperty numeroCelular;	
 
 	@LayoutField(name = FIELD_BANCO, title = "Banco", length = 30)
@@ -99,10 +109,10 @@ public class DispersionDefinitiva {
 	@LayoutField(name = FIELD_COMISION, title = "Comisión", length = 15)
 	private SimpleStringProperty comision;
 
-	@LayoutField(name = FIELD_IVA_COMISION, title = "IVA Comisión", length = 15)
+	@LayoutField(name = FIELD_IVA_COMISION, title = "IVA comisión", length = 15)
 	private SimpleStringProperty ivaComision;
 
-	@LayoutField(name = FIELD_CLAVE_RASTREO, title = "Clade de rastreo", length = 18)
+	@LayoutField(name = FIELD_CLAVE_RASTREO, title = "Clave de rastreo", length = 18)
 	private SimpleStringProperty claveRastreo;
 
 	@LayoutField(name = FIELD_FOLIO_OPERACION, title = "Folio de la operación", length = 21)
@@ -176,6 +186,10 @@ public class DispersionDefinitiva {
 	 * @param comision the comision to set
 	 */
 	public void setComision(String comision) {
+		
+		if (NumberUtils.isCreatable(StringUtils.stripStart(comision,"0")) && Double.valueOf(StringUtils.stripStart(comision,"0")) < 9999999999999999.99) {
+			comision = decimalFormat.format(new BigDecimal(StringUtils.stripStart(comision,"0")));
+		}
 		this.comision.set(comision);
 	}
 
@@ -190,6 +204,9 @@ public class DispersionDefinitiva {
 	 * @param ivaComision the ivaComision to set
 	 */
 	public void setIvaComision(String ivaComision) {
+		if (NumberUtils.isCreatable(StringUtils.stripStart(ivaComision,"0")) && Double.valueOf(StringUtils.stripStart(ivaComision,"0")) < 9999999999999999.99) {
+			ivaComision = decimalFormat.format(new BigDecimal(StringUtils.stripStart(ivaComision,"0")));
+		}
 		this.ivaComision.set(ivaComision);
 	}
 
@@ -350,6 +367,10 @@ public class DispersionDefinitiva {
 	}
 
 	public void setImporte(String importe) {
+		if (NumberUtils.isCreatable(StringUtils.stripStart(importe,"0")) && Double.valueOf(StringUtils.stripStart(importe,"0")) < 9999999999999999.99) {
+			importe = decimalFormat.format(new BigDecimal(StringUtils.stripStart(importe,"0")));
+		}
+		
 		this.importe.set(importe);
 	}
 
@@ -358,6 +379,9 @@ public class DispersionDefinitiva {
 	}
 
 	public void setIva(String iva) {
+		if (NumberUtils.isCreatable(StringUtils.stripStart(iva,"0")) && Double.valueOf(StringUtils.stripStart(iva,"0")) < 9999999999999999.99) {
+			iva = decimalFormat.format(new BigDecimal(StringUtils.stripStart(iva,"0")));
+		}
 		this.iva.set(iva);
 	}
 
