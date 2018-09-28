@@ -66,6 +66,7 @@ public class OpcionImpresion extends Feature {
 	ImageView check = new ImageView();
 	double xOffset=0;
 	double yOffset=0;
+	Label lb = null;
 
 	private InputStream getImageInput(final String file) throws FileNotFoundException {
 		final InputStream input = getClass().getResourceAsStream(file);
@@ -96,6 +97,8 @@ public class OpcionImpresion extends Feature {
 
 		getMenuNavigator().hide();
 		getDesktop().updatePleca("#e25100", null);
+		originalList = new ArrayList<DispersionDefinitiva>();
+		
 
 		Pane mainPane = new BorderPane();
 
@@ -163,7 +166,7 @@ public class OpcionImpresion extends Feature {
 		bInstrucciones.setContentDisplay(ContentDisplay.TOP);
 
 		bImportarArchivo.setGraphic(importarArchivo);
-		bImportarArchivo.setText("Importar Archivo");
+		bImportarArchivo.setText("Importar archivo");
 		bImportarArchivo.setTextFill(Color.WHITE);
 		bImportarArchivo.setStyle(
 				"-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 13px;-fx-background-color: transparent;");
@@ -182,7 +185,7 @@ public class OpcionImpresion extends Feature {
 
 		headerBox1.getChildren().add(bAtras);
 		headerBox1.setSpacing(40);
-		Label l = new Label("    Impresión Masiva de Comprobantes    ");
+		Label l = new Label("    Impresión masiva de comprobantes    ");
 		l.setTextFill(Color.WHITE);
 		l.setStyle(
 				"-fx-background-color: #e25100;-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px; -fx-border-radius: 0 0 5 5; -fx-background-radius: 0 0 4 4;");
@@ -214,7 +217,7 @@ public class OpcionImpresion extends Feature {
 		vArchivo.setPrefWidth(360);
 		vArchivo.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;-fx-font-weight: bold");
 
-		Label lRegistros = new Label("Cantidad de Registros:");
+		Label lRegistros = new Label("Cantidad de registros:");
 		lRegistros.setTextFill(Color.WHITE);
 		lRegistros.setPrefWidth(200);
 		lRegistros.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
@@ -223,7 +226,7 @@ public class OpcionImpresion extends Feature {
 		vRegistros.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;-fx-font-weight: bold");
 		vRegistros.setPrefWidth(50);
 
-		Label lMonto = new Label("Monto Total:");
+		Label lMonto = new Label("Monto total:");
 		lMonto.setTextFill(Color.WHITE);
 		lMonto.setPrefWidth(150);
 		lMonto.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
@@ -244,7 +247,7 @@ public class OpcionImpresion extends Feature {
 		fp.setPrefWidth(850);
 
 		TextField tfCuentaCargo = new TextField();
-		tfCuentaCargo.setPromptText("Cuenta de Cargo");
+		tfCuentaCargo.setPromptText("Cuenta de cargo");
 		tfCuentaCargo.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
 		tfCuentaCargo.prefWidthProperty().bind(fp.widthProperty().add(-80).divide(5));
 		tfCuentaCargo.textProperty().addListener(new ChangeListener<String>() {
@@ -260,7 +263,7 @@ public class OpcionImpresion extends Feature {
 		    }
 		});
 		TextField tfCuentaAbono = new TextField();
-		tfCuentaAbono.setPromptText("Cuenta Abono");
+		tfCuentaAbono.setPromptText("Cuenta abono");
 		tfCuentaAbono.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
 		tfCuentaAbono.prefWidthProperty().bind(fp.widthProperty().add(-80).divide(5));
 		tfCuentaAbono.textProperty().addListener(new ChangeListener<String>() {
@@ -293,7 +296,7 @@ public class OpcionImpresion extends Feature {
 		    }
 		});
 		TextField tfCveRastreo = new TextField();
-		tfCveRastreo.setPromptText("Clave de Rastreo");
+		tfCveRastreo.setPromptText("Clave de rastreo");
 		tfCveRastreo.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
 		tfCveRastreo.prefWidthProperty().bind(fp.widthProperty().add(-80).divide(5));
 		tfCveRastreo.textProperty().addListener(new ChangeListener<String>() {
@@ -326,7 +329,7 @@ public class OpcionImpresion extends Feature {
 		v.getChildren().add(fp);
 		TextField tfBeneficiario = new TextField();
 		tfBeneficiario.prefWidthProperty().bind(fp.widthProperty());
-		tfBeneficiario.setPromptText("Nombre del Beneficiario");
+		tfBeneficiario.setPromptText("Nombre del beneficiario");
 		tfBeneficiario.setStyle("-fx-font-family: FranklinGothicLT; -fx-font-size:18;");
 		tfBeneficiario.textProperty().addListener(new ChangeListener<String>() {
 		    @Override
@@ -371,6 +374,7 @@ public class OpcionImpresion extends Feature {
 			@Override
 			public void handle(final ActionEvent e) {
 				t.getItems().clear();
+				lb.setVisible(false);
 
 				for (DispersionDefinitiva dd : originalList) {
 
@@ -391,7 +395,7 @@ public class OpcionImpresion extends Feature {
 				}
 				if (t.getItems().size() == 0) {
 					t.setPlaceholder(
-							new Label("No se encontraron registros que coincidan con los criterios de busqueda"));
+							new Label("No se encontraron registros que coincidan con los criterios de búsqueda"));
 				}
 				t.refresh();
 
@@ -651,31 +655,31 @@ public class OpcionImpresion extends Feature {
                 TextFlow flow = new TextFlow();
 				
 				
-				Text t1 = new Text("1. Accede a Banca en Línea y descarga los archivos \"Previos\", (se identifican con la letra \"P\" al final de su nombre) o\n    \"Definitivos\", (se identifican con la letra \"D\" al final de su nombre) de \"Dispersión de Pagos\" que se encuentran\n    alojados en la opción de \"Históricos de Archivos Procesados\". Esta descarga la puedes realizar en la carpeta de tu\n    preferencia.\n");
-				t1.setStyle("-fx-fill: #828488");
-				Text t2 = new Text("2. Oprime el icono \"Importar Archivo\" y selecciona de la carpeta que designaste, el archivo Previo o Definitivo del que\n    deseas imprimir sus comprobantes.\n");
-				t2.setStyle("-fx-fill: #828488");
-				Text t3 = new Text("3. Podrás llevar a cabo la busqueda de los comprobantes que requieras imprimir de forma específica por medio de los\n    siguientes filtros:\n\n");
-				t3.setStyle("-fx-fill: #828488");
+				Text t1 = new Text("1.");Text t19 = new Text(" Accede a Banca en Línea y descarga los archivos \"Previos\", (se identifican con la letra \"P\" al final de su nombre) o\n    \"Definitivos\", (se identifican con la letra \"D\" al final de su nombre) de \"Dispersión de Pagos\" que se encuentran\n    alojados en la opción de \"Históricos de Archivos Procesados\". Esta descarga la puedes realizar en la carpeta de tu\n    preferencia.\n");
+				t1.setStyle("-fx-fill: black;-fx-font-weight:bold");
+				Text t2 = new Text("2.");Text t29 = new Text(" Oprime el icono \"Importar archivo\" y selecciona de la carpeta que designaste, el archivo Previo o Definitivo del que\n    deseas imprimir sus comprobantes.\n");
+				t2.setStyle("-fx-fill: black;-fx-font-weight:bold");
+				Text t3 = new Text("3.");Text t39 = new Text(" Podrás llevar a cabo la busqueda de los comprobantes que requieras imprimir de forma específica por medio de los\n    siguientes filtros:\n\n");
+				t3.setStyle("-fx-fill: black;-fx-font-weight:bold");
 				Text t4 = new Text("      - Cuenta de cargo\n");
-				t4.setStyle("-fx-fill: #828488");
+				t4.setStyle("-fx-fill: black");
 				Text t5 = new Text("      - Cuenta de abono\n");
-				t5.setStyle("-fx-fill: #828488");
+				t5.setStyle("-fx-fill: black");
 				Text t6 = new Text("      - Importe\n");
-				t6.setStyle("-fx-fill: #828488");
+				t6.setStyle("-fx-fill: black");
 			    Text t7 = new Text("      - Clave de rastreo\n");
-			    t7.setStyle("-fx-fill: #828488");
+			    t7.setStyle("-fx-fill: black");
 			    Text t8 = new Text("      - Referencia\n");
-			    t8.setStyle("-fx-fill: #828488");
+			    t8.setStyle("-fx-fill: black");
 			    Text t9 = new Text("      - Nombre del beneficiario\n\n");
-			    t9.setStyle("-fx-fill: #828488");
-			    Text t10 = new Text("4. Podrás seleccionar uno o varios checkbox del lado izquierdo de la pantalla, para imprimir o guardar los comprobantes\n    que desees.\n");
-			    t10.setStyle("-fx-fill: #828488");
-			    Text t11 = new Text("5. En caso de que desees guardar los comprobantes, selecciona el icono \"Guardar\" y la aplicación los guardará con la\n    siguiente nomenclatura (Fecha_referencia_importe). Si deseas imprimir, selecciona el icono \"Imprimir\".\n\n\n\n");
-			    t11.setStyle("-fx-fill: #828488");
-			    flow.getChildren().addAll(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11);
-			    flow.setStyle("-fx-background-color:white;-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px;-fx-fill:#828488");
-				flow.setMaxWidth(746);
+			    t9.setStyle("-fx-fill: black");
+			    Text t10 = new Text("4.");Text t109 = new Text(" Podrás seleccionar uno o varios checkbox del lado izquierdo de la pantalla, para imprimir o guardar los comprobantes\n    que desees.\n");
+			    t10.setStyle("-fx-fill: black;-fx-font-weight:bold");
+			    Text t11 = new Text("5.");Text t119 = new Text(" En caso de que desees guardar los comprobantes, selecciona el icono \"Guardar\" y la aplicación los guardará con la\n    siguiente nomenclatura (Fecha_referencia_importe). Si deseas imprimir, selecciona el icono \"Imprimir\".\n\n\n\n");
+			    t11.setStyle("-fx-fill: black;-fx-font-weight:bold");
+			    flow.getChildren().addAll(t1,t19,t2,t29,t3,t39,t4,t5,t6,t7,t8,t9,t10,t109,t11,t119);
+			    flow.setStyle("-fx-background-color:white;-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px;-fx-fill:black;-fx-border-width:0;-fx-border-color:white-fx-effect:null");
+				flow.setMinWidth(746);
 				flow.setTextAlignment(TextAlignment.JUSTIFY);
 
 				
@@ -724,12 +728,11 @@ public class OpcionImpresion extends Feature {
 		((BorderPane) mainPane).setTop(vbox);
 
 		t = new DispersionDefinitivaTable();
-		//t.getStyleClass().add("tabla-impresion");
 		
 		StackPane impresionsp = new StackPane();
 		HBox b = new HBox();
 		b.setAlignment(Pos.CENTER);
-		Label lb = new Label("Por favor, importe un archivo de dispersión.");
+		lb = new Label("Por favor, importe un archivo de dispersión.");
 		lb.setStyle("-fx-background-color:transparent;-fx-font-family: FranklinGothicLT;-fx-font-size: 20px;-fx-text-fill:#828488;-fx-font-weight:bold");
 		b.getChildren().add(lb);
 

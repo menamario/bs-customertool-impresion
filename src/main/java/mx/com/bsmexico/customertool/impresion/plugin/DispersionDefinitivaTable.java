@@ -19,7 +19,6 @@ import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutModelVali
 import mx.com.bsmexico.customertool.api.layouts.model.validation.LayoutValidatorException;
 import mx.com.bsmexico.customertool.api.process.ExportSource;
 import mx.com.bsmexico.customertool.api.process.ImportTarget;
-import mx.com.bsmexico.layoutstool.test.api.misc.Beneficiario;
 
 /**
  * @author jchr
@@ -88,6 +87,7 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 			ct.setPrefWidth(70);
 			ct.setResizable(false);
 			ct.setCellFactory(booleanCellFactory);
+			ct.setSortable(false);
 			ct.setStyle(
 					"-fx-background-color: #e8e8e8 !important;-fx-border-color: #e8e8e8 !important;-fx-alignment: CENTER-RIGHT;-fx-padding:0 5 0 0");
 			ct.setCellValueFactory(new PropertyValueFactory<DispersionDefinitiva, Boolean>("comprobante"));
@@ -95,6 +95,7 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 			getColumns().add(ct);
 			for (String id : ids) {
 				ct = columnFactory.getColumn(id, 100);
+				ct.setSortable(false);
 				ct.prefWidthProperty().bind(widthProperty().multiply(0.15));
 				getColumns().add(ct);
 			}

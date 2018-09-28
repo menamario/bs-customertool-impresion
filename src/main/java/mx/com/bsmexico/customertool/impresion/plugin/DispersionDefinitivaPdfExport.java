@@ -19,7 +19,7 @@ import mx.com.bsmexico.customertool.api.report.ReportGenerator;
 public class DispersionDefinitivaPdfExport {
 
 	private boolean singleDocument;
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHH");
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
 	public void export(final File directory, final List<DispersionDefinitiva> data, final String logo) throws Exception {
 		if (directory == null) {
@@ -85,6 +85,7 @@ public class DispersionDefinitivaPdfExport {
 		StringBuffer buffer = new StringBuffer(directory.getAbsolutePath());
 		buffer.append("/");
 		buffer.append(sdf.format(new Date()));
+		buffer.append("_");
 		buffer.append(reference);
 		buffer.append("_");
 		buffer.append(amount);
