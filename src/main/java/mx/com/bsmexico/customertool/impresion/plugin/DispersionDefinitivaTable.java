@@ -92,10 +92,12 @@ public class DispersionDefinitivaTable extends DefaultLayoutTable<DispersionDefi
 					"-fx-background-color: #e8e8e8 !important;-fx-border-color: #e8e8e8 !important;-fx-alignment: CENTER-RIGHT;-fx-padding:0 5 0 0");
 			ct.setCellValueFactory(new PropertyValueFactory<DispersionDefinitiva, Boolean>("comprobante"));
 			ct.setEditable(true);
+			ct.impl_setReorderable(false);
 			getColumns().add(ct);
 			for (String id : ids) {
 				ct = columnFactory.getColumn(id, 100);
 				ct.setSortable(false);
+				ct.impl_setReorderable(false);
 				ct.prefWidthProperty().bind(widthProperty().multiply(0.15));
 				getColumns().add(ct);
 			}
