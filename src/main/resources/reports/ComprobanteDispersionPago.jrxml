@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComprobanteDispersionPago" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6559e8e4-15a0-4daf-9f83-8853d0c0eef4">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="136"/>
+	<property name="ireport.y" value="444"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -43,6 +43,7 @@
 	<field name="claveRastreo" class="java.lang.String"/>
 	<field name="estadoOperacion" class="java.lang.String"/>
 	<field name="cliente" class="java.lang.String"/>
+	<field name="tipoCuentaBeneficiario" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -50,17 +51,24 @@
 		<band splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="77" splitType="Stretch">
+		<band height="85" splitType="Stretch">
 			<image>
-				<reportElement x="76" y="7" width="195" height="48" isRemoveLineWhenBlank="true" uuid="d6ce240b-6398-4180-a2d5-6b193f62af46"/>
+				<reportElement x="334" y="0" width="195" height="48" isRemoveLineWhenBlank="true" uuid="d6ce240b-6398-4180-a2d5-6b193f62af46"/>
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="287" y="45" width="243" height="26" uuid="4eb12d84-7d85-4c31-853d-33feb09872a1"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="SansSerif" size="13" isBold="true"/>
+				<reportElement x="38" y="53" width="491" height="31" uuid="18b5e302-9caa-438c-8e0e-0fbc088d6e79"/>
+				<box>
+					<pen lineColor="#E8E8E8"/>
+					<topPen lineWidth="1.5" lineColor="#E8E8E8"/>
+					<leftPen lineColor="#E8E8E8"/>
+					<bottomPen lineWidth="1.5" lineColor="#E8E8E8"/>
+					<rightPen lineWidth="0.0" lineColor="#E8E8E8"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Recibo de Operación]]></text>
+				<text><![CDATA[Transferencia a Terceros se realizó con éxito]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -68,31 +76,9 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="580" splitType="Stretch">
+		<band height="667" splitType="Stretch">
 			<staticText>
-				<reportElement x="66" y="6" width="168" height="25" uuid="1f35c8ca-2b48-4631-a2f3-6c124f83f10a"/>
-				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font isBold="false"/>
-					<paragraph leftIndent="10"/>
-				</textElement>
-				<text><![CDATA[Tipo de operación]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="66" y="31" width="168" height="25" uuid="5fa51bfb-71d7-44a4-b30a-8c6d97581f8d"/>
-				<box>
-					<pen lineWidth="0.25" lineColor="#CFB7B7"/>
-					<topPen lineWidth="0.25" lineColor="#CFB7B7"/>
-					<leftPen lineWidth="0.25" lineColor="#CFB7B7"/>
-					<bottomPen lineWidth="0.25" lineColor="#CFB7B7"/>
-					<rightPen lineWidth="0.25" lineColor="#CFB7B7"/>
-				</box>
+				<reportElement x="57" y="518" width="168" height="25" uuid="5fa51bfb-71d7-44a4-b30a-8c6d97581f8d"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 					<paragraph leftIndent="10"/>
@@ -100,13 +86,13 @@
 				<text><![CDATA[Nombre cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="56" width="168" height="25" uuid="32134162-4c39-438f-9d02-392a40e2a2c2"/>
+				<reportElement x="57" y="425" width="168" height="25" uuid="32134162-4c39-438f-9d02-392a40e2a2c2"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
@@ -115,14 +101,7 @@
 				<text><![CDATA[Usuario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="81" width="168" height="25" uuid="4a0af65e-19ea-4c72-895b-ff6b458e1388"/>
-				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
-				</box>
+				<reportElement x="57" y="543" width="168" height="25" uuid="4a0af65e-19ea-4c72-895b-ff6b458e1388"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 					<paragraph leftIndent="10"/>
@@ -130,43 +109,32 @@
 				<text><![CDATA[Cuenta de retiro]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="131" width="168" height="25" uuid="e0ca2b45-2b3a-4fc4-90d6-348b6c5d9061"/>
+				<reportElement mode="Transparent" x="57" y="82" width="168" height="25" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF" uuid="e0ca2b45-2b3a-4fc4-90d6-348b6c5d9061">
+					<printWhenExpression><![CDATA[!("01".equals($F{tipoCuentaBeneficiario}))]]></printWhenExpression>
+				</reportElement>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
-				<textElement verticalAlignment="Middle">
-					<font isBold="false"/>
-					<paragraph leftIndent="10"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single" leftIndent="10"/>
 				</textElement>
 				<text><![CDATA[RFC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="156" width="168" height="25" uuid="aa288833-ef9d-4637-b2e6-4cd4466d2eb6"/>
+				<reportElement x="57" y="132" width="168" height="25" isRemoveLineWhenBlank="true" uuid="6af4587b-0485-4861-a39b-1f0ff2d433f2">
+					<printWhenExpression><![CDATA[!("01".equals($F{tipoCuentaBeneficiario}))]]></printWhenExpression>
+				</reportElement>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font isBold="false"/>
-					<paragraph leftIndent="10"/>
-				</textElement>
-				<text><![CDATA[Cuenta de depósito]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="66" y="181" width="168" height="25" uuid="6af4587b-0485-4861-a39b-1f0ff2d433f2"/>
-				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
@@ -175,43 +143,30 @@
 				<text><![CDATA[Banco]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="231" width="168" height="25" uuid="ec44a433-2a26-4841-bee2-ad609c7cd2c7"/>
+				<reportElement x="57" y="250" width="168" height="25" isRemoveLineWhenBlank="true" uuid="4cc83f93-09e3-4dd5-a7da-cba882a14f54">
+					<printWhenExpression><![CDATA[!("01".equals($F{tipoCuentaBeneficiario}))]]></printWhenExpression>
+				</reportElement>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<text><![CDATA[Moneda]]></text>
+				<text><![CDATA[IVA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="256" width="168" height="25" uuid="4cc83f93-09e3-4dd5-a7da-cba882a14f54"/>
+				<reportElement x="57" y="275" width="168" height="25" uuid="fc8da5ad-d085-470f-ae47-195088b9467f"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font isBold="false"/>
-					<paragraph leftIndent="10"/>
-				</textElement>
-				<text><![CDATA[Importe IVA]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="66" y="281" width="168" height="25" uuid="fc8da5ad-d085-470f-ae47-195088b9467f"/>
-				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
@@ -220,13 +175,13 @@
 				<text><![CDATA[Comisión]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="306" width="168" height="25" uuid="14c3c4b7-0f72-4985-a168-83cfd6ee1c6d"/>
+				<reportElement x="57" y="300" width="168" height="25" uuid="14c3c4b7-0f72-4985-a168-83cfd6ee1c6d"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
@@ -235,43 +190,43 @@
 				<text><![CDATA[IVA Comisión]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="331" width="168" height="25" uuid="df327767-edf3-406e-9cb3-3463c2a86972"/>
+				<reportElement x="57" y="350" width="168" height="25" uuid="df327767-edf3-406e-9cb3-3463c2a86972"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<text><![CDATA[Referencia]]></text>
+				<text><![CDATA[Número de referencia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="356" width="168" height="25" uuid="be24afbe-0508-4e4c-9256-50c4fb53150d"/>
+				<reportElement x="57" y="325" width="168" height="25" uuid="be24afbe-0508-4e4c-9256-50c4fb53150d"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<text><![CDATA[Motivo de pago]]></text>
+				<text><![CDATA[Concepto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="381" width="168" height="25" uuid="20973124-a74f-4d6f-acce-673b3a4db3b2"/>
+				<reportElement x="57" y="200" width="168" height="25" uuid="20973124-a74f-4d6f-acce-673b3a4db3b2"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
@@ -280,28 +235,30 @@
 				<text><![CDATA[Fecha y hora de operación]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="406" width="168" height="25" uuid="89276ee4-5459-4b0e-8e42-3bf54805dae5"/>
+				<reportElement x="57" y="400" width="168" height="25" uuid="89276ee4-5459-4b0e-8e42-3bf54805dae5"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<text><![CDATA[Folio de operación]]></text>
+				<text><![CDATA[ID Folio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="431" width="168" height="25" uuid="4c80d359-04f6-44f6-a709-c08c984fdbba"/>
+				<reportElement x="57" y="375" width="168" height="25" isRemoveLineWhenBlank="true" uuid="4c80d359-04f6-44f6-a709-c08c984fdbba">
+					<printWhenExpression><![CDATA[!("01".equals($F{tipoCuentaBeneficiario}))]]></printWhenExpression>
+				</reportElement>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
@@ -310,13 +267,13 @@
 				<text><![CDATA[Clave de rastreo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="456" width="168" height="25" uuid="ea49b39f-cd3e-4808-9e6c-435a113c4766"/>
+				<reportElement x="57" y="450" width="168" height="25" uuid="ea49b39f-cd3e-4808-9e6c-435a113c4766"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
@@ -325,27 +282,20 @@
 				<text><![CDATA[Estado de la operación]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="234" y="31" width="296" height="25" uuid="6461b027-d4f6-489b-a0f8-927d158263ff"/>
-				<box>
-					<pen lineWidth="0.25" lineColor="#CFB7B7"/>
-					<topPen lineWidth="0.25" lineColor="#CFB7B7"/>
-					<leftPen lineWidth="0.25" lineColor="#CFB7B7"/>
-					<bottomPen lineWidth="0.25" lineColor="#CFB7B7"/>
-					<rightPen lineWidth="0.25" lineColor="#CFB7B7"/>
-				</box>
+				<reportElement x="225" y="518" width="296" height="25" uuid="6461b027-d4f6-489b-a0f8-927d158263ff"/>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="234" y="56" width="296" height="25" uuid="7c431732-2207-4d12-8323-75625e598ba7"/>
+				<reportElement x="225" y="425" width="296" height="25" uuid="7c431732-2207-4d12-8323-75625e598ba7"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
@@ -353,27 +303,20 @@
 				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="234" y="81" width="296" height="25" uuid="e96bc258-6f90-4d30-8996-5e01d773378a"/>
-				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
-				</box>
+				<reportElement x="225" y="543" width="296" height="25" uuid="e96bc258-6f90-4d30-8996-5e01d773378a"/>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cuentaCargo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="234" y="106" width="296" height="25" uuid="4a9713a0-3da9-4e95-86d7-806732dab050"/>
+				<reportElement x="225" y="57" width="296" height="25" uuid="4a9713a0-3da9-4e95-86d7-806732dab050"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
@@ -381,13 +324,15 @@
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="234" y="131" width="296" height="25" uuid="989d791a-b9b7-4009-a061-747ebd08dde4"/>
+				<reportElement x="225" y="82" width="296" height="25" isRemoveLineWhenBlank="true" uuid="989d791a-b9b7-4009-a061-747ebd08dde4">
+					<printWhenExpression><![CDATA[!("01".equals($F{tipoCuentaBeneficiario}))]]></printWhenExpression>
+				</reportElement>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
@@ -395,13 +340,15 @@
 				<textFieldExpression><![CDATA[$F{rfc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="234" y="181" width="296" height="25" uuid="ed6b03ab-f8eb-48fb-8e80-fd76f4b22081"/>
+				<reportElement x="225" y="132" width="296" height="25" isRemoveLineWhenBlank="true" uuid="ed6b03ab-f8eb-48fb-8e80-fd76f4b22081">
+					<printWhenExpression><![CDATA[!("01".equals($F{tipoCuentaBeneficiario}))]]></printWhenExpression>
+				</reportElement>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
@@ -409,97 +356,85 @@
 				<textFieldExpression><![CDATA[$F{banco}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="234" y="156" width="296" height="25" uuid="cd017c6f-ce52-4cb1-8180-15c36696617d"/>
+				<reportElement x="225" y="107" width="296" height="25" uuid="cd017c6f-ce52-4cb1-8180-15c36696617d"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{cuentaAbono}]]></textFieldExpression>
-			</textField>
-			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement x="234" y="206" width="296" height="25" uuid="5bb7645d-ea24-46f2-ba06-bb5c4cadac5c"/>
-				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<paragraph leftIndent="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($F{importe} == null || "".equals($F{importe})) ? 0.00D : new Double($F{importe})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.format((("01".equals($F{tipoCuentaBeneficiario})))?"**************%s":"****%s",$F{cuentaAbono}.substring($F{cuentaAbono}.length()-(("01".equals($F{tipoCuentaBeneficiario}))?4:3), $F{cuentaAbono}.length()))]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="234" y="231" width="296" height="25" uuid="04253acc-95ee-4d55-b34a-864d9fabc5b6"/>
+				<reportElement x="225" y="225" width="296" height="25" uuid="5bb7645d-ea24-46f2-ba06-bb5c4cadac5c"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{divisa}]]></textFieldExpression>
-			</textField>
-			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement x="234" y="256" width="296" height="25" uuid="5abd11f4-5701-43be-9c8c-103516771ab5"/>
-				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<paragraph leftIndent="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($F{iva} == null || "".equals($F{iva})) ? 0.00D : new Double($F{iva})]]></textFieldExpression>
-			</textField>
-			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement x="234" y="281" width="296" height="25" uuid="7001d535-dbf0-4018-88e1-359ca3362e98"/>
-				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<paragraph leftIndent="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($F{comision} == null || "".equals($F{comision})) ? 0.00D : new Double($F{comision})]]></textFieldExpression>
-			</textField>
-			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement x="234" y="306" width="296" height="25" uuid="2b88b1ce-4c98-43a5-bfbb-e30cd202e652"/>
-				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<paragraph leftIndent="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($F{ivaComision} == null || "".equals($F{ivaComision})) ? 0.00D : new Double($F{ivaComision})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new DecimalFormat("###0.00").format(($F{importe} == null || "".equals($F{importe})) ? 0.00D : new Double($F{importe})) +" "+$F{divisa}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="234" y="331" width="296" height="25" uuid="5686a399-841a-45bc-9e8f-27c1c34887ea"/>
+				<reportElement x="225" y="250" width="296" height="25" isRemoveLineWhenBlank="true" uuid="5abd11f4-5701-43be-9c8c-103516771ab5">
+					<printWhenExpression><![CDATA[!("01".equals($F{tipoCuentaBeneficiario}))]]></printWhenExpression>
+				</reportElement>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("###0.00").format(($F{iva} == null || "".equals($F{iva})) ? 0.00D : new Double($F{iva})) +" "+$F{divisa}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="225" y="275" width="296" height="25" uuid="7001d535-dbf0-4018-88e1-359ca3362e98"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("###0.00").format(($F{comision} == null || "".equals($F{comision})) ? 0.00D : new Double($F{comision})) +" "+$F{divisa}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="225" y="300" width="296" height="25" uuid="2b88b1ce-4c98-43a5-bfbb-e30cd202e652"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("###0.00").format(($F{ivaComision} == null || "".equals($F{ivaComision})) ? 0.00D : new Double($F{ivaComision})) +" "+$F{divisa}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="225" y="350" width="296" height="25" uuid="5686a399-841a-45bc-9e8f-27c1c34887ea"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
@@ -507,13 +442,13 @@
 				<textFieldExpression><![CDATA[$F{referencia}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="234" y="356" width="296" height="25" uuid="8aba7c7b-cc50-4f74-a0c2-dfd375c2f2df"/>
+				<reportElement x="225" y="325" width="296" height="25" uuid="8aba7c7b-cc50-4f74-a0c2-dfd375c2f2df"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
@@ -521,13 +456,13 @@
 				<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="234" y="381" width="296" height="25" uuid="12a533b9-8625-42c8-8a2c-f541f2478ec3"/>
+				<reportElement x="225" y="200" width="296" height="25" uuid="12a533b9-8625-42c8-8a2c-f541f2478ec3"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
@@ -535,13 +470,13 @@
 				<textFieldExpression><![CDATA[(($F{fecha}== null)?"": (new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.text.SimpleDateFormat("yyyyMMddHHmmss").parse($F{fecha}))+" Hrs"))]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="234" y="406" width="296" height="25" uuid="0b9a902b-8944-4489-92b3-60a12c5bf6bd"/>
+				<reportElement x="225" y="400" width="296" height="25" uuid="0b9a902b-8944-4489-92b3-60a12c5bf6bd"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
@@ -549,28 +484,28 @@
 				<textFieldExpression><![CDATA[$F{folioOperacion}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="234" y="6" width="296" height="25" uuid="9f786a4c-da29-4dfd-8bb5-9eb530d7a93e"/>
+				<reportElement x="38" y="25" width="296" height="25" uuid="9f786a4c-da29-4dfd-8bb5-9eb530d7a93e"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font isBold="true" isItalic="false"/>
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<text><![CDATA[Transferencia Interbancaria]]></text>
+				<text><![CDATA[Información del beneficiario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="106" width="168" height="25" uuid="63f2efa4-a597-4731-a02f-98a88e3857c9"/>
+				<reportElement x="57" y="57" width="168" height="25" uuid="63f2efa4-a597-4731-a02f-98a88e3857c9"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
@@ -579,13 +514,13 @@
 				<text><![CDATA[Nombre de beneficiario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="66" y="206" width="168" height="25" uuid="1972a14e-78e9-40e8-9f57-d3f710af619c"/>
+				<reportElement x="57" y="225" width="168" height="25" uuid="1972a14e-78e9-40e8-9f57-d3f710af619c"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font isBold="false"/>
@@ -594,13 +529,15 @@
 				<text><![CDATA[Importe]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="234" y="431" width="296" height="25" uuid="860c90dc-1868-4d4e-8edd-dcb3486309cb"/>
+				<reportElement x="225" y="375" width="296" height="25" isRemoveLineWhenBlank="true" uuid="860c90dc-1868-4d4e-8edd-dcb3486309cb">
+					<printWhenExpression><![CDATA[!("01".equals($F{tipoCuentaBeneficiario}))]]></printWhenExpression>
+				</reportElement>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
@@ -608,59 +545,79 @@
 				<textFieldExpression><![CDATA[$F{claveRastreo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="234" y="456" width="296" height="25" uuid="8a4d5f87-287d-4ef6-9683-3548da2914f2"/>
+				<reportElement x="225" y="450" width="296" height="25" uuid="8a4d5f87-287d-4ef6-9683-3548da2914f2"/>
 				<box>
-					<pen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<topPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<leftPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<bottomPen lineWidth="1.25" lineColor="#D4D0C8"/>
-					<rightPen lineWidth="1.25" lineColor="#D4D0C8"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{estadoOperacion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{estadoOperacion}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="4" width="127" height="20" uuid="bcff4985-a307-4b19-91d7-95352608ac8e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("dd/MM/yyyy | HH:mm:ss").format(new Date()))]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="66" y="481" width="464" height="99" isPrintWhenDetailOverflows="true" uuid="bcc772d9-c83d-4391-8041-b6f3c5b1d54f"/>
+				<reportElement x="38" y="166" width="296" height="25" uuid="376f81ed-a57a-4e94-9a7c-b4243570b109"/>
 				<box>
-					<pen lineWidth="0.0" lineColor="#CFB7B7"/>
-					<topPen lineWidth="0.0" lineColor="#CFB7B7"/>
-					<leftPen lineWidth="0.0" lineColor="#CFB7B7"/>
-					<bottomPen lineWidth="0.0" lineColor="#CFB7B7"/>
-					<rightPen lineWidth="0.0" lineColor="#CFB7B7"/>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
-				<textElement>
-					<font size="8" isBold="true" isStrikeThrough="false"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isItalic="false"/>
+					<paragraph leftIndent="10"/>
 				</textElement>
-				<text><![CDATA[
-Este recibo solo es de carácter informativo para cualquier duda o aclaración. No tiene validez como comprobante
-legal o fiscal.
-
-Con la clave de rastreo podrá consultar el estatus en que se encuentra su pago en la página
-http://www.banxico.org.mx, así como el Comprobante Electrónico de Pago CEP.
-
-Banca Sabadell S.A. Institución de Banca Múltiple. Av. Miguel de Cervantes Saavedra 193. Piso 15. C.P.11520.
-Ciudad deMéxico]]></text>
+				<text><![CDATA[Información de la Operación]]></text>
 			</staticText>
-			<line>
-				<reportElement mode="Opaque" x="67" y="31" width="463" height="1" forecolor="#4E86D6" backcolor="#FFFFFF" uuid="cf3ff7df-994b-434c-94d8-a15a4e965254"/>
-				<graphicElement fill="Solid">
-					<pen lineWidth="1.5"/>
-				</graphicElement>
-			</line>
-			<line>
-				<reportElement x="67" y="205" width="463" height="1" forecolor="#4E86D6" uuid="e31261ae-1b0d-42dc-b8c8-93cd71393bc2"/>
-				<graphicElement>
-					<pen lineWidth="1.5"/>
-				</graphicElement>
-			</line>
-			<line>
-				<reportElement mode="Opaque" x="66" y="106" width="463" height="1" forecolor="#4E86D6" backcolor="#FFFFFF" uuid="32c1d7eb-320f-4521-b7f3-816e5ac141f3"/>
-				<graphicElement fill="Solid">
-					<pen lineWidth="1.5"/>
-				</graphicElement>
-			</line>
+			<staticText>
+				<reportElement x="38" y="484" width="296" height="25" uuid="b2899cec-9eda-4293-9881-d412f90ca657"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Información del Emisor]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="38" y="587" width="483" height="80" uuid="f6376f98-a541-4438-b7e2-74fc4ae1a4c2"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[("El número de folio será utilizado si usted tiene alguna duda o si desea haceruna aclaración."+
+(("01".equals($F{tipoCuentaBeneficiario}))?"Con la clave de rastreo podrá consultar el estatus en que se encuentra su pago en la página\nhttp://www.banxico.org.mx\n\n":"\n\n")+
+"Este comprobante constituye sólo los términos en que se realizó la operación, el único\n"+
+"comprobante oficial es el estado de cuenta que emite Banco Sabadel, S A, Institución de Banca\n"+
+"Múltiple")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="107" width="168" height="25" uuid="50bdf69c-ce51-48dc-bfc1-6e927ab7f993"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[("01".equals($F{tipoCuentaBeneficiario}))?"Clave Bancaria Estandarizada(CLABE)":"Cuenta de depósito"]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
