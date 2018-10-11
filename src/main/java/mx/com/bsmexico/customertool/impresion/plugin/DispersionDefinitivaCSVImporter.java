@@ -56,6 +56,7 @@ public class DispersionDefinitivaCSVImporter extends CSVImporter<DispersionDefin
 				dispersion.setFolioOperacion(record.get(23));
 				dispersion.setUsuario(record.get(24));
 				dispersion.setEstadoOperacion(record.get(25));
+				dispersion.setHash(record.get(26));
 				dispersion.setCliente(cliente);
 			} else {
 				if (record.get(0).startsWith("HA")) {

@@ -73,6 +73,7 @@ public class DispersionDefinitivaTXTImporter extends FixPositionImporter<Dispers
 				dispersion.setFolioOperacion(record.get(23));
 				dispersion.setUsuario(record.get(24));
 				dispersion.setEstadoOperacion(record.get(25));
+				dispersion.setHash(record.get(26));
 				dispersion.setCliente(cliente);
 			} else {
 				if (record.get(0).startsWith("HA")) {
@@ -112,6 +113,7 @@ public class DispersionDefinitivaTXTImporter extends FixPositionImporter<Dispers
 		positions.add(new RecordPosition(366, 387));
 		positions.add(new RecordPosition(387, 397));
 		positions.add(new RecordPosition(397, 426));
+		positions.add(new RecordPosition(426, 459));
 		return positions;
 	}
 

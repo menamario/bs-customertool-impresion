@@ -1,7 +1,11 @@
 package mx.com.bsmexico.customertool.impresion.plugin;
 
 import java.math.BigDecimal;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
+
+import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -18,10 +22,9 @@ import mx.com.bsmexico.customertool.api.layouts.model.LayoutModelType;
  */
 @LayoutModel(type = LayoutModelType.PROPERTY_JAVABEANS, validatorClass = DispersionDefinitivaValidator.class)
 public class DispersionDefinitiva {
-	
+
 	String pattern = "###############0.00";
 	DecimalFormat decimalFormat = new DecimalFormat(pattern);
-	
 
 	public static final String FIELD_TIPO_MOVIMIENTO = "TIPO_MOVIMIENTO";
 	public static final String FIELD_APLICACION = "APLICACION";
@@ -40,7 +43,7 @@ public class DispersionDefinitiva {
 	public static final String FIELD_CONCEPTO = "CONCEPTO";
 	public static final String FIELD_REFERENCIA = "REFERENCIA";
 	public static final String FIELD_CORREO_ELECTRONICO = "CORREO_ELECTRONICO";
-	public static final String FIELD_NUMERO_CELULAR = "NUMERO_CELULAR";	
+	public static final String FIELD_NUMERO_CELULAR = "NUMERO_CELULAR";
 	public static final String FIELD_BANCO = "BANCO";
 	public static final String FIELD_COMISION = "COMISION";
 	public static final String FIELD_IVA_COMISION = "IVA_COMISION";
@@ -48,7 +51,8 @@ public class DispersionDefinitiva {
 	public static final String FIELD_FOLIO_OPERACION = "FOLIO_OPERACION";
 	public static final String FIELD_USUARIO = "USUARIO";
 	public static final String FIELD_ESTADO_OPERACION = "ESTADO_OPERACION";
-	
+	public static final String HASH = "HASH";
+
 	@LayoutField(name = FIELD_TIPO_MOVIMIENTO, title = "Tipo de movimiento", length = 1)
 	private SimpleStringProperty tipoMovimiento;
 
@@ -101,7 +105,7 @@ public class DispersionDefinitiva {
 	private SimpleStringProperty correoElectronico;
 
 	@LayoutField(name = FIELD_NUMERO_CELULAR, title = "Número celular", length = 10)
-	private SimpleStringProperty numeroCelular;	
+	private SimpleStringProperty numeroCelular;
 
 	@LayoutField(name = FIELD_BANCO, title = "Banco", length = 30)
 	private SimpleStringProperty banco;
@@ -124,11 +128,15 @@ public class DispersionDefinitiva {
 	@LayoutField(name = FIELD_ESTADO_OPERACION, title = "Estado de la operación", length = 30)
 	private SimpleStringProperty estadoOperacion;
 
+	@LayoutField(name = HASH, title = "Hash", length = 32)
+	private SimpleStringProperty hash;
+
 	private SimpleBooleanProperty comprobante;
-	
+
 	private String cliente;
-	
+
 	private String detalleOperacion;
+
 	/**
 	 * 
 	 */
@@ -158,7 +166,8 @@ public class DispersionDefinitiva {
 		folioOperacion = new SimpleStringProperty();
 		usuario = new SimpleStringProperty();
 		estadoOperacion = new SimpleStringProperty();
-		comprobante = new SimpleBooleanProperty();		
+		comprobante = new SimpleBooleanProperty();
+		hash = new SimpleStringProperty();
 	}
 
 	/**
@@ -186,9 +195,10 @@ public class DispersionDefinitiva {
 	 * @param comision the comision to set
 	 */
 	public void setComision(String comision) {
-		
-		if (NumberUtils.isCreatable(StringUtils.stripStart(comision,"0")) && Double.valueOf(StringUtils.stripStart(comision,"0")) < 9999999999999999.99) {
-			comision = decimalFormat.format(new BigDecimal(StringUtils.stripStart(comision,"0")));
+
+		if (NumberUtils.isCreatable(StringUtils.stripStart(comision, "0"))
+				&& Double.valueOf(StringUtils.stripStart(comision, "0")) < 9999999999999999.99) {
+			comision = decimalFormat.format(new BigDecimal(StringUtils.stripStart(comision, "0")));
 		}
 		this.comision.set(comision);
 	}
@@ -204,8 +214,9 @@ public class DispersionDefinitiva {
 	 * @param ivaComision the ivaComision to set
 	 */
 	public void setIvaComision(String ivaComision) {
-		if (NumberUtils.isCreatable(StringUtils.stripStart(ivaComision,"0")) && Double.valueOf(StringUtils.stripStart(ivaComision,"0")) < 9999999999999999.99) {
-			ivaComision = decimalFormat.format(new BigDecimal(StringUtils.stripStart(ivaComision,"0")));
+		if (NumberUtils.isCreatable(StringUtils.stripStart(ivaComision, "0"))
+				&& Double.valueOf(StringUtils.stripStart(ivaComision, "0")) < 9999999999999999.99) {
+			ivaComision = decimalFormat.format(new BigDecimal(StringUtils.stripStart(ivaComision, "0")));
 		}
 		this.ivaComision.set(ivaComision);
 	}
@@ -367,10 +378,11 @@ public class DispersionDefinitiva {
 	}
 
 	public void setImporte(String importe) {
-		if (NumberUtils.isCreatable(StringUtils.stripStart(importe,"0")) && Double.valueOf(StringUtils.stripStart(importe,"0")) < 9999999999999999.99) {
-			importe = decimalFormat.format(new BigDecimal(StringUtils.stripStart(importe,"0")));
+		if (NumberUtils.isCreatable(StringUtils.stripStart(importe, "0"))
+				&& Double.valueOf(StringUtils.stripStart(importe, "0")) < 9999999999999999.99) {
+			importe = decimalFormat.format(new BigDecimal(StringUtils.stripStart(importe, "0")));
 		}
-		
+
 		this.importe.set(importe);
 	}
 
@@ -379,8 +391,9 @@ public class DispersionDefinitiva {
 	}
 
 	public void setIva(String iva) {
-		if (NumberUtils.isCreatable(StringUtils.stripStart(iva,"0")) && Double.valueOf(StringUtils.stripStart(iva,"0")) < 9999999999999999.99) {
-			iva = decimalFormat.format(new BigDecimal(StringUtils.stripStart(iva,"0")));
+		if (NumberUtils.isCreatable(StringUtils.stripStart(iva, "0"))
+				&& Double.valueOf(StringUtils.stripStart(iva, "0")) < 9999999999999999.99) {
+			iva = decimalFormat.format(new BigDecimal(StringUtils.stripStart(iva, "0")));
 		}
 		this.iva.set(iva);
 	}
@@ -432,8 +445,8 @@ public class DispersionDefinitiva {
 	public void setComprobante(Boolean comprobante) {
 		this.comprobante.set(comprobante);
 	}
-	
-	public SimpleBooleanProperty comprobanteProperty(){
+
+	public SimpleBooleanProperty comprobanteProperty() {
 		return comprobante;
 	}
 
@@ -451,6 +464,43 @@ public class DispersionDefinitiva {
 		this.cliente = cliente;
 	}
 
-	
-	
+	/**
+	 * @return the hash
+	 */
+	public String getHash() {
+		return hash.get();
+	}
+
+	/**
+	 * @param hash the hash to set
+	 */
+	public void setHash(String hash) {
+		this.hash.set(hash);
+	}
+
+	/**
+	 * @param item
+	 * @return
+	 */
+	public static String generateHash(final DispersionDefinitiva item) {
+		String hash = null;
+		if (item != null) {
+			final StringBuffer input = new StringBuffer();
+			input.append(item.getImporte()).append(item.getTipoPersona()).append(item.getEstadoOperacion())
+					.append(item.getFecha()).append(item.getTipoCuentaBeneficiario()).append(item.getCuentaCargo())
+					.append(item.getReferencia()).append(item.getCuentaAbono()).append(item.getConcepto())
+					.append(item.getFolioOperacion()).append(item.getNombre());
+			MessageDigest md = null;
+			try {
+				md = MessageDigest.getInstance("MD5");
+				md.update(input.toString().getBytes());
+				final byte[] digest = md.digest();
+				hash = DatatypeConverter.printHexBinary(digest);
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
+		}
+		return hash;
+	}
+
 }
