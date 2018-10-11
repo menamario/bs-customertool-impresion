@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComprobanteDispersionPago" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6559e8e4-15a0-4daf-9f83-8853d0c0eef4">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="442"/>
+	<property name="ireport.y" value="444"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -53,7 +53,7 @@
 	<pageHeader>
 		<band height="85" splitType="Stretch">
 			<image>
-				<reportElement x="334" y="0" width="195" height="53" isRemoveLineWhenBlank="true" uuid="d6ce240b-6398-4180-a2d5-6b193f62af46"/>
+				<reportElement x="334" y="0" width="195" height="54" isRemoveLineWhenBlank="true" uuid="d6ce240b-6398-4180-a2d5-6b193f62af46"/>
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<textField>
@@ -508,7 +508,7 @@
 					<font isBold="false"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<text><![CDATA[Nombre de beneficiario]]></text>
+				<text><![CDATA[Beneficiario]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="57" y="225" width="168" height="25" uuid="1972a14e-78e9-40e8-9f57-d3f710af619c"/>
@@ -585,18 +585,19 @@
 				</textElement>
 				<text><![CDATA[Información del Emisor]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="38" y="568" width="483" height="99" uuid="f6376f98-a541-4438-b7e2-74fc4ae1a4c2"/>
-				<box topPadding="5" leftPadding="0"/>
-				<textElement verticalAlignment="Top">
-					<font isBold="false"/>
+			<staticText>
+				<reportElement x="38" y="568" width="468" height="99" uuid="344849c5-54f8-4e47-b322-828924d5df02">
+					<printWhenExpression><![CDATA[("01".equals($F{tipoCuentaBeneficiario}))]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font isBold="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[("El número de folio será utilizado si usted tiene alguna duda o si desea haceruna aclaración."+
-(!("01".equals($F{tipoCuentaBeneficiario}))?"Con la clave de rastreo podrá consultar el estatus en que se encuentra su pago en la página\nhttp://www.banxico.org.mx\n\n":"\n\n")+
-"Este comprobante constituye sólo los términos en que se realizó la operación, el único\n"+
-"comprobante oficial es el estado de cuenta que emite Banco Sabadel, S A, Institución de Banca\n"+
-"Múltiple")]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[El número de folio será utilizado si usted tiene alguna duda o si desea hacer una aclaración
+
+Este comprobante constituye sólo los términos en que se realizó la operación, el único comprobante oficial es el estado de cuenta que emite Banco Sabadel, S A, Institución de Banca
+Múltiple]]></text>
+			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="57" y="107" width="168" height="25" uuid="50bdf69c-ce51-48dc-bfc1-6e927ab7f993"/>
 				<box>
@@ -616,6 +617,19 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("dd/MM/yyyy | HH:mm:ss").format(new Date()))]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="38" y="568" width="483" height="99" uuid="8668a319-8ba8-4bf6-babd-925817c180f9">
+					<printWhenExpression><![CDATA[!("01".equals($F{tipoCuentaBeneficiario}))]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[El número de folio será utilizado si usted tiene alguna duda o si desea hacer una aclaración. Con la clave de rastreo podrá consultar el estatus en que se encuentra su pago en la página
+http://www.banxico.org.mx
+Este comprobante constituye sólo los términos en que se realizó la operación, el único
+comprobante oficial es el estado de cuenta que emite Banco Sabadel, S A, Institución de Banca
+Múltiple]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
