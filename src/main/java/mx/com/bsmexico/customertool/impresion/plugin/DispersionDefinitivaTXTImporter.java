@@ -1,9 +1,13 @@
 package mx.com.bsmexico.customertool.impresion.plugin;
 
 import java.io.File;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -23,7 +27,7 @@ public class DispersionDefinitivaTXTImporter extends FixPositionImporter<Dispers
 
 	public DispersionDefinitivaTXTImporter(ImportTarget<DispersionDefinitiva> target) throws IllegalArgumentException {
 		super(target);
-		withTrim(true);
+		withTrim(false);
 	}
 
 	@Override
@@ -34,9 +38,11 @@ public class DispersionDefinitivaTXTImporter extends FixPositionImporter<Dispers
 	@Override
 	protected DispersionDefinitiva getInstance(final List<String> record) {
 		DispersionDefinitiva dispersion = null;
-		if (record != null && record.size() > 0) {
-			if (record.get(0).startsWith("DE")) {
+		if (record != null && record.size() > 0) {			
+			if (record.get(0).startsWith("DE")) {				
 				dispersion = new DispersionDefinitiva();
+				dispersion.setValidChecksum(record.get(26).equals(this.generateHash(record)));
+				applyTrim(record);
 				dispersion.setTipoMovimiento(record.get(1));
 				dispersion.setAplicacion(record.get(2));
 				// se realiza el replace para que el formato del txt (yyyymmdd hhmmss) coincida
@@ -80,8 +86,46 @@ public class DispersionDefinitivaTXTImporter extends FixPositionImporter<Dispers
 					this.cliente = this.extractClientName(record);
 				}
 			}
-		}
+		}		
 		return dispersion;
+	}
+
+	/**
+	 * @param record
+	 */
+	private void applyTrim(final List<String> record) {
+		if (record != null && record.size() > 0) {
+			int index = 0;
+			while (index < record.size()) {
+				record.set(index, record.get(index).trim());
+				index++;
+			}
+		}
+
+	}
+
+	/**
+	 * @param item
+	 * @return
+	 */
+	private String generateHash(final List<String> record) {
+		String hash = null;
+		if (record != null && record.size() > 0) {
+			final StringBuffer input = new StringBuffer();
+			input.append(record.get(14)).append(record.get(9)).append(record.get(25)).append(record.get(3))
+					.append(record.get(6)).append(record.get(5)).append(record.get(19)).append(record.get(7))
+					.append(record.get(18)).append(record.get(23)).append(record.get(10));
+			MessageDigest md = null;
+			try {
+				md = MessageDigest.getInstance("MD5");
+				md.update(input.toString().getBytes());
+				final byte[] digest = md.digest();
+				hash = DatatypeConverter.printHexBinary(digest);
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
+		}
+		return hash;
 	}
 
 	@Override
@@ -112,8 +156,8 @@ public class DispersionDefinitivaTXTImporter extends FixPositionImporter<Dispers
 		positions.add(new RecordPosition(348, 366));
 		positions.add(new RecordPosition(366, 387));
 		positions.add(new RecordPosition(387, 397));
-		positions.add(new RecordPosition(397, 426));
-		positions.add(new RecordPosition(426, 459));
+		positions.add(new RecordPosition(397, 427));
+		positions.add(new RecordPosition(427, 459));
 		return positions;
 	}
 

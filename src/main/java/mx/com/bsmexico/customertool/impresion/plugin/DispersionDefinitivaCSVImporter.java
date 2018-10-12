@@ -1,7 +1,11 @@
 package mx.com.bsmexico.customertool.impresion.plugin;
 
 import java.io.File;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
+import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -31,6 +35,7 @@ public class DispersionDefinitivaCSVImporter extends CSVImporter<DispersionDefin
 		if (record != null && record.size() > 0) {
 			if ("DE".equals(record.get(0))) {
 				dispersion = new DispersionDefinitiva();
+				dispersion.setValidChecksum(record.get(26).equals(this.generateHash(record)));				
 				dispersion.setTipoMovimiento(record.get(1));
 				dispersion.setAplicacion(record.get(2));
 				dispersion.setFecha(record.get(3));
@@ -68,6 +73,30 @@ public class DispersionDefinitivaCSVImporter extends CSVImporter<DispersionDefin
 		}
 
 		return dispersion;
+	}
+	
+	/**
+	 * @param item
+	 * @return
+	 */
+	private String generateHash(final List<String> record) {
+		String hash = null;
+		if (record != null && record.size() > 0) {
+			final StringBuffer input = new StringBuffer();
+			input.append(record.get(14)).append(record.get(9)).append(record.get(25)).append(record.get(3))
+					.append(record.get(6)).append(record.get(5)).append(record.get(19)).append(record.get(7))
+					.append(record.get(18)).append(record.get(23)).append(record.get(10));
+			MessageDigest md = null;
+			try {
+				md = MessageDigest.getInstance("MD5");
+				md.update(input.toString().getBytes());
+				final byte[] digest = md.digest();
+				hash = DatatypeConverter.printHexBinary(digest);
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
+		}
+		return hash;
 	}
 
 	@Override

@@ -52,7 +52,8 @@ public class ExporImportTest {
 						Assert.assertTrue("PCM60001".equals(data.get(0).getUsuario()));
 						Assert.assertTrue("LIQUIDADO".equals(data.get(0).getEstadoOperacion()));
 						Assert.assertTrue("CORPORATIVO DE INFORMATICA".equals(data.get(0).getCliente()));
-						Assert.assertTrue("2B2D3B43CD3F29637E7A02B03B343434".equals(data.get(0).getHash()));						
+						Assert.assertTrue("2B2D3B43CD3F29637E7A02B03B343434".equals(data.get(0).getHash()));
+						Assert.assertTrue(data.get(0).isValidChecksum());
 					}
 				});
 		try {
@@ -99,7 +100,8 @@ public class ExporImportTest {
 						Assert.assertTrue("PCM60001".equals(data.get(0).getUsuario()));
 						Assert.assertTrue("LIQUIDADO".equals(data.get(0).getEstadoOperacion()));
 						Assert.assertTrue("EMPRESA IMPORTADORA DE TEXTIL".equals(data.get(0).getCliente()));
-						Assert.assertTrue("EFAD1E484D63783D8254A0E55DE07E95".equals(data.get(0).getHash()));						
+						Assert.assertTrue("050F6DACBFA082B4CF61FB385CD29C7D".equals(data.get(0).getHash()));
+						Assert.assertTrue(data.get(0).isValidChecksum());
 					}
 				});
 		try {

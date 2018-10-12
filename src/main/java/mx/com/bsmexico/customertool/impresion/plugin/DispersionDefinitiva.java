@@ -1,11 +1,7 @@
 package mx.com.bsmexico.customertool.impresion.plugin;
 
 import java.math.BigDecimal;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
-
-import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -136,7 +132,8 @@ public class DispersionDefinitiva {
 	private String cliente;
 
 	private String detalleOperacion;
-
+	
+	private boolean validChecksum;
 	/**
 	 * 
 	 */
@@ -479,28 +476,17 @@ public class DispersionDefinitiva {
 	}
 
 	/**
-	 * @param item
-	 * @return
+	 * @return the validChecksum
 	 */
-	public static String generateHash(final DispersionDefinitiva item) {
-		String hash = null;
-		if (item != null) {
-			final StringBuffer input = new StringBuffer();
-			input.append(item.getImporte()).append(item.getTipoPersona()).append(item.getEstadoOperacion())
-					.append(item.getFecha()).append(item.getTipoCuentaBeneficiario()).append(item.getCuentaCargo())
-					.append(item.getReferencia()).append(item.getCuentaAbono()).append(item.getConcepto())
-					.append(item.getFolioOperacion()).append(item.getNombre());
-			MessageDigest md = null;
-			try {
-				md = MessageDigest.getInstance("MD5");
-				md.update(input.toString().getBytes());
-				final byte[] digest = md.digest();
-				hash = DatatypeConverter.printHexBinary(digest);
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-			}
-		}
-		return hash;
+	public boolean isValidChecksum() {
+		return validChecksum;
 	}
 
+	/**
+	 * @param validChecksum the validChecksum to set
+	 */
+	public void setValidChecksum(boolean validChecksum) {
+		this.validChecksum = validChecksum;
+	}
+	
 }
