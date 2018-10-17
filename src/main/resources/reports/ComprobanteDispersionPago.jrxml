@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComprobanteDispersionPago" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6559e8e4-15a0-4daf-9f83-8853d0c0eef4">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="444"/>
+	<property name="ireport.y" value="198"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -57,7 +57,7 @@
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="38" y="54" width="491" height="31" uuid="13ae2cfd-58cf-4852-b348-05384a09d50b"/>
+				<reportElement x="38" y="60" width="491" height="25" uuid="13ae2cfd-58cf-4852-b348-05384a09d50b"/>
 				<box>
 					<topPen lineWidth="1.5" lineColor="#E8E8E8"/>
 					<bottomPen lineWidth="1.5" lineColor="#E8E8E8"/>
@@ -490,7 +490,7 @@
 					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="11" isBold="true" isItalic="false"/>
+					<font fontName="Arial Black" size="11" isBold="true" isItalic="false"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
 				<text><![CDATA[Información del beneficiario]]></text>
@@ -565,7 +565,7 @@
 					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true" isItalic="false"/>
+					<font fontName="Arial Black" size="11" isBold="true" isItalic="false"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
 				<text><![CDATA[Información de la Operación]]></text>
@@ -579,8 +579,8 @@
 					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
 					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="11" isBold="true" isItalic="false"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Serif" size="11" isBold="true" isItalic="false"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
 				<text><![CDATA[Información del Emisor]]></text>
@@ -595,8 +595,8 @@
 				</textElement>
 				<text><![CDATA[El número de folio será utilizado si usted tiene alguna duda o si desea hacer una aclaración
 
-Este comprobante constituye sólo los términos en que se realizó la operación, el único comprobante oficial es el estado de cuenta que emite Banco Sabadel, S A, Institución de Banca
-Múltiple]]></text>
+Este comprobante constituye sólo los términos en que se realizó la operación, el único comprobante oficial es el estado de cuenta que emite Banco Sabadell, S A, Institución de Banca
+Múltiple.]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="57" y="107" width="168" height="25" uuid="50bdf69c-ce51-48dc-bfc1-6e927ab7f993"/>
@@ -613,7 +613,7 @@ Múltiple]]></text>
 				<textFieldExpression><![CDATA[("01".equals($F{tipoCuentaBeneficiario}))?"Cuenta de Depósito":"Clave Bancaria Estandarizada(CLABE)"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="402" y="4" width="127" height="20" uuid="bcff4985-a307-4b19-91d7-95352608ac8e"/>
+				<reportElement x="402" y="5" width="127" height="20" uuid="bcff4985-a307-4b19-91d7-95352608ac8e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("dd/MM/yyyy | HH:mm:ss").format(new Date()))]]></textFieldExpression>
 			</textField>
@@ -621,14 +621,14 @@ Múltiple]]></text>
 				<reportElement x="38" y="568" width="483" height="99" uuid="8668a319-8ba8-4bf6-babd-925817c180f9">
 					<printWhenExpression><![CDATA[!("01".equals($F{tipoCuentaBeneficiario}))]]></printWhenExpression>
 				</reportElement>
-				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[El número de folio será utilizado si usted tiene alguna duda o si desea hacer una aclaración. Con la clave de rastreo podrá consultar el estatus en que se encuentra su pago en la página
-http://www.banxico.org.mx
+<style isBold="true" forecolor="blue">http://www.banxico.org.mx</style>
 Este comprobante constituye sólo los términos en que se realizó la operación, el único
-comprobante oficial es el estado de cuenta que emite Banco Sabadel, S A, Institución de Banca
-Múltiple]]></text>
+comprobante oficial es el estado de cuenta que emite Banco Sabadell, S A, Institución de Banca
+Múltiple.]]></text>
 			</staticText>
 		</band>
 	</detail>
