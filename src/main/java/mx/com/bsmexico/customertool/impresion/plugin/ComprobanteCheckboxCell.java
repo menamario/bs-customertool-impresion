@@ -13,7 +13,7 @@ public class ComprobanteCheckboxCell extends CheckboxCell<DispersionDefinitiva> 
 		final DispersionDefinitiva registro = (DispersionDefinitiva) this.getTableRow().getItem();
 		if (checkBox != null && registro != null) {
 			if (!(EstadoDispersion.LIQUIDADO.name().equals(registro.getEstadoOperacion())
-					&& registro.isValidChecksum())) {
+					/*&& registro.isValidChecksum()*/)) {
 				this.setGraphic(null);
 			}
 		}

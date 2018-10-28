@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ComprobanteDispersionPago" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6559e8e4-15a0-4daf-9f83-8853d0c0eef4">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.9487171000000014"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="198"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -489,11 +489,11 @@
 					<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
 					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Black" size="11" isBold="true" isItalic="false"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<text><![CDATA[Información del beneficiario]]></text>
+				<text><![CDATA[<b>Información del beneficiario</b>]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="57" y="57" width="168" height="25" uuid="63f2efa4-a597-4731-a02f-98a88e3857c9"/>
@@ -565,7 +565,7 @@
 					<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Black" size="11" isBold="true" isItalic="false"/>
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
 				<text><![CDATA[Información de la Operación]]></text>
@@ -593,12 +593,9 @@
 					<font isBold="false" isStrikeThrough="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[El número de folio será utilizado si usted tiene alguna duda o si desea hacer una aclaración
-
-Este comprobante constituye sólo los términos en que se realizó la operación, el único comprobante oficial es el estado de cuenta que emite Banco Sabadell, S A, Institución de Banca
-Múltiple.]]></text>
+				<text><![CDATA[El número de folio será utilizado si usted tiene alguna duda o si desea hacer una aclaración Este comprobante constituye sólo los términos en que se realizó la operación, el único comprobante oficial es el estado de cuenta que emite Banco Sabadell, SA, Institución de Banca Múltiple.]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="57" y="107" width="168" height="25" uuid="50bdf69c-ce51-48dc-bfc1-6e927ab7f993"/>
 				<box>
 					<pen lineWidth="0.0" lineColor="#D4D0C8"/>
@@ -624,11 +621,9 @@ Múltiple.]]></text>
 				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[El número de folio será utilizado si usted tiene alguna duda o si desea hacer una aclaración. Con la clave de rastreo podrá consultar el estatus en que se encuentra su pago en la página
-<style isBold="true" forecolor="blue">http://www.banxico.org.mx</style>
-Este comprobante constituye sólo los términos en que se realizó la operación, el único
-comprobante oficial es el estado de cuenta que emite Banco Sabadell, S A, Institución de Banca
-Múltiple.]]></text>
+				<text><![CDATA[El número de folio será utilizado si usted tiene alguna duda o si desea hacer una aclaración. Con la clave de rastreo podrá consultar el estatus en que se encuentra su pago en la página <style isBold="true" forecolor="blue">http://www.banxico.org.mx</style>
+
+Este comprobante constituye sólo los términos en que se realizó la operación, el único comprobante oficial es el estado de cuenta que emite Banco Sabadell, SA, Institución de Banca Múltiple.]]></text>
 			</staticText>
 		</band>
 	</detail>

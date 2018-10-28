@@ -131,22 +131,22 @@ public class OpcionImpresion extends Feature {
 			check = new ImageView(new Image(this.getImageInput("/img/check.png")));
 			check.setPreserveRatio(true);
 			check.setFitWidth(66);
-			atras = new ImageView(new Image(this.getImageInput("/img/atras.png")));
-			atras.setPreserveRatio(true);
-			atras.setFitWidth(40);
+//			atras = new ImageView(new Image(this.getImageInput("/img/atras.png")));
+//			atras.setPreserveRatio(true);
+//			atras.setFitWidth(40);
 			cerrar = new ImageView(new Image(this.getImageInput("/img/close.png")));
 			cerrar.setPreserveRatio(true);
 			cerrar.setFitWidth(25);
-			importarArchivo = new ImageView(new Image(this.getImageInput("/img/importarImpresion.png")));
-			importarArchivo.setPreserveRatio(true);
-			importarArchivo.setFitWidth(70);
-			instrucciones = new ImageView(new Image(this.getImageInput("/img/instrucciones.png")));
-			instrucciones.setPreserveRatio(true);
-			instrucciones.setFitWidth(70);
+//			importarArchivo = new ImageView(new Image(this.getImageInput("/img/importarImpresion.png")));
+//			importarArchivo.setPreserveRatio(true);
+//			importarArchivo.setFitWidth(70);
+//			instrucciones = new ImageView(new Image(this.getImageInput("/img/instrucciones.png")));
+//			instrucciones.setPreserveRatio(true);
+//			instrucciones.setFitWidth(70);
 
-			impresion = new ImageView(new Image(this.getImageInput("/img/impresionSmall.png")));
-			impresion.setPreserveRatio(true);
-			impresion.setFitWidth(30);
+//			impresion = new ImageView(new Image(this.getImageInput("/img/impresionSmall.png")));
+//			impresion.setPreserveRatio(true);
+//			impresion.setFitWidth(30);
 
 			String htmlImportarArchivo = null;
 			String htmlInstrucciones = null;
@@ -154,9 +154,9 @@ public class OpcionImpresion extends Feature {
 			String htmlImprimir = null;
 
 			try {
-				htmlImportarArchivo = this.getHtml(65, 45, "#006dff",
+				htmlImportarArchivo = this.getHtml(65,
 						readFile(getClass().getResourceAsStream("/img/importarArchivo.svg"), Charset.defaultCharset()));
-				htmlInstrucciones = this.getHtml(65, 45, "#006dff",
+				htmlInstrucciones = this.getHtml(65,
 						readFile(getClass().getResourceAsStream("/img/instrucciones.svg"), Charset.defaultCharset()));
 				htmlRegresar = this.getHtml(40,
 						readFile(getClass().getResourceAsStream("/img/atras.svg"), Charset.defaultCharset()));
@@ -704,7 +704,7 @@ public class OpcionImpresion extends Feature {
 					});
 
 					Label instruccionesLabel = new Label(
-							"Banco Sabadell agradece su preferencia, a continuación detallamos los pasos que debes seguir para\ndescargar tus comprobantes de pagos realizados a través de dispersión de Pagos.");
+							"Banco Sabadell agradece su preferencia, a continuación se detallan los pasos que debes seguir para\ndescargar tus comprobantes de pagos realizados a través de dispersión de pagos.");
 					instruccionesLabel.setWrapText(true);
 					instruccionesLabel.setTextAlignment(TextAlignment.CENTER);
 					instruccionesLabel.setStyle(
@@ -867,7 +867,7 @@ public class OpcionImpresion extends Feature {
 						getDesktop().opacar();
 						Stage stage = new Stage(StageStyle.UNDECORATED);
 
-						Pane canvas = new Pane();
+						StackPane canvas = new StackPane();
 						canvas.setPadding(new Insets(5));
 						canvas.setStyle("-fx-background-color: #ff5120;");
 						canvas.setPrefSize(512, 54);
@@ -926,7 +926,7 @@ public class OpcionImpresion extends Feature {
 						getDesktop().opacar();
 						Stage stage = new Stage(StageStyle.UNDECORATED);
 
-						Pane canvas = new Pane();
+						StackPane canvas = new StackPane();
 						canvas.setPadding(new Insets(5));
 						canvas.setStyle("-fx-background-color: #ff5120;");
 						canvas.setPrefSize(512, 54);
