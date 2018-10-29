@@ -154,9 +154,9 @@ public class OpcionImpresion extends Feature {
 			String htmlImprimir = null;
 
 			try {
-				htmlImportarArchivo = this.getHtml(65,
+				htmlImportarArchivo = this.getHtml(65, 45, "#006dff",
 						readFile(getClass().getResourceAsStream("/img/importarArchivo.svg"), Charset.defaultCharset()));
-				htmlInstrucciones = this.getHtml(65,
+				htmlInstrucciones = this.getHtml(65, 45, "#006dff",
 						readFile(getClass().getResourceAsStream("/img/instrucciones.svg"), Charset.defaultCharset()));
 				htmlRegresar = this.getHtml(40,
 						readFile(getClass().getResourceAsStream("/img/atras.svg"), Charset.defaultCharset()));
