@@ -708,7 +708,7 @@ public class OpcionImpresion extends Feature {
 					instruccionesLabel.setWrapText(true);
 					instruccionesLabel.setTextAlignment(TextAlignment.CENTER);
 					instruccionesLabel.setStyle(
-							"-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px;-fx-font-weight: bold");
+							"-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px;-fx-font-family: 'Franklin Gothic Demi'");
 					instruccionesLabel.setTextFill(Color.web("#828488"));
 					instruccionesLabel.setMinHeight(40);
 					StackPane p = new StackPane();
@@ -724,15 +724,15 @@ public class OpcionImpresion extends Feature {
 					Text t1 = new Text("1.");
 					Text t19 = new Text(
 							" Accede a Banca en Línea y descarga los archivos \"Previos\", (se identifican con la letra \"P\" al final de su nombre) o\n    \"Definitivos\", (se identifican con la letra \"D\" al final de su nombre) de \"Dispersión de Pagos\" que se encuentran\n    alojados en la opción de \"Históricos de Archivos Procesados\". Esta descarga la puedes realizar en la carpeta de tu\n    preferencia.\n");
-					t1.setStyle("-fx-fill: black;-fx-font-weight:bold");
+					t1.setStyle("-fx-fill: black;-fx-font-family: 'Franklin Gothic Demi'");
 					Text t2 = new Text("2.");
 					Text t29 = new Text(
 							" Oprime el icono \"Importar archivo\" y selecciona de la carpeta que designaste, el archivo Previo o Definitivo del que\n    deseas imprimir sus comprobantes.\n");
-					t2.setStyle("-fx-fill: black;-fx-font-weight:bold");
+					t2.setStyle("-fx-fill: black;-fx-font-family: 'Franklin Gothic Demi'");
 					Text t3 = new Text("3.");
 					Text t39 = new Text(
 							" Podrás llevar a cabo la busqueda de los comprobantes que requieras imprimir de forma específica por medio de los\n    siguientes filtros:\n\n");
-					t3.setStyle("-fx-fill: black;-fx-font-weight:bold");
+					t3.setStyle("-fx-fill: black;-fx-font-family: 'Franklin Gothic Demi'");
 					Text t4 = new Text("      - Cuenta de cargo\n");
 					t4.setStyle("-fx-fill: black");
 					Text t5 = new Text("      - Cuenta de abono\n");
@@ -748,15 +748,16 @@ public class OpcionImpresion extends Feature {
 					Text t10 = new Text("4.");
 					Text t109 = new Text(
 							" Podrás seleccionar uno o varios checkbox del lado izquierdo de la pantalla, para imprimir o guardar los comprobantes\n    que desees.\n");
-					t10.setStyle("-fx-fill: black;-fx-font-weight:bold");
+					t10.setStyle("-fx-fill: black;-fx-font-family: 'Franklin Gothic Demi'");
 					Text t11 = new Text("5.");
 					Text t119 = new Text(
-							" En caso de que desees guardar los comprobantes, selecciona el icono \"Guardar\" y la aplicación los guardará con la\n    siguiente nomenclatura (Fecha_referencia_importe). Si deseas imprimir, selecciona el icono \"Imprimir\".\n\n\n\n");
-					t11.setStyle("-fx-fill: black;-fx-font-weight:bold");
+							" En caso de que desees guardar los comprobantes, selecciona el icono \"Guardar\" y la aplicación los guardará con la\n    siguiente nomenclatura (Fecha_referencia_importe). Si deseas imprimir, selecciona el icono \"Imprimir\".\n\n\n\n\n");
+					t11.setStyle("-fx-fill: black;-fx-font-family: 'Franklin Gothic Demi'");
 					flow.getChildren().addAll(t1, t19, t2, t29, t3, t39, t4, t5, t6, t7, t8, t9, t10, t109, t11, t119);
 					flow.setStyle(
-							"-fx-background-color:white;-fx-font-family: FranklinGothicLT-Demi;-fx-font-size: 14px;-fx-fill:black;-fx-border-width:0;-fx-border-color:white-fx-effect:null");
-					flow.setMinWidth(746);
+							"-fx-background-color:white;-fx-font-size: 14px;-fx-fill:black;-fx-border-width:0;-fx-border-color:white;-fx-effect:null");
+					flow.getStyleClass().add("flowFrank");
+					flow.setMinWidth(756);
 					flow.setTextAlignment(TextAlignment.JUSTIFY);
 
 					ScrollPane scrollPaneGenerales = new ScrollPane();
@@ -776,7 +777,7 @@ public class OpcionImpresion extends Feature {
 					tabPane.getTabs().addAll(tabInstrucciones);
 
 					VBox vbox = new VBox();
-					vbox.setPrefSize(1020, 600);
+					vbox.setPrefSize(820, 600);
 					VBox.setVgrow(vbox, Priority.ALWAYS);
 					vbox.getChildren().add(canvas);
 					vbox.getChildren().add(p);
