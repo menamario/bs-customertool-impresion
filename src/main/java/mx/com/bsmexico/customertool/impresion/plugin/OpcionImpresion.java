@@ -751,13 +751,13 @@ public class OpcionImpresion extends Feature {
 					t10.setStyle("-fx-fill: black;-fx-font-family: 'Franklin Gothic Demi'");
 					Text t11 = new Text("5.");
 					Text t119 = new Text(
-							" En caso de que desees guardar los comprobantes, selecciona el icono \"Guardar\" y la aplicación los guardará con la\n    siguiente nomenclatura (Fecha_referencia_importe). Si deseas imprimir, selecciona el icono \"Imprimir\".\n\n\n\n");
+							" En caso de que desees guardar los comprobantes, selecciona el icono \"Guardar\" y la aplicación los guardará con la\n    siguiente nomenclatura (Fecha_referencia_importe). Si deseas imprimir, selecciona el icono \"Imprimir\".\n\n\n\n\n");
 					t11.setStyle("-fx-fill: black;-fx-font-family: 'Franklin Gothic Demi'");
 					flow.getChildren().addAll(t1, t19, t2, t29, t3, t39, t4, t5, t6, t7, t8, t9, t10, t109, t11, t119);
 					flow.setStyle(
-							"-fx-background-color:white;-fx-font-size: 14px;-fx-fill:black;-fx-border-width:0;-fx-border-color:white-fx-effect:null");
+							"-fx-background-color:white;-fx-font-size: 14px;-fx-fill:black;-fx-border-width:0;-fx-border-color:white;-fx-effect:null");
 					flow.getStyleClass().add("flowFrank");
-					flow.setMinWidth(746);
+					flow.setMinWidth(756);
 					flow.setTextAlignment(TextAlignment.JUSTIFY);
 
 					ScrollPane scrollPaneGenerales = new ScrollPane();
